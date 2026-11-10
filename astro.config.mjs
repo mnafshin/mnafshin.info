@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // Then add public/CNAME (mnafshin.info) and follow the README
 // for the GitHub Pages and IONOS DNS steps. Do not flip it
 // until those steps are ready.
-const CUSTOM_DOMAIN = false;
+const CUSTOM_DOMAIN = true;
 
 // https://astro.build/config
 export default defineConfig({
