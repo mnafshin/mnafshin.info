@@ -2,7 +2,7 @@
 
 Personal hub and blogs for [Afshin Amini](https://github.com/mnafshin): SpringUniverse, Termsplained, and a later AI section. Built with [Astro](https://astro.build) and deployed to GitHub Pages.
 
-The live preview is at **https://mnafshin.github.io/mnafshin.info/**. The custom domain `mnafshin.info` still points at Hashnode and has not been switched.
+The site is live at **https://mnafshin.info**.
 
 ## Local development
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-`npm run build` type-checks and writes the static site to `dist/`. `npm run preview` serves that build, including the `/mnafshin.info/` base path used on github.io.
+`npm run build` type-checks and writes the static site to `dist/`. `npm run preview` serves that build.
 
 ## How to add a post
 
@@ -38,13 +38,41 @@ The filename without the extension becomes the URL slug: `/spring/my-post/`. Opt
 
 While `draft` is `true`, the post is omitted from listings, RSS, the sitemap, and page routes. After review and approval, set `draft` to `false` and push to `main`. The site rebuilds automatically.
 
-Each section already has a `welcome.md` placeholder (or an empty folder for AI) marked as a draft. Do not publish those placeholders. There are no public posts on the site yet; section pages show a coming-soon state until a real article is published.
+Each section already has a `welcome.md` placeholder marked as a draft. Do not publish those placeholders. Blog posts will appear in each section once a real article is published.
+
+## SpringUniverse videos
+
+Long tutorials and weekly reviews live under `/spring/`. The index is a table of contents in series order. Each video page embeds the YouTube video (privacy-friendly `youtube-nocookie`, lazy-loaded) and the narration script.
+
+Video entries are a content collection in `src/content/videos/`. Front matter:
+
+```md
+---
+title: The public YouTube title
+description: A short summary for listings, RSS, and search.
+youtubeId: ...........
+pubDate: 2026-11-10T12:00:16Z
+series: tutorials   # or weekly
+seriesLabel: T6.2
+order: 180
+draft: false
+codeUrl: https://github.com/mnafshin/springuniverse-code/tree/main/module-06-products
+shorts:
+  - title: A related Short that is already public
+    youtubeId: ...........
+---
+```
+
+Use `codeUrls` instead of `codeUrl` when there is more than one already-public companion folder. Omit code and Shorts fields when they are not public. Keep `draft: true` for videos that are still private or scheduled; they will appear automatically once `draft` is set to `false` after the video is public.
+
+The filename without the extension is the slug: `/spring/t6-2-api-errors-problemdetail/`. Published video pages are included in the sitemap and in both the site RSS feed and `/spring/rss.xml`.
 
 ## Content from channel repos (later)
 
+
 The long-term plan is for the canonical markdown to live in the channel repos and to be pulled in at build time. The deploy workflow in `.github/workflows/deploy.yml` has a commented checkout example for that. Until those checkouts are enabled, this repo’s `src/content/` folders are the source.
 
-## Switching from github.io to mnafshin.info
+## Custom domain (already cut over)
 
 The site URL is controlled by one flag in `astro.config.mjs`:
 
@@ -52,7 +80,8 @@ The site URL is controlled by one flag in `astro.config.mjs`:
 const CUSTOM_DOMAIN = false;
 ```
 
-Set it to `true` when you are ready to cut over. That changes `site` to `https://mnafshin.info` and `base` to `/`. Also:
+This flag is already `true`: `site` is `https://mnafshin.info` and `base` is `/`. The notes below are the cutover record, kept for reference:
+
 
 1. **Hashnode.** In the Hashnode dashboard, remove `mnafshin.info` as the custom domain *around the same time* as the DNS change. Today `https://springuniverse.hashnode.dev` redirects to `https://mnafshin.info`. After the domain is detached, the 14 existing posts should be reachable again on the Hashnode host (this was not logged-in-verified). Those posts are not being migrated to this site; they can be rewritten later with companion videos. Do not delete the Hashnode publication until you have decided what should happen to those URLs. Removing the custom domain may be hard to undo if custom domains are now a Pro feature.
 2. **Add `public/CNAME`** in this repo, with a single line: `mnafshin.info`. Do not add this file before the cutover; it would move the GitHub Pages site off the github.io preview.

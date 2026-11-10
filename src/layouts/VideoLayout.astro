@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+import { withBase } from '../lib/site';
+import { codeLinks, shortUrl, watchUrl } from '../lib/videos';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  video: CollectionEntry<'videos'>;
+}
+
+const { video } = Astro.props;
+const date = video.data.pubDate.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Europe/Berlin',
+});
+const codes = codeLinks(video);
+const shorts = video.data.shorts;
+---
+<BaseLayout title={video.data.title} description={video.data.description}>
+  <article class="wrap-narrow article video-page">
+    <p class="eyebrow">
+      <a href={withBase('spring/')}>SpringUniverse</a>
+      <span class="series-label">{video.data.seriesLabel}</span>
+    </p>
+    <h1>{video.data.title}</h1>
+    <p class="meta">
+      <time datetime={video.data.pubDate.toISOString()}>{date}</time>
+    </p>
+
+    <YouTubeEmbed youtubeId={video.data.youtubeId} title={video.data.title} />
+
+    <ul class="video-links">
+      <li>
+        <a href={watchUrl(video.data.youtubeId)}>Watch on YouTube</a>
+      </li>
+      {codes.map((url) => {
+        const folder = url.split('/').filter(Boolean).at(-1) ?? 'companion code';
+        const label = codes.length > 1 ? `Companion code (${folder})` : 'Companion code';
+        return (
+          <li>
+            <a href={url}>{label}</a>
+          </li>
+        );
+      })}
+    </ul>
+
+    {shorts.length > 0 && (
+      <section class="related-shorts" aria-labelledby="related-shorts-heading">
+        <h2 id="related-shorts-heading">Related Shorts</h2>
+        <ul>
+          {shorts.map((item) => (
+            <li>
+              <a href={shortUrl(item.youtubeId)}>{item.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="narration" aria-labelledby="narration-heading">
+      <h2 id="narration-heading">Narration script</h2>
+      <slot />
+    </section>
+  </article>
+</BaseLayout>

@@ -3,24 +3,69 @@ import ComingSoon from '../../components/ComingSoon.astro';
 import PostList from '../../components/PostList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedEntries } from '../../lib/posts';
-import { getSection, LINKS } from '../../lib/site';
+import { getSection, LINKS, withBase } from '../../lib/site';
+import { getPublishedVideos, SERIES_LABELS, videoPath, type VideoEntry } from '../../lib/videos';
 
 const section = getSection('spring');
 const entries = await getPublishedEntries('spring');
 const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
+const videos = await getPublishedVideos();
+
+const groups = (['tutorials', 'weekly'] as const)
+  .map((series) => ({
+    series,
+    label: SERIES_LABELS[series],
+    items: videos.filter((video) => video.data.series === series),
+  }))
+  .filter((group) => group.items.length > 0);
+
+function formatDate(video: VideoEntry) {
+  return video.data.pubDate.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+}
 ---
 <BaseLayout title={section.name} description={section.tagline}>
   <div class="wrap-narrow section-page">
-    <p class="eyebrow">Blog</p>
+    <p class="eyebrow">Videos</p>
     <h1>{section.name}</h1>
     <p class="lede">
-      Notes and articles on Java and Spring, alongside the
-      <a href={LINKS.springuniverse}>SpringUniverse YouTube channel</a>.
+      Long tutorials and weekly reviews from the
+      <a href={LINKS.springuniverse}>SpringUniverse YouTube channel</a>,
+      in series order, with the narration script on each page.
     </p>
-    {posts.length === 0 ? (
-      <ComingSoon name={section.name} />
+
+    {groups.map((group) => (
+      <section class="video-index" aria-labelledby={`${group.series}-heading`}>
+        <h2 id={`${group.series}-heading`} class="page-title">{group.label}</h2>
+        <ol class="toc-list">
+          {group.items.map((video) => (
+            <li>
+              <span class="series-label">{video.data.seriesLabel}</span>
+              <a href={withBase(videoPath(video.id))}>{video.data.title}</a>
+              <p class="meta">
+                <time datetime={video.data.pubDate.toISOString()}>{formatDate(video)}</time>
+              </p>
+              <p class="muted toc-blurb">{video.data.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+
+    {posts.length > 0 ? (
+      <section class="notes-index" aria-labelledby="notes-heading">
+        <h2 id="notes-heading" class="page-title">Notes</h2>
+        <PostList posts={posts} />
+      </section>
     ) : (
-      <PostList posts={posts} />
+      <section class="notes-index" aria-labelledby="notes-heading">
+        <h2 id="notes-heading" class="page-title">Notes</h2>
+        <ComingSoon name="Notes" />
+      </section>
     )}
   </div>
 </BaseLayout>

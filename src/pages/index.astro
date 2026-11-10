@@ -4,9 +4,20 @@ import PostList from '../components/PostList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllPublishedPosts } from '../lib/posts';
 import { LINKS, SECTIONS, SITE_DESCRIPTION, withBase } from '../lib/site';
+import { getPublishedVideosByDate, videoPath } from '../lib/videos';
 
 const posts = await getAllPublishedPosts();
+const videos = (await getPublishedVideosByDate()).slice(0, 5);
 const publicSections = SECTIONS.filter((section) => section.inNav);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+}
 ---
 <BaseLayout description={SITE_DESCRIPTION}>
   <div class="wrap">
@@ -36,6 +47,32 @@ const publicSections = SECTIONS.filter((section) => section.inNav);
           </a>
         ))}
       </div>
+    </section>
+
+    <section>
+      <h2 class="page-title">Latest videos</h2>
+      {videos.length === 0 ? (
+        <ComingSoon name="Videos" />
+      ) : (
+        <>
+          <ol class="toc-list home-video-list">
+            {videos.map((video) => (
+              <li>
+                <span class="series-label">{video.data.seriesLabel}</span>
+                <a href={withBase(videoPath(video.id))}>{video.data.title}</a>
+                <p class="meta">
+                  <time datetime={video.data.pubDate.toISOString()}>
+                    {formatDate(video.data.pubDate)}
+                  </time>
+                </p>
+              </li>
+            ))}
+          </ol>
+          <p>
+            <a href={withBase('spring/')}>All SpringUniverse videos</a>
+          </p>
+        </>
+      )}
     </section>
 
     <section>

@@ -1,19 +1,39 @@
 ---
-import { render } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
+import VideoLayout from '../../layouts/VideoLayout.astro';
 import { getPublishedEntries } from '../../lib/posts';
+import { getPublishedVideos } from '../../lib/videos';
 
 export async function getStaticPaths() {
   const posts = await getPublishedEntries('spring');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  const videos = await getPublishedVideos();
+  return [
+    ...posts.map((post) => ({
+      params: { slug: post.id },
+      props: { kind: 'post' as const, post },
+    })),
+    ...videos.map((video) => ({
+      params: { slug: video.id },
+      props: { kind: 'video' as const, video },
+    })),
+  ];
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+type PostProps = { kind: 'post'; post: CollectionEntry<'spring'> };
+type VideoProps = { kind: 'video'; video: CollectionEntry<'videos'> };
+type Props = PostProps | VideoProps;
+
+const props = Astro.props as Props;
+const rendered = props.kind === 'video' ? await render(props.video) : await render(props.post);
+const Content = rendered.Content;
 ---
-<PostLayout sectionId="spring" post={post}>
-  <Content />
-</PostLayout>
+{props.kind === 'video' ? (
+  <VideoLayout video={props.video}>
+    <Content />
+  </VideoLayout>
+) : (
+  <PostLayout sectionId="spring" post={props.post}>
+    <Content />
+  </PostLayout>
+)}
