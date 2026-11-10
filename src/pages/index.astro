@@ -1,0 +1,50 @@
+---
+import ComingSoon from '../components/ComingSoon.astro';
+import PostList from '../components/PostList.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllPublishedPosts } from '../lib/posts';
+import { LINKS, SECTIONS, SITE_DESCRIPTION, withBase } from '../lib/site';
+
+const posts = await getAllPublishedPosts();
+const publicSections = SECTIONS.filter((section) => section.inNav);
+---
+<BaseLayout description={SITE_DESCRIPTION}>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Afshin Amini</h1>
+      <p class="lede">
+        I’m a Java and Spring developer. I teach on YouTube and write here about
+        the same topics: practical Spring work, and clear explanations of the
+        terms that keep coming up.
+      </p>
+      <ul class="link-row">
+        <li><a href={LINKS.springuniverse}>SpringUniverse on YouTube</a></li>
+        <li><a href={LINKS.termsplained}>Termsplained on YouTube</a></li>
+        <li><a href={LINKS.github}>GitHub</a></li>
+        <li><a href={LINKS.linkedin}>LinkedIn</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="page-title">Blogs</h2>
+      <div class="cards">
+        {publicSections.map((section) => (
+          <a class="card" href={withBase(`${section.path}/`)}>
+            <p class="eyebrow">Section</p>
+            <h3>{section.name}</h3>
+            <p class="muted">{section.tagline}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="page-title">Latest posts</h2>
+      {posts.length === 0 ? (
+        <ComingSoon name="This site" />
+      ) : (
+        <PostList posts={posts} showSection={true} />
+      )}
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import ComingSoon from '../../components/ComingSoon.astro';
+import PostList from '../../components/PostList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedEntries } from '../../lib/posts';
+import { getSection } from '../../lib/site';
+
+const section = getSection('ai');
+const entries = await getPublishedEntries('ai');
+const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
+---
+<BaseLayout title={section.name} description={section.tagline}>
+  <div class="wrap-narrow section-page">
+    <p class="eyebrow">Blog</p>
+    <h1>{section.name}</h1>
+    <p class="lede">
+      This section is a placeholder for a future AI blog. It stays out of the
+      main navigation until it has a published post.
+    </p>
+    {posts.length === 0 ? (
+      <ComingSoon name={section.name} />
+    ) : (
+      <PostList posts={posts} />
+    )}
+  </div>
+</BaseLayout>

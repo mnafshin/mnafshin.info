@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { postPath, type PublishedPost } from '../lib/posts';
+import { getSection, type SectionId, withBase } from '../lib/site';
+
+interface Props {
+  posts: PublishedPost[] | { sectionId: SectionId; entry: CollectionEntry<SectionId> }[];
+  showSection?: boolean;
+}
+
+const { posts, showSection = false } = Astro.props;
+
+function hrefOf(post: Props['posts'][number]) {
+  if ('section' in post) {
+    return withBase(postPath(post.section.id, post.entry.id));
+  }
+  return withBase(postPath(post.sectionId, post.entry.id));
+}
+
+function meta(post: Props['posts'][number]) {
+  const entry = 'section' in post ? post.entry : post.entry;
+  const date = entry.data.pubDate.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+  if (showSection) {
+    const section = 'section' in post ? post.section : getSection(post.sectionId);
+    return `${section.name} · ${date}`;
+  }
+  return date;
+}
+
+function title(post: Props['posts'][number]) {
+  return ('section' in post ? post.entry : post.entry).data.title;
+}
+
+function description(post: Props['posts'][number]) {
+  return ('section' in post ? post.entry : post.entry).data.description;
+}
+---
+<ul class="post-list">
+  {posts.map((post) => (
+    <li>
+      <a href={hrefOf(post)}>{title(post)}</a>
+      <p class="meta">{meta(post)}</p>
+      <p class="muted">{description(post)}</p>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,15 @@
+---
+import { withBase } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap bar">
+    <p>© {year} Afshin Amini</p>
+    <div class="footer-links">
+      <a href={withBase('rss.xml')}>RSS</a>
+      <a href={withBase('spring/rss.xml')}>Spring feed</a>
+      <a href={withBase('terms/rss.xml')}>Terms feed</a>
+    </div>
+  </div>
+</footer>

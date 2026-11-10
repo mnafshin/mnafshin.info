@@ -1,0 +1,26 @@
+---
+import ComingSoon from '../../components/ComingSoon.astro';
+import PostList from '../../components/PostList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedEntries } from '../../lib/posts';
+import { getSection, LINKS } from '../../lib/site';
+
+const section = getSection('terms');
+const entries = await getPublishedEntries('terms');
+const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
+---
+<BaseLayout title={section.name} description={section.tagline}>
+  <div class="wrap-narrow section-page">
+    <p class="eyebrow">Blog</p>
+    <h1>{section.name}</h1>
+    <p class="lede">
+      Short, careful explanations of technical terms, alongside the
+      <a href={LINKS.termsplained}>Termsplained YouTube channel</a>.
+    </p>
+    {posts.length === 0 ? (
+      <ComingSoon name={section.name} />
+    ) : (
+      <PostList posts={posts} />
+    )}
+  </div>
+</BaseLayout>

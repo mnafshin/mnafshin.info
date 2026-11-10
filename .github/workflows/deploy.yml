@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Later: pull posts from channel repos at build time instead of (or
+      # as well as) src/content/{spring,terms,ai}. Public repos can use the
+      # default GITHUB_TOKEN. Do not commit tokens or secrets. If a source
+      # repo is private, store a fine-grained PAT as a repository secret
+      # with contents:read only, and pass it as `token`. Sparse-checkout
+      # only the blog paths so production files stay out of the build.
+      #
+      # - name: Checkout SpringUniverse posts
+      #   uses: actions/checkout@v7
+      #   with:
+      #     repository: mnafshin/springuniverse-channel
+      #     path: sources/spring
+      #     sparse-checkout: blog
+      #     sparse-checkout-cone-mode: true
+      #
+      # - name: Checkout Termsplained posts
+      #   uses: actions/checkout@v7
+      #   with:
+      #     repository: mnafshin/termsplained
+      #     path: sources/terms
+      #     sparse-checkout: blog
+      #     sparse-checkout-cone-mode: true
+      #
+      # Then point the collection loaders in src/content.config.ts at those
+      # folders, or copy/symlink the markdown into src/content/ before build.
+
+      - name: Install, build, and upload
+        uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

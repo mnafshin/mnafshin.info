@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getSection, type SectionId, withBase } from '../lib/site';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  sectionId: SectionId;
+  post: CollectionEntry<SectionId>;
+}
+
+const { sectionId, post } = Astro.props;
+const section = getSection(sectionId);
+const date = post.data.pubDate.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Europe/Berlin',
+});
+const updated = post.data.updatedDate
+  ? post.data.updatedDate.toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'Europe/Berlin',
+    })
+  : null;
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="wrap-narrow article">
+    <p class="eyebrow">
+      <a href={withBase(`${section.path}/`)}>{section.name}</a>
+    </p>
+    <h1>{post.data.title}</h1>
+    <p class="meta">
+      <time datetime={post.data.pubDate.toISOString()}>{date}</time>
+      {updated && (
+        <>
+          {' '}
+          · Updated <time datetime={post.data.updatedDate?.toISOString()}>{updated}</time>
+        </>
+      )}
+    </p>
+    <slot />
+  </article>
+</BaseLayout>

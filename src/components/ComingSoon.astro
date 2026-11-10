@@ -1,0 +1,10 @@
+---
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+<div class="coming-soon">
+  <p><strong>{name}</strong> has no public posts yet. Check back soon.</p>
+</div>

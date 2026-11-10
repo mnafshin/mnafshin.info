@@ -1,0 +1,33 @@
+---
+import { getPublishedEntries } from '../lib/posts';
+import { SECTIONS, SITE_TITLE, withBase } from '../lib/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const path = Astro.url.pathname;
+const aiPosts = await getPublishedEntries('ai');
+const navItems = SECTIONS.filter((section) => section.inNav || aiPosts.length > 0);
+
+function isCurrent(href: string) {
+  if (href === withBase()) {
+    return path === href;
+  }
+  return path === href || path.startsWith(href);
+}
+---
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href={withBase()}>{SITE_TITLE}</a>
+    <nav class="nav" aria-label="Main">
+      {navItems.map((section) => {
+        const href = withBase(`${section.path}/`);
+        return (
+          <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>
+            {section.name}
+          </a>
+        );
+      })}
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
