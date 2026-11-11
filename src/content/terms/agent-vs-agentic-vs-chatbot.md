@@ -12,7 +12,6 @@ relatedVideos:
 relatedShorts:
   - title: 'Two programs, one answer. Which is the AI agent?'
     youtubeId: 1uj41a-IZaU
-codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/short-agent-vs-workflow
 draft: true
 ---
 

@@ -12,7 +12,6 @@ relatedVideos:
 relatedShorts:
   - title: 'Capital of Australia? Ask a real AI model'
     youtubeId: 0s0PLxVx13w
-codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/short-llm-next-word
 draft: true
 ---
 
