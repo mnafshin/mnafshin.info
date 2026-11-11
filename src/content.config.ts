@@ -16,6 +16,27 @@ const shortSchema = z.object({
   youtubeId: z.string(),
 });
 
+const relatedVideoSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  youtubeId: z.string(),
+  pubDate: z.coerce.date().optional(),
+  // Hide an entry (no embed, no link) until the video is public.
+  draft: z.boolean().default(false),
+  published: z.boolean().default(true),
+});
+
+// SpringUniverse concept articles: the shared post fields, plus the
+// related videos, Shorts and companion code shown below the article.
+const springSchema = postSchema.extend({
+  section: z.string().optional(),
+  topic: z.string().optional(),
+  relatedVideos: z.array(relatedVideoSchema).default([]),
+  relatedShorts: z.array(shortSchema).default([]),
+  codeUrl: z.string().url().optional(),
+  codeUrls: z.array(z.string().url()).default([]),
+});
+
 const videoSchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -30,18 +51,19 @@ const videoSchema = z.object({
   shorts: z.array(shortSchema).default([]),
 });
 
-function posts(directory: string) {
-  return defineCollection({
-    loader: glob({
-      base: `./src/content/${directory}`,
-      pattern: '**/*.{md,mdx}',
-    }),
-    schema: postSchema,
+function loader(directory: string) {
+  return glob({
+    base: `./src/content/${directory}`,
+    pattern: '**/*.{md,mdx}',
   });
 }
 
+function posts(directory: string) {
+  return defineCollection({ loader: loader(directory), schema: postSchema });
+}
+
 export const collections = {
-  spring: posts('spring'),
+  spring: defineCollection({ loader: loader('spring'), schema: springSchema }),
   terms: posts('terms'),
   ai: posts('ai'),
   videos: defineCollection({

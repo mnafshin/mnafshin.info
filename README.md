@@ -40,32 +40,62 @@ While `draft` is `true`, the post is omitted from listings, RSS, the sitemap, an
 
 Each section already has a `welcome.md` placeholder marked as a draft. Do not publish those placeholders. Blog posts will appear in each section once a real article is published.
 
-## SpringUniverse videos
+## SpringUniverse: concept articles and weekly reviews
 
-Long tutorials and weekly reviews live under `/spring/`. The index is a table of contents in series order. Each video page embeds the YouTube video (privacy-friendly `youtube-nocookie`, lazy-loaded) and the narration script.
+`/spring/` lists two things:
 
-Video entries are a content collection in `src/content/videos/`. Front matter:
+1. **Concept articles** (`src/content/spring/`), in learning order. Each article teaches one concept on its own. The related long videos from the SpringUniverse channel sit below the text (privacy-friendly `youtube-nocookie` embeds, lazy-loaded), followed by the companion code and related Shorts. The learning order is the `CONCEPT_ORDER` list in `src/lib/spring.ts`; an article that is not in that list appears after the others, newest first.
+2. **Weekly reviews** (`src/content/videos/`, `series: weekly`), newest first. Each has its own page with the embed and the script, for example `/spring/w45-this-week-in-java-and-spring/`.
+
+Long tutorials no longer have a page of their own. Their old URLs (`/spring/t0-1-…/` to `/spring/t6-3-…/`) redirect to the article that covers them; the table is `TUTORIAL_REDIRECTS` in `astro.config.mjs`. GitHub Pages is static hosting, so Astro writes each redirect as a small HTML page with an instant meta refresh and a canonical link to the new URL.
+
+Concept article front matter:
+
+```md
+---
+title: 'REST APIs with Spring Boot 4: CRUD, Useful Errors and API Versioning'
+description: One or two sentences for listings, RSS, and search.
+pubDate: '2026-11-06T12:00:01Z'   # earliest public related video
+section: spring
+topic: rest-apis
+relatedVideos:
+  - id: T6.1
+    title: The public YouTube title
+    youtubeId: ...........
+    pubDate: '2026-11-06T12:00:01Z'
+  - id: T6.3
+    title: A video that is not public yet
+    youtubeId: ...........
+    draft: true        # hidden until both flags are removed
+    published: false
+relatedShorts:
+  - title: A related Short that is already public
+    youtubeId: ...........
+codeUrl: https://github.com/mnafshin/springuniverse-code/tree/main/module-06-products
+draft: false
+---
+```
+
+Use `codeUrls` instead of `codeUrl` when there is more than one companion folder. A related video with `draft: true` or `published: false` is not shown anywhere (no embed, no link, not in the home page's latest videos); remove those flags once the video is public on YouTube. Empty sections (no videos, no code, no Shorts) are omitted.
+
+Weekly review front matter:
 
 ```md
 ---
 title: The public YouTube title
 description: A short summary for listings, RSS, and search.
 youtubeId: ...........
-pubDate: 2026-11-10T12:00:16Z
-series: tutorials   # or weekly
-seriesLabel: T6.2
-order: 180
-draft: false
-codeUrl: https://github.com/mnafshin/springuniverse-code/tree/main/module-06-products
+pubDate: 2026-11-09T07:27:21Z
+series: weekly
+seriesLabel: W45
+order: 1010
 shorts:
   - title: A related Short that is already public
     youtubeId: ...........
 ---
 ```
 
-Use `codeUrls` instead of `codeUrl` when there is more than one already-public companion folder. Omit code and Shorts fields when they are not public. Keep `draft: true` for videos that are still private or scheduled; they will appear automatically once `draft` is set to `false` after the video is public.
-
-The filename without the extension is the slug: `/spring/t6-2-api-errors-problemdetail/`. Published video pages are included in the sitemap and in both the site RSS feed and `/spring/rss.xml`.
+Keep `draft: true` for a weekly that is still private or scheduled. The filename without the extension is the slug for both kinds of page. The concept articles and the weekly review pages are included in the sitemap and in both the site RSS feed and `/spring/rss.xml`; the old tutorial URLs are not.
 
 ## Content from channel repos (later)
 

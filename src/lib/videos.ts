@@ -26,8 +26,16 @@ export function codeLinks(video: VideoEntry): string[] {
   return urls;
 }
 
+/**
+ * Published video entries that have their own page under /spring/. Only the
+ * weekly reviews do: long tutorials live as related videos on the concept
+ * articles in src/content/spring/, and their old URLs redirect there.
+ */
 export async function getPublishedVideos() {
-  const entries = await getCollection('videos', ({ data }) => data.draft !== true);
+  const entries = await getCollection(
+    'videos',
+    ({ data }) => data.draft !== true && data.series === 'weekly',
+  );
   return entries.sort((a, b) => a.data.order - b.data.order);
 }
 
