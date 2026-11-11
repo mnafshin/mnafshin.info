@@ -14,6 +14,9 @@ const postSchema = z.object({
 const shortSchema = z.object({
   title: z.string(),
   youtubeId: z.string(),
+  // Hide a Short (no link) until it is public.
+  draft: z.boolean().default(false),
+  published: z.boolean().default(true),
 });
 
 const relatedVideoSchema = z.object({
@@ -26,9 +29,12 @@ const relatedVideoSchema = z.object({
   published: z.boolean().default(true),
 });
 
-// SpringUniverse concept articles: the shared post fields, plus the
-// related videos, Shorts and companion code shown below the article.
-const springSchema = postSchema.extend({
+// Concept articles (SpringUniverse, Termsplained): the shared post fields,
+// plus the related videos, Shorts and companion code shown below the
+// article. `kind: weekly` marks a written weekly review that uses the same
+// chrome but is listed separately on the section index.
+const articleSchema = postSchema.extend({
+  kind: z.enum(['concept', 'weekly']).default('concept'),
   section: z.string().optional(),
   topic: z.string().optional(),
   relatedVideos: z.array(relatedVideoSchema).default([]),
@@ -63,8 +69,8 @@ function posts(directory: string) {
 }
 
 export const collections = {
-  spring: defineCollection({ loader: loader('spring'), schema: springSchema }),
-  terms: posts('terms'),
+  spring: defineCollection({ loader: loader('spring'), schema: articleSchema }),
+  terms: defineCollection({ loader: loader('terms'), schema: articleSchema }),
   ai: posts('ai'),
   videos: defineCollection({
     loader: glob({
