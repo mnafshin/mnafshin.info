@@ -2,10 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { withBase } from '../lib/site';
 ---
-<BaseLayout title="Page not found" description="This page does not exist.">
+<BaseLayout title="Page not found" description="This page does not exist." ogImage="home">
   <div class="wrap-narrow">
     <h1 class="page-title">Page not found</h1>
     <p class="lede">That address is not on this site.</p>
-    <p><a href={withBase()}>Back to the home page</a></p>
+    <p><a href={withBase()}>Back to the home page</a> or <a href={withBase('search/')}>search the site</a>.</p>
   </div>
 </BaseLayout>

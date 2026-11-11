@@ -1,11 +1,20 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, LINKS, withBase } from '../../lib/site';
+import { breadcrumbList } from '../../lib/structured-data';
 import { getConceptArticles } from '../../lib/spring';
 import { getPublishedVideosByDate, videoPath, type VideoEntry } from '../../lib/videos';
 
 const section = getSection('spring');
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: section.name }],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
 const articles = await getConceptArticles();
 const weeklies = await getPublishedVideosByDate();
 
@@ -18,7 +27,7 @@ function formatDate(video: VideoEntry) {
   });
 }
 ---
-<BaseLayout title={section.name} description={section.tagline}>
+<BaseLayout title={section.name} description={section.tagline} jsonLd={jsonLd}>
   <div class="wrap-narrow section-page">
     <p class="eyebrow">Articles</p>
     <h1>{section.name}</h1>
@@ -35,8 +44,9 @@ function formatDate(video: VideoEntry) {
       <section class="article-index" aria-labelledby="articles-heading">
         <h2 id="articles-heading" class="page-title">Articles</h2>
         <ol class="toc-list">
-          {articles.map((article) => (
+          {articles.map((article, index) => (
             <li>
+              <span class="step-number" aria-hidden="true">{index + 1}</span>
               <a href={withBase(`spring/${article.id}/`)}>{article.data.title}</a>
               <p class="muted toc-blurb">{article.data.description}</p>
             </li>
@@ -44,6 +54,8 @@ function formatDate(video: VideoEntry) {
         </ol>
       </section>
     )}
+
+    <TopicMap articles={articles} sectionPath="spring" termsLabel="Spring annotations" />
 
     {weeklies.length > 0 && (
       <section class="weekly-index" aria-labelledby="weekly-heading">

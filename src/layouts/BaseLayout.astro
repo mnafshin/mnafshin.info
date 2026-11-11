@@ -1,24 +1,46 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { isPreviewHost, SITE_DESCRIPTION, SITE_TITLE, withBase } from '../lib/site';
+import { OG_HEIGHT, OG_WIDTH, ogImageUrl, ogKey, stripBase } from '../lib/og';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  /**
+   * Key of the generated social preview image (see src/pages/og). Defaults
+   * to the page's own path; pages without their own image pass `home`.
+   */
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  /** Structured data for search engines (schema.org JSON-LD). */
+  jsonLd?: Record<string, unknown>[];
+  /** Keep this page out of search engines (e.g. the search results page). */
+  noindex?: boolean;
 }
 
 const {
   title,
   description = SITE_DESCRIPTION,
   canonicalPath,
+  ogImage,
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
 const preview = isPreviewHost(Astro.site);
+const image = ogImageUrl(ogImage ?? ogKey(stripBase(Astro.url.pathname)), Astro.site);
+const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SITE_DESCRIPTION}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -27,17 +49,37 @@ const preview = isPreviewHost(Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    {preview && <meta name="robots" content="noindex, nofollow" />}
+    {(preview || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — all posts`} href={withBase('rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="SpringUniverse" href={withBase('spring/rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="Termsplained" href={withBase('terms/rss.xml')} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content={String(OG_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_HEIGHT)} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {ogType === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+    {ogType === 'article' && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+    )}
+    {ogType === 'article' && <meta property="article:author" content={SITE_TITLE} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <meta name="generator" content={Astro.generator} />
+    {jsonLd.length > 0 && <JsonLd data={jsonLd.length === 1 ? jsonLd[0] : jsonLd} />}
     <script is:inline>
       (function () {
         try {
@@ -57,5 +99,9 @@ const preview = isPreviewHost(Astro.site);
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/code-copy';
+      import '../scripts/search-highlight';
+    </script>
   </body>
 </html>

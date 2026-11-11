@@ -1,15 +1,31 @@
 ---
+import type { MarkdownHeading } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import type { Crumb, TocItem } from '../lib/nav';
+import { ogImageUrl, ogKey } from '../lib/og';
 import { getSection, type SectionId, withBase } from '../lib/site';
+import {
+  blogPosting,
+  breadcrumbList,
+  readingMinutes,
+  wordCount,
+} from '../lib/structured-data';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   sectionId: SectionId;
   post: CollectionEntry<SectionId>;
+  /** The article's own headings, for the table of contents. */
+  headings?: MarkdownHeading[];
+  /** Sections the layout adds after the body, listed at the end of the contents. */
+  tocExtra?: TocItem[];
 }
 
-const { sectionId, post } = Astro.props;
+const { sectionId, post, headings = [], tocExtra = [] } = Astro.props;
 const section = getSection(sectionId);
+const isWeekly = 'kind' in post.data && post.data.kind === 'weekly';
 const date = post.data.pubDate.toLocaleDateString('en-GB', {
   year: 'numeric',
   month: 'long',
@@ -24,14 +40,55 @@ const updated = post.data.updatedDate
       timeZone: 'Europe/Berlin',
     })
   : null;
+
+const sectionHref = withBase(`${section.path}/`);
+const crumbs: Crumb[] = [
+  { label: 'Home', href: withBase() },
+  { label: section.name, href: sectionHref },
+  ...(isWeekly ? [{ label: 'Weekly reviews', href: `${sectionHref}#weekly-heading` }] : []),
+  { label: post.data.title },
+];
+
+const words = wordCount(post.body);
+const minutes = readingMinutes(words);
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const key = ogKey(`${section.path}/${post.id}`);
+const jsonLd = [
+  blogPosting({
+    site: Astro.site,
+    url: pageUrl,
+    title: post.data.title,
+    description: post.data.description,
+    image: ogImageUrl(key, Astro.site),
+    published: post.data.pubDate,
+    modified: post.data.updatedDate,
+    sectionName: section.name,
+    sectionUrl: new URL(sectionHref, Astro.site).toString(),
+    keywords: post.data.tags,
+    wordCount: words,
+  }),
+  breadcrumbList(crumbs, pageUrl, Astro.site),
+];
 ---
-<BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="wrap-narrow article">
-    <p class="eyebrow">
-      <a href={withBase(`${section.path}/`)}>{section.name}</a>
-    </p>
-    <h1>{post.data.title}</h1>
-    <p class="meta">
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={key}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate}
+  jsonLd={jsonLd}
+>
+  <article
+    class="wrap-narrow article"
+    data-pagefind-body
+    data-pagefind-meta={`section:${section.name}`}
+    data-pagefind-filter={`section:${section.name}`}
+  >
+    <span hidden data-pagefind-meta={`kind:${isWeekly ? 'Weekly review' : 'Article'}`}></span>
+    <Breadcrumbs items={crumbs} />
+    <h1 data-pagefind-meta="title">{post.data.title}</h1>
+    <p class="meta" data-pagefind-ignore>
       <time datetime={post.data.pubDate.toISOString()}>{date}</time>
       {updated && (
         <>
@@ -39,7 +96,9 @@ const updated = post.data.updatedDate
           · Updated <time datetime={post.data.updatedDate?.toISOString()}>{updated}</time>
         </>
       )}
+      {' '}· {minutes} min read
     </p>
+    <TableOfContents headings={headings} extra={tocExtra} />
     <slot />
   </article>
 </BaseLayout>

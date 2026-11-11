@@ -1,10 +1,19 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, LINKS, withBase } from '../../lib/site';
+import { breadcrumbList } from '../../lib/structured-data';
 import { getTermsConceptArticles, getTermsWeeklies, type TermsArticle } from '../../lib/terms';
 
 const section = getSection('terms');
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: section.name }],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
 const articles = await getTermsConceptArticles();
 const weeklies = await getTermsWeeklies();
 
@@ -17,7 +26,7 @@ function formatDate(entry: TermsArticle) {
   });
 }
 ---
-<BaseLayout title={section.name} description={section.tagline}>
+<BaseLayout title={section.name} description={section.tagline} jsonLd={jsonLd}>
   <div class="wrap-narrow section-page">
     <p class="eyebrow">Articles</p>
     <h1>{section.name}</h1>
@@ -34,8 +43,9 @@ function formatDate(entry: TermsArticle) {
       <section class="article-index" aria-labelledby="articles-heading">
         <h2 id="articles-heading" class="page-title">Articles</h2>
         <ol class="toc-list">
-          {articles.map((article) => (
+          {articles.map((article, index) => (
             <li>
+              <span class="step-number" aria-hidden="true">{index + 1}</span>
               <a href={withBase(`terms/${article.id}/`)}>{article.data.title}</a>
               <p class="muted toc-blurb">{article.data.description}</p>
             </li>
@@ -43,6 +53,8 @@ function formatDate(entry: TermsArticle) {
         </ol>
       </section>
     )}
+
+    <TopicMap articles={articles} sectionPath="terms" termsLabel="AI terms" />
 
     {weeklies.length > 0 && (
       <section class="weekly-index" aria-labelledby="weekly-heading">

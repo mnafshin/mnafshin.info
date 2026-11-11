@@ -1,4 +1,6 @@
 ---
+import type { MarkdownHeading } from 'astro';
+import CurriculumNav from '../components/CurriculumNav.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import {
   articleCodeLinks,
@@ -7,6 +9,9 @@ import {
   type Article,
   type ArticleSectionId,
 } from '../lib/articles';
+import { getCurriculumPosition } from '../lib/curriculum';
+import type { TocItem } from '../lib/nav';
+import { getSection } from '../lib/site';
 import { shortUrl, watchUrl } from '../lib/videos';
 import PostLayout from './PostLayout.astro';
 
@@ -14,14 +19,25 @@ interface Props {
   article: Article;
   /** Section the article belongs to; defaults to the article's collection. */
   sectionId?: ArticleSectionId;
+  /** The article's headings from render(), for the table of contents. */
+  headings?: MarkdownHeading[];
 }
 
-const { article, sectionId = article.collection } = Astro.props;
+const { article, sectionId = article.collection, headings = [] } = Astro.props;
 const videos = publicRelatedVideos(article);
 const codes = articleCodeLinks(article);
 const shorts = publicRelatedShorts(article);
+const section = getSection(sectionId);
+// Concept articles only; weekly reviews are dated posts, not part of the path.
+const position = await getCurriculumPosition(article, sectionId);
+
+const tocExtra: TocItem[] = [
+  ...(videos.length > 0 ? [{ slug: 'related-videos-heading', text: 'Related videos', depth: 2 }] : []),
+  ...(codes.length > 0 ? [{ slug: 'companion-code-heading', text: 'Companion code', depth: 2 }] : []),
+  ...(shorts.length > 0 ? [{ slug: 'related-shorts-heading', text: 'Related Shorts', depth: 2 }] : []),
+];
 ---
-<PostLayout sectionId={sectionId} post={article}>
+<PostLayout sectionId={sectionId} post={article} headings={headings} tocExtra={tocExtra}>
   <div class="article-body">
     <slot />
   </div>
@@ -32,11 +48,11 @@ const shorts = publicRelatedShorts(article);
       {videos.map((video) => (
         <div class="related-video">
           <h3>
-            <span class="series-label">{video.id}</span>
+            <span class="series-label" data-pagefind-ignore>{video.id}</span>
             {video.title}
           </h3>
           <YouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
-          <p class="video-links">
+          <p class="video-links" data-pagefind-ignore>
             <a href={watchUrl(video.youtubeId)}>Watch on YouTube</a>
           </p>
         </div>
@@ -45,7 +61,7 @@ const shorts = publicRelatedShorts(article);
   )}
 
   {codes.length > 0 && (
-    <section class="companion-code" aria-labelledby="companion-code-heading">
+    <section class="companion-code" aria-labelledby="companion-code-heading" data-pagefind-ignore>
       <h2 id="companion-code-heading">Companion code</h2>
       <ul>
         {codes.map((url) => {
@@ -72,5 +88,9 @@ const shorts = publicRelatedShorts(article);
         ))}
       </ul>
     </section>
+  )}
+
+  {position && (
+    <CurriculumNav position={position} sectionPath={section.path} sectionName={section.name} />
   )}
 </PostLayout>

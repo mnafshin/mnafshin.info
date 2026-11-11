@@ -1,0 +1,33 @@
+---
+import { withBase } from '../lib/site';
+
+interface Props {
+  /** Prefix for element ids, so the header dialog and the search page can coexist. */
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+<form class="search-form" role="search" action={withBase('search/')} method="get" data-search-form>
+  <label class="visually-hidden" for={`${id}-input`}>Search articles and weekly reviews</label>
+  <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <circle cx="11" cy="11" r="6.5"/>
+    <path d="m16 16 4.5 4.5" stroke-linecap="round"/>
+  </svg>
+  <input
+    id={`${id}-input`}
+    class="search-input"
+    type="search"
+    name="q"
+    placeholder="Search articles and weekly reviews"
+    autocomplete="off"
+    spellcheck="false"
+    enterkeyhint="search"
+    aria-controls={`${id}-results`}
+    aria-describedby={`${id}-status`}
+    data-search-input
+  />
+  <slot />
+</form>
+<p id={`${id}-status`} class="search-status" role="status" aria-live="polite" data-search-status></p>
+<ol id={`${id}-results`} class="search-results" aria-label="Search results" data-search-results></ol>

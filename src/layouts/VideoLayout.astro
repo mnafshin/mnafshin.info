@@ -1,8 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
-import { withBase } from '../lib/site';
-import { codeLinks, shortUrl, watchUrl } from '../lib/videos';
+import type { Crumb } from '../lib/nav';
+import { ogImageUrl, ogKey } from '../lib/og';
+import { getSection, withBase } from '../lib/site';
+import { blogPosting, breadcrumbList, wordCount } from '../lib/structured-data';
+import { codeLinks, shortUrl, videoPath, watchUrl } from '../lib/videos';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -18,21 +22,58 @@ const date = video.data.pubDate.toLocaleDateString('en-GB', {
 });
 const codes = codeLinks(video);
 const shorts = video.data.shorts;
+const section = getSection('spring');
+const sectionHref = withBase(`${section.path}/`);
+const crumbs: Crumb[] = [
+  { label: 'Home', href: withBase() },
+  { label: section.name, href: sectionHref },
+  { label: 'Weekly reviews', href: `${sectionHref}#weekly-heading` },
+  { label: video.data.title },
+];
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const key = ogKey(videoPath(video.id));
+const jsonLd = [
+  blogPosting({
+    site: Astro.site,
+    url: pageUrl,
+    title: video.data.title,
+    description: video.data.description,
+    image: ogImageUrl(key, Astro.site),
+    published: video.data.pubDate,
+    sectionName: section.name,
+    sectionUrl: new URL(sectionHref, Astro.site).toString(),
+    wordCount: wordCount(video.body),
+  }),
+  breadcrumbList(crumbs, pageUrl, Astro.site),
+];
 ---
-<BaseLayout title={video.data.title} description={video.data.description}>
-  <article class="wrap-narrow article video-page">
-    <p class="eyebrow">
-      <a href={withBase('spring/')}>SpringUniverse</a>
+<BaseLayout
+  title={video.data.title}
+  description={video.data.description}
+  ogImage={key}
+  ogType="article"
+  publishedTime={video.data.pubDate}
+  jsonLd={jsonLd}
+>
+  <article
+    class="wrap-narrow article video-page"
+    data-pagefind-body
+    data-pagefind-meta={`section:${section.name}`}
+    data-pagefind-filter={`section:${section.name}`}
+  >
+    <span hidden data-pagefind-meta="kind:Weekly review"></span>
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow" data-pagefind-ignore>
       <span class="series-label">{video.data.seriesLabel}</span>
     </p>
-    <h1>{video.data.title}</h1>
-    <p class="meta">
+    <h1 data-pagefind-meta="title">{video.data.title}</h1>
+    <p class="meta" data-pagefind-ignore>
       <time datetime={video.data.pubDate.toISOString()}>{date}</time>
     </p>
 
     <YouTubeEmbed youtubeId={video.data.youtubeId} title={video.data.title} />
 
-    <ul class="video-links">
+    <ul class="video-links" data-pagefind-ignore>
       <li>
         <a href={watchUrl(video.data.youtubeId)}>Watch on YouTube</a>
       </li>

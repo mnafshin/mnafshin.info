@@ -1,0 +1,25 @@
+---
+import type { Crumb } from '../lib/nav';
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+<nav class="breadcrumbs" aria-label="Breadcrumb" data-pagefind-ignore>
+  <ol>
+    {items.map((item, index) => {
+      const last = index === items.length - 1;
+      return (
+        <li>
+          {last || !item.href ? (
+            <span aria-current={last ? 'page' : undefined}>{item.label}</span>
+          ) : (
+            <a href={item.href}>{item.label}</a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
