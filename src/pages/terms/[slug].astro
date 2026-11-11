@@ -1,19 +1,19 @@
 ---
 import { render } from 'astro:content';
-import PostLayout from '../../layouts/PostLayout.astro';
-import { getPublishedEntries } from '../../lib/posts';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getTermsConceptArticles, getTermsWeeklies } from '../../lib/terms';
 
 export async function getStaticPaths() {
-  const posts = await getPublishedEntries('terms');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
+  const articles = [...(await getTermsConceptArticles()), ...(await getTermsWeeklies())];
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { article } = Astro.props;
+const { Content } = await render(article);
 ---
-<PostLayout sectionId="terms" post={post}>
+<ArticleLayout article={article} sectionId="terms">
   <Content />
-</PostLayout>
+</ArticleLayout>

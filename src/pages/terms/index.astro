@@ -1,26 +1,63 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
-import PostList from '../../components/PostList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPublishedEntries } from '../../lib/posts';
-import { getSection, LINKS } from '../../lib/site';
+import { getSection, LINKS, withBase } from '../../lib/site';
+import { getTermsConceptArticles, getTermsWeeklies, type TermsArticle } from '../../lib/terms';
 
 const section = getSection('terms');
-const entries = await getPublishedEntries('terms');
-const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
+const articles = await getTermsConceptArticles();
+const weeklies = await getTermsWeeklies();
+
+function formatDate(entry: TermsArticle) {
+  return entry.data.pubDate.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+}
 ---
 <BaseLayout title={section.name} description={section.tagline}>
   <div class="wrap-narrow section-page">
-    <p class="eyebrow">Blog</p>
+    <p class="eyebrow">Articles</p>
     <h1>{section.name}</h1>
     <p class="lede">
-      Short, careful explanations of technical terms, alongside the
-      <a href={LINKS.termsplained}>Termsplained YouTube channel</a>.
+      Short written articles that explain one AI term each, in learning
+      order, with the related videos from the
+      <a href={LINKS.termsplained}>Termsplained YouTube channel</a>
+      beside them. Weekly reviews of AI news follow below.
     </p>
-    {posts.length === 0 ? (
-      <ComingSoon name={section.name} />
-    ) : (
-      <PostList posts={posts} />
+
+    {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
+
+    {articles.length > 0 && (
+      <section class="article-index" aria-labelledby="articles-heading">
+        <h2 id="articles-heading" class="page-title">Articles</h2>
+        <ol class="toc-list">
+          {articles.map((article) => (
+            <li>
+              <a href={withBase(`terms/${article.id}/`)}>{article.data.title}</a>
+              <p class="muted toc-blurb">{article.data.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {weeklies.length > 0 && (
+      <section class="weekly-index" aria-labelledby="weekly-heading">
+        <h2 id="weekly-heading" class="page-title">Weekly reviews</h2>
+        <ol class="toc-list">
+          {weeklies.map((weekly) => (
+            <li>
+              <a href={withBase(`terms/${weekly.id}/`)}>{weekly.data.title}</a>
+              <p class="meta">
+                <time datetime={weekly.data.pubDate.toISOString()}>{formatDate(weekly)}</time>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
     )}
   </div>
 </BaseLayout>

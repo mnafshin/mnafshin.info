@@ -21,7 +21,7 @@ export const SECTIONS = [
   {
     id: 'terms',
     name: 'Termsplained',
-    tagline: 'Clear explanations of technical terms.',
+    tagline: 'Short articles that explain one AI term each, with related videos, plus weekly AI news reviews.',
     path: 'terms',
     youtube: LINKS.termsplained,
     inNav: true,

@@ -1,19 +1,27 @@
 ---
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
-import { articleCodeLinks, publicRelatedVideos, type SpringArticle } from '../lib/spring';
+import {
+  articleCodeLinks,
+  publicRelatedShorts,
+  publicRelatedVideos,
+  type Article,
+  type ArticleSectionId,
+} from '../lib/articles';
 import { shortUrl, watchUrl } from '../lib/videos';
 import PostLayout from './PostLayout.astro';
 
 interface Props {
-  article: SpringArticle;
+  article: Article;
+  /** Section the article belongs to; defaults to the article's collection. */
+  sectionId?: ArticleSectionId;
 }
 
-const { article } = Astro.props;
+const { article, sectionId = article.collection } = Astro.props;
 const videos = publicRelatedVideos(article);
 const codes = articleCodeLinks(article);
-const shorts = article.data.relatedShorts;
+const shorts = publicRelatedShorts(article);
 ---
-<PostLayout sectionId="spring" post={article}>
+<PostLayout sectionId={sectionId} post={article}>
   <div class="article-body">
     <slot />
   </div>
