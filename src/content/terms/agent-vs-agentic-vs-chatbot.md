@@ -12,7 +12,7 @@ relatedVideos:
 relatedShorts:
   - title: 'Two programs, one answer. Which is the AI agent?'
     youtubeId: 1uj41a-IZaU
-draft: true
+draft: false
 ---
 
 An AI agent is a system in which a language model works toward a goal by choosing its own next step, using tools, checking the results and repeating until the job is done. A chatbot only talks; a workflow follows steps a developer wrote. Agentic AI is the broader word for systems that act with some independence. The difference matters because the label "agent" is now used for all three.

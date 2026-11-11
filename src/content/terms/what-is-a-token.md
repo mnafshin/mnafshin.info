@@ -13,7 +13,7 @@ relatedShorts:
   - title: '10 words. How many tokens?'
     youtubeId: h5xQuQNqOeY
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/006-token
-draft: true
+draft: false
 ---
 
 A token is a chunk of text that a language model treats as one unit: a whole word, part of a word, a single character, or a punctuation mark. Tokens are what models read, what they write, and what most AI services bill you for. Because a token is not a word, the count can surprise you, and so can the bill.

@@ -10,7 +10,7 @@ relatedVideos:
     youtubeId: y9e2XQzP1ZY
     pubDate: '2026-10-27T12:23:02Z'
 relatedShorts: []
-draft: true
+draft: false
 ---
 
 "Copilot" is two things at once: a product name and a design idea. As a product, Copilot with a capital C is a brand that Microsoft and GitHub use for many very different tools. As an idea, a copilot is an AI that suggests while a human decides. Telling the two apart answers the most common question at work: which Copilot does someone mean, and who is in charge of what it does?

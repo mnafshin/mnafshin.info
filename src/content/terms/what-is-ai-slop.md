@@ -12,7 +12,7 @@ relatedVideos:
 relatedShorts:
   - title: 'A newspaper listed 15 books. How many exist?'
     youtubeId: zOYe8V9f5WA
-draft: true
+draft: false
 ---
 
 AI slop is low-quality digital content produced in bulk with AI, usually unchecked and sent to people who did not ask for it. It often looks polished: bold headings, neat bullet points, a confident summary. The problem is what it does to the reader. It takes seconds to make and hours to clean up, so the work does not disappear; it moves to someone else.

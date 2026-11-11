@@ -12,7 +12,7 @@ relatedVideos:
 relatedShorts:
   - title: 'Capital of Australia? Ask a real AI model'
     youtubeId: 0s0PLxVx13w
-draft: true
+draft: false
 ---
 
 A large language model, or LLM, is a program that has learned how language usually goes by reading a huge amount of text. It is the technology inside chat assistants such as ChatGPT, Gemini and Claude. Its core skill is simple: guess what comes next. Knowing that one fact explains both why it writes so fluently and why it can be confidently wrong.

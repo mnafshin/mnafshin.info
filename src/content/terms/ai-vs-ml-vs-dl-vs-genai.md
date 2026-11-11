@@ -10,7 +10,7 @@ relatedVideos:
     youtubeId: 8dF3KLvJfwQ
     pubDate: '2026-11-06T12:00:07Z'
 relatedShorts: []
-draft: true
+draft: false
 ---
 
 Artificial intelligence, machine learning, deep learning and generative AI are often used as if they were four sizes of one thing. Three of them do nest: AI contains machine learning, and machine learning contains deep learning. The fourth, generative AI, names a job, producing new content, rather than a smaller circle. Knowing which is which tells you what a product actually does when a vendor uses one of the words.

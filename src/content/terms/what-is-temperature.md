@@ -13,7 +13,7 @@ relatedShorts:
   - title: 'Same prompt, 5 runs. How many different answers?'
     youtubeId: 95YWTJN3QpM
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/013-temperature
-draft: true
+draft: false
 ---
 
 Temperature is a setting that decides how often a language model takes a less likely word. Turned down, the model almost always picks its favourite, so the same question gets the same answer. Turned up, it picks long shots more often, so answers vary and, past a point, stop making sense. It does not add knowledge or effort; it only changes how the next word is drawn.

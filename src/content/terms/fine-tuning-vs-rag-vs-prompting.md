@@ -11,7 +11,7 @@ relatedVideos:
     pubDate: '2026-11-04T17:00:25Z'
 relatedShorts: []
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/015-fine-tuning-vs-rag
-draft: true
+draft: false
 ---
 
 Prompting, RAG and fine-tuning are three ways to make an AI model work better for a project. A better prompt changes what you tell the model. RAG changes what the model reads before it answers. Fine-tuning changes the model itself. They fix different problems, so the useful question is not which one is best, but which problem you have.

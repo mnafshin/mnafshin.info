@@ -29,7 +29,7 @@ relatedShorts:
   - title: 'Ten seconds, now fifteen'
     youtubeId: NweWCXq2Rcw
     published: false
-draft: true
+draft: false
 ---
 
 The week of 31 October to 6 November 2026 brought a security model trained to stay inside its job, a coding agent that waits to be asked, a way to prove which model wrote a reply, longer AI-generated video, and chat models that remember more. Each story comes with the one term you need to follow it. Benchmark numbers are the companies' own tests or listed prices, not independent scores, and every source is linked.

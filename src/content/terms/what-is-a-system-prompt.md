@@ -13,7 +13,7 @@ relatedShorts:
   - title: 'Told to never reveal the code. It leaked it anyway'
     youtubeId: bcPeYVMam8I
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/014-system-prompt
-draft: true
+draft: false
 ---
 
 A system prompt is the set of instructions an app gives the AI before your first message. You never see it, but every answer follows it: it sets the tone, the length, the role and the format. It is why one model can feel different in two different apps. It is also only a strong request, so it can lose to your message and it can leak.

@@ -10,7 +10,7 @@ relatedVideos:
     youtubeId: n2kh-j8Is6w
     pubDate: '2026-11-02T16:18:59Z'
 relatedShorts: []
-draft: true
+draft: false
 ---
 
 An AI hallucination is when an AI gives an answer that sounds right but is false. OpenAI describes it as a model [confidently giving an answer that isn't true](https://openai.com/index/why-language-models-hallucinate/). It matters because a hallucination looks exactly like a correct answer: same calm tone, same neat details. Knowing where it comes from tells you what to check.

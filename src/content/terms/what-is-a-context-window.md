@@ -11,7 +11,7 @@ relatedVideos:
     pubDate: '2026-10-26T23:12:59Z'
 relatedShorts: []
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/009-context-window
-draft: true
+draft: false
 ---
 
 A context window is all the text a language model can look at while it writes one answer. Anthropic's documentation calls it the model's [working memory](https://docs.claude.com/en/docs/build-with-claude/context-windows), and it is separate from the huge pile of text the model was trained on. When a chatbot seems to forget something you said earlier, the context window is usually the reason: the detail was no longer in front of it.

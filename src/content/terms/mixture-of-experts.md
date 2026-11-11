@@ -13,7 +13,7 @@ relatedShorts:
   - title: 'Does AI search for the next word?'
     youtubeId: kEj-aYdK0qU
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/018-mixture-of-experts
-draft: true
+draft: false
 ---
 
 Mixture of experts, or MoE, is a way of building AI models in which many of the model's parameters are split into groups called experts, and a small router picks a few of them for each token. Models such as Mixtral, Kimi K2 and Mistral Large 4 are built this way. The point is to keep a very large model while doing much less math for every word. What it does not do is make the model smaller.

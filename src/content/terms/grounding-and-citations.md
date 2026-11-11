@@ -11,7 +11,7 @@ relatedVideos:
     pubDate: '2026-11-05T12:00:35Z'
 relatedShorts: []
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/016-grounding
-draft: true
+draft: false
 ---
 
 Grounding means tying an AI's answer to a real source, so every claim can be traced back to it. A citation is a pointer from a claim to the exact place in the source that supports it. Together they let you check whether an answer really came from the document it was given, which matters most in tools that already look things up and therefore look trustworthy.

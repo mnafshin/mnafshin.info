@@ -10,7 +10,7 @@ relatedVideos:
     youtubeId: rgnr6MIabpc
     pubDate: '2026-11-03T12:00:00Z'
 relatedShorts: []
-draft: true
+draft: false
 ---
 
 RAG, short for retrieval-augmented generation, means the AI looks up the right documents first, then answers from them. The model itself does not change; what changes is what it reads right before it answers. That lets a chatbot answer from your own documents, stay current when they change, and show where an answer came from.

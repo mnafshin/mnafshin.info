@@ -23,7 +23,7 @@ relatedShorts:
     youtubeId: WqYSGjWrTPo
   - title: '53.6% wrong, now 16.7%. Still not zero'
     youtubeId: RhEQd_VDDFc
-draft: true
+draft: false
 ---
 
 The week of 24–30 October 2026 brought a model that operates a computer for you, a frontier model aimed at security teams, an open model with a trillion parameters, a proposed web standard for saying no to AI training, and research on models that keep learning after release. Each story comes with the one term you need to follow it. All numbers are the companies' own tests, not independent results, and every source is linked.

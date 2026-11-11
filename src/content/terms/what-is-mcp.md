@@ -13,7 +13,7 @@ relatedShorts:
   - title: '3 AI apps, 4 tools: how many integrations?'
     youtubeId: hPk_SMLOIjY
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/short-mcp-tools-list
-draft: true
+draft: false
 ---
 
 MCP, the Model Context Protocol, is an open standard for connecting AI applications to the tools and data they need. Despite the name, it is not a model and it does not make a model any smarter. It is a plug: one shared way for an AI app to reach a calendar, a file store or a company system. That is why the three letters now show up wherever AI assistants start doing things.

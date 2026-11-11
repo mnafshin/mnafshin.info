@@ -12,7 +12,7 @@ relatedVideos:
 relatedShorts:
   - title: 'Spot the bug in this AI tool list'
     youtubeId: AWHsiYm-O7k
-draft: true
+draft: false
 ---
 
 AI governance is the set of rules, roles and routines an organisation uses to decide which AI it uses, what for, and who answers for it. It is not one law, one product or one department; it is how a whole company makes AI decisions on purpose. Without it, a tool someone signed up for on Monday can be writing customer emails by Friday, and nobody decided that.

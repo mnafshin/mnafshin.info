@@ -13,7 +13,7 @@ relatedShorts:
   - title: 'Does AI search for the next word?'
     youtubeId: kEj-aYdK0qU
 codeUrl: https://github.com/mnafshin/termsplained-demos/tree/main/017-parameters
-draft: true
+draft: false
 ---
 
 A parameter is one number inside an AI model that is set during training. The B in a model name such as Llama 3.1 8B, 70B or 405B means billion, and it counts those numbers. That count tells you how much memory the model needs and how much math it does for every word. It does not, on its own, tell you how good the model is.
