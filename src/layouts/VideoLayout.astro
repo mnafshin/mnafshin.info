@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Comments from '../components/Comments.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import type { Crumb } from '../lib/nav';
 import { ogImageUrl, ogKey } from '../lib/og';
@@ -105,5 +106,7 @@ const jsonLd = [
       <h2 id="narration-heading">Narration script</h2>
       <slot />
     </section>
+
+    <Comments />
   </article>
 </BaseLayout>

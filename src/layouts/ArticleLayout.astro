@@ -1,5 +1,6 @@
 ---
 import type { MarkdownHeading } from 'astro';
+import Comments from '../components/Comments.astro';
 import CurriculumNav from '../components/CurriculumNav.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import {
@@ -93,4 +94,6 @@ const tocExtra: TocItem[] = [
   {position && (
     <CurriculumNav position={position} sectionPath={section.path} sectionName={section.name} />
   )}
+
+  <Comments />
 </PostLayout>

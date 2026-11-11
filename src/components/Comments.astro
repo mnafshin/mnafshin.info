@@ -1,0 +1,31 @@
+---
+import { GISCUS } from '../lib/giscus';
+---
+<section class="comments" aria-labelledby="comments-heading" data-pagefind-ignore>
+  <h2 id="comments-heading">Comments</h2>
+  <div
+    class="giscus"
+    data-giscus-container
+    data-repo={GISCUS.repo}
+    data-repo-id={GISCUS.repoId}
+    data-category={GISCUS.category}
+    data-category-id={GISCUS.categoryId}
+    data-mapping={GISCUS.mapping}
+    data-strict={GISCUS.strict}
+    data-reactions-enabled={GISCUS.reactionsEnabled}
+    data-emit-metadata={GISCUS.emitMetadata}
+    data-input-position={GISCUS.inputPosition}
+    data-lang={GISCUS.lang}
+    data-loading={GISCUS.loading}
+    data-theme-light={GISCUS.lightTheme}
+    data-theme-dark={GISCUS.darkTheme}
+  >
+  </div>
+  <noscript>
+    <p class="comments-note">Comments use GitHub Discussions and need JavaScript.</p>
+  </noscript>
+</section>
+
+<script>
+  import '../scripts/giscus';
+</script>
