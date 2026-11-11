@@ -97,6 +97,14 @@ shorts:
 
 Keep `draft: true` for a weekly that is still private or scheduled. The filename without the extension is the slug for both kinds of page. The concept articles and the weekly review pages are included in the sitemap and in both the site RSS feed and `/spring/rss.xml`; the old tutorial URLs are not.
 
+## Search, topic map and page extras
+
+- **Search.** `npm run build` runs `astro check`, `astro build` and then [Pagefind](https://pagefind.app), which writes a static search index to `dist/pagefind/`. The GitHub Pages workflow runs the same build script, so the index is deployed with the site. The header has a Search button (also <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd> or <kbd>/</kbd>) and there is a `/search/?q=…` page. Matches are highlighted in the results and on the page you open. Only pages with `data-pagefind-body` are indexed: published concept articles and weekly reviews. Drafts have no page, hidden related videos (`draft: true` / `published: false`) are never rendered, and the redirect pages are skipped. Search does not work under `npm run dev`; use `npm run build && npm run preview`.
+- **Topic map.** `/spring/` and `/terms/` show a heatmap of the key terms the concept articles use (Spring annotations in inline code, terms in bold), against the articles in learning order. It is computed from the article text at build time (`src/lib/topics.ts`); there is nothing to maintain by hand.
+- **Learning path.** Concept articles show breadcrumbs and previous/next links in `CONCEPT_ORDER` (`src/lib/spring.ts`) or `TERMS_CONCEPT_ORDER` (`src/lib/terms.ts`). Weekly reviews get breadcrumbs but stay out of the previous/next chain.
+- **On this page and code copy.** Articles with four or more sections get a table of contents from their headings; every code block gets a Copy button.
+- **Social previews.** Each public page has its own Open Graph image, generated at build time under `/og/…png` (`src/pages/og/[...key].png.ts`), plus Twitter card tags and JSON-LD (`BlogPosting`, `BreadcrumbList`).
+
 ## Content from channel repos (later)
 
 

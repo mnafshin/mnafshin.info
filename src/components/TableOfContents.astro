@@ -1,0 +1,33 @@
+---
+import type { MarkdownHeading } from 'astro';
+import type { TocItem } from '../lib/nav';
+
+interface Props {
+  headings: MarkdownHeading[];
+  /** Sections the layout adds after the article body (videos, code, Shorts). */
+  extra?: TocItem[];
+  /** Show the contents only when the article has at least this many sections. */
+  minSections?: number;
+}
+
+const { headings, extra = [], minSections = 4 } = Astro.props;
+const items: TocItem[] = [
+  ...headings.filter((heading) => heading.depth === 2 || heading.depth === 3),
+  ...extra,
+];
+const sections = headings.filter((heading) => heading.depth === 2).length;
+---
+{sections >= minSections && (
+  <details class="toc" open data-pagefind-ignore>
+    <summary id="toc-heading">On this page</summary>
+    <nav aria-labelledby="toc-heading">
+      <ol>
+        {items.map((item) => (
+          <li class={item.depth === 3 ? 'toc-sub' : undefined}>
+            <a href={`#${item.slug}`}>{item.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </details>
+)}

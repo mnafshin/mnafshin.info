@@ -1,0 +1,80 @@
+---
+import type { Article } from '../lib/articles';
+import { withBase } from '../lib/site';
+import { getKeyTerms, heatLevel } from '../lib/topics';
+
+interface Props {
+  /** Published concept articles, in learning order. */
+  articles: Article[];
+  /** Section path, e.g. `spring`. */
+  sectionPath: string;
+  /** What the key terms are, e.g. "Spring annotations". */
+  termsLabel: string;
+  limit?: number;
+}
+
+const { articles, sectionPath, termsLabel, limit = 16 } = Astro.props;
+const terms = getKeyTerms(articles, limit);
+const href = (article: Article) => withBase(`${sectionPath}/${article.id}/`);
+const searchHref = (query: string) => withBase(`search/?q=${encodeURIComponent(query)}`);
+
+function cellLabel(term: string, count: number, title: string) {
+  if (count === 0) return `${term} is not mentioned in ${title}`;
+  return `${term}: ${count} ${count === 1 ? 'mention' : 'mentions'} in ${title}`;
+}
+---
+{terms.length > 0 && (
+  <section class="topic-map" aria-labelledby="topic-map-heading" data-pagefind-ignore>
+    <h2 id="topic-map-heading" class="page-title">Topic map</h2>
+    <p class="muted topic-map-intro">
+      The {termsLabel} these {articles.length} articles use most, and where
+      each one comes up along the learning path. Columns follow the article
+      numbers above; a darker cell means more mentions. Select a term to
+      search for it.
+    </p>
+    <div class="heatmap-scroll" role="region" aria-labelledby="topic-map-heading" tabindex="0">
+      <table class={articles.length > 12 ? 'heatmap heatmap-dense' : 'heatmap'}>
+        <caption class="visually-hidden">
+          {termsLabel} by article, in learning order. Each cell gives the number of mentions.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="heatmap-corner">Term</th>
+            {articles.map((article, index) => (
+              <th scope="col" class="heatmap-col">
+                <a href={href(article)} title={article.data.title}>
+                  <span aria-hidden="true">{index + 1}</span>
+                  <span class="visually-hidden">{index + 1}. {article.data.title}</span>
+                </a>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {terms.map((term) => (
+            <tr>
+              <th scope="row" class="heatmap-term">
+                <a href={searchHref(term.query)}>{term.term}</a>
+              </th>
+              {term.mentions.map((count, index) => (
+                <td
+                  class={`heat heat-${heatLevel(count)}`}
+                  title={cellLabel(term.term, count, articles[index].data.title)}
+                >
+                  <span class="visually-hidden">{count === 0 ? 'none' : count}</span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="heatmap-legend" aria-hidden="true">
+      <span>Mentions</span>
+      <span class="heat heat-0"></span> none
+      <span class="heat heat-1"></span> 1
+      <span class="heat heat-2"></span> 2–3
+      <span class="heat heat-3"></span> 4+
+    </p>
+  </section>
+)}

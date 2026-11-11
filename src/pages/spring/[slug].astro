@@ -28,14 +28,14 @@ type Props = ArticleProps | VideoProps;
 
 const props = Astro.props as Props;
 const rendered = props.kind === 'video' ? await render(props.video) : await render(props.article);
-const Content = rendered.Content;
+const { Content, headings } = rendered;
 ---
 {props.kind === 'video' ? (
   <VideoLayout video={props.video}>
     <Content />
   </VideoLayout>
 ) : (
-  <ArticleLayout article={props.article}>
+  <ArticleLayout article={props.article} headings={headings}>
     <Content />
   </ArticleLayout>
 )}

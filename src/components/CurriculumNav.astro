@@ -1,0 +1,39 @@
+---
+import type { CurriculumPosition } from '../lib/curriculum';
+import { withBase } from '../lib/site';
+
+interface Props {
+  position: CurriculumPosition;
+  /** Section path, e.g. `spring`. */
+  sectionPath: string;
+  sectionName: string;
+}
+
+const { position, sectionPath, sectionName } = Astro.props;
+const { previous, next, index, total } = position;
+const href = (id: string) => withBase(`${sectionPath}/${id}/`);
+---
+<nav class="curriculum-nav" aria-label={`${sectionName} learning path`} data-pagefind-ignore>
+  <p class="curriculum-step">
+    Article {index} of {total} in the{' '}
+    <a href={withBase(`${sectionPath}/`)}>{sectionName} learning path</a>
+  </p>
+  <div class="curriculum-links">
+    {previous ? (
+      <a class="curriculum-link prev" href={href(previous.id)} rel="prev">
+        <span class="curriculum-dir"><span aria-hidden="true">←</span> Previous</span>
+        <span class="curriculum-title">{previous.data.title}</span>
+      </a>
+    ) : (
+      <span class="curriculum-link placeholder" aria-hidden="true"></span>
+    )}
+    {next ? (
+      <a class="curriculum-link next" href={href(next.id)} rel="next">
+        <span class="curriculum-dir">Next <span aria-hidden="true">→</span></span>
+        <span class="curriculum-title">{next.data.title}</span>
+      </a>
+    ) : (
+      <span class="curriculum-link placeholder" aria-hidden="true"></span>
+    )}
+  </div>
+</nav>

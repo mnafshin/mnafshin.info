@@ -9,7 +9,7 @@ const section = getSection('ai');
 const entries = await getPublishedEntries('ai');
 const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
 ---
-<BaseLayout title={section.name} description={section.tagline}>
+<BaseLayout title={section.name} description={section.tagline} ogImage="home">
   <div class="wrap-narrow section-page">
     <p class="eyebrow">Blog</p>
     <h1>{section.name}</h1>

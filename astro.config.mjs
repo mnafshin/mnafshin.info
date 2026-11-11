@@ -45,7 +45,10 @@ export default defineConfig({
   base: CUSTOM_DOMAIN ? '/' : '/mnafshin.info',
   trailingSlash: 'always',
   redirects,
-  integrations: [sitemap()],
+  integrations: [
+    // The search results page is for readers, not for search engines.
+    sitemap({ filter: (page) => !new URL(page).pathname.endsWith('/search/') }),
+  ],
   markdown: {
     shikiConfig: {
       themes: {

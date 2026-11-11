@@ -1,0 +1,14 @@
+---
+import SearchBox from './SearchBox.astro';
+---
+<dialog class="search-dialog" aria-labelledby="site-search-title" data-search-dialog>
+  <div class="search-panel" data-search-root>
+    <h2 id="site-search-title" class="visually-hidden">Search this site</h2>
+    <SearchBox id="site-search">
+      <button type="button" class="search-close" data-search-close aria-label="Close search">Esc</button>
+    </SearchBox>
+    <p class="search-hint" aria-hidden="true">
+      <kbd>↑</kbd> <kbd>↓</kbd> to move · <kbd>Enter</kbd> to open · <kbd>Esc</kbd> to close
+    </p>
+  </div>
+</dialog>

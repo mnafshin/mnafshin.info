@@ -1,0 +1,25 @@
+---
+import SearchBox from '../components/SearchBox.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/site';
+---
+<BaseLayout
+  title="Search"
+  description="Search the SpringUniverse and Termsplained articles and weekly reviews."
+  ogImage="home"
+  noindex={true}
+>
+  <div class="wrap-narrow section-page search-page" data-search-page>
+    <p class="eyebrow">Search</p>
+    <h1>Search this site</h1>
+    <p class="lede">
+      Find a concept article or a weekly review. Matching words are
+      highlighted in the results and on the page you open.
+    </p>
+    <SearchBox id="page-search" />
+    <noscript>
+      <p class="muted">Search needs JavaScript. You can browse the
+      <a href={withBase('spring/')}>SpringUniverse</a> and <a href={withBase('terms/')}>Termsplained</a> articles instead.</p>
+    </noscript>
+  </div>
+</BaseLayout>
