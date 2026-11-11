@@ -1,0 +1,68 @@
+---
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+import { articleCodeLinks, publicRelatedVideos, type SpringArticle } from '../lib/spring';
+import { shortUrl, watchUrl } from '../lib/videos';
+import PostLayout from './PostLayout.astro';
+
+interface Props {
+  article: SpringArticle;
+}
+
+const { article } = Astro.props;
+const videos = publicRelatedVideos(article);
+const codes = articleCodeLinks(article);
+const shorts = article.data.relatedShorts;
+---
+<PostLayout sectionId="spring" post={article}>
+  <div class="article-body">
+    <slot />
+  </div>
+
+  {videos.length > 0 && (
+    <section class="related-videos" aria-labelledby="related-videos-heading">
+      <h2 id="related-videos-heading">Related videos</h2>
+      {videos.map((video) => (
+        <div class="related-video">
+          <h3>
+            <span class="series-label">{video.id}</span>
+            {video.title}
+          </h3>
+          <YouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
+          <p class="video-links">
+            <a href={watchUrl(video.youtubeId)}>Watch on YouTube</a>
+          </p>
+        </div>
+      ))}
+    </section>
+  )}
+
+  {codes.length > 0 && (
+    <section class="companion-code" aria-labelledby="companion-code-heading">
+      <h2 id="companion-code-heading">Companion code</h2>
+      <ul>
+        {codes.map((url) => {
+          const folder = url.split('/').filter(Boolean).at(-1) ?? 'companion code';
+          const label = codes.length > 1 ? `Companion code (${folder})` : 'Companion code';
+          return (
+            <li>
+              <a href={url}>{label}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  )}
+
+  {shorts.length > 0 && (
+    <section class="related-shorts" aria-labelledby="related-shorts-heading">
+      <h2 id="related-shorts-heading">Related Shorts</h2>
+      <ul>
+        {shorts.map((item) => (
+          <li>
+            <a href={shortUrl(item.youtubeId)}>{item.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</PostLayout>

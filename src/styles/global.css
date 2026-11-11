@@ -498,3 +498,35 @@ html.dark .astro-code span {
 .notes-index {
   margin-top: 2.5rem;
 }
+
+.related-videos,
+.companion-code {
+  margin-top: 2.5rem;
+}
+
+.related-videos {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.related-video h3 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.related-video .video-links {
+  margin-bottom: 1.25rem;
+}
+
+.companion-code ul {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.weekly-index {
+  margin-top: 2.5rem;
+}
+
+.weekly-index .toc-list a {
+  font-size: 1.02rem;
+}

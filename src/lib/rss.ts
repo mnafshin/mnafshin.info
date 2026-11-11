@@ -26,6 +26,8 @@ export async function sectionRss(context: APIContext, sectionId: SectionId) {
     link: withBase(postPath(sectionId, entry.id)),
   }));
 
+  // SpringUniverse: concept articles (above) plus the weekly review pages.
+  // Long tutorials have no page of their own; they sit on the articles.
   if (sectionId === 'spring') {
     const videos = await getPublishedVideosByDate();
     items.push(
@@ -34,7 +36,7 @@ export async function sectionRss(context: APIContext, sectionId: SectionId) {
         description: video.data.description,
         pubDate: video.data.pubDate,
         link: withBase(videoPath(video.id)),
-        categories: ['Video'],
+        categories: ['Weekly review', 'Video'],
       })),
     );
     items.sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
@@ -63,7 +65,7 @@ export async function combinedRss(context: APIContext) {
       title: video.data.title,
       description: video.data.description,
       pubDate: video.data.pubDate,
-      categories: ['SpringUniverse', 'Video'],
+      categories: ['SpringUniverse', 'Weekly review', 'Video'],
       link: withBase(videoPath(video.id)),
     })),
   ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());

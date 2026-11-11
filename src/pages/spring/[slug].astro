@@ -1,17 +1,19 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
-import PostLayout from '../../layouts/PostLayout.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
 import VideoLayout from '../../layouts/VideoLayout.astro';
-import { getPublishedEntries } from '../../lib/posts';
+import { getConceptArticles } from '../../lib/spring';
 import { getPublishedVideos } from '../../lib/videos';
 
 export async function getStaticPaths() {
-  const posts = await getPublishedEntries('spring');
+  const articles = await getConceptArticles();
+  // Only the weekly reviews keep their own video pages. The old tutorial
+  // video URLs redirect to their concept articles (see astro.config.mjs).
   const videos = await getPublishedVideos();
   return [
-    ...posts.map((post) => ({
-      params: { slug: post.id },
-      props: { kind: 'post' as const, post },
+    ...articles.map((article) => ({
+      params: { slug: article.id },
+      props: { kind: 'article' as const, article },
     })),
     ...videos.map((video) => ({
       params: { slug: video.id },
@@ -20,12 +22,12 @@ export async function getStaticPaths() {
   ];
 }
 
-type PostProps = { kind: 'post'; post: CollectionEntry<'spring'> };
+type ArticleProps = { kind: 'article'; article: CollectionEntry<'spring'> };
 type VideoProps = { kind: 'video'; video: CollectionEntry<'videos'> };
-type Props = PostProps | VideoProps;
+type Props = ArticleProps | VideoProps;
 
 const props = Astro.props as Props;
-const rendered = props.kind === 'video' ? await render(props.video) : await render(props.post);
+const rendered = props.kind === 'video' ? await render(props.video) : await render(props.article);
 const Content = rendered.Content;
 ---
 {props.kind === 'video' ? (
@@ -33,7 +35,7 @@ const Content = rendered.Content;
     <Content />
   </VideoLayout>
 ) : (
-  <PostLayout sectionId="spring" post={props.post}>
+  <ArticleLayout article={props.article}>
     <Content />
-  </PostLayout>
+  </ArticleLayout>
 )}

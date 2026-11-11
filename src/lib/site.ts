@@ -13,7 +13,7 @@ export const SECTIONS = [
   {
     id: 'spring',
     name: 'SpringUniverse',
-    tagline: 'Java and Spring tutorials, weekly reviews, and notes.',
+    tagline: 'Short Spring and Spring Boot articles with related videos, plus weekly reviews.',
     path: 'spring',
     youtube: LINKS.springuniverse,
     inNav: true,
