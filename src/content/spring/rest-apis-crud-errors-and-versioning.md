@@ -17,9 +17,6 @@ relatedVideos:
     title: 'Spring Framework 7 API Versioning: Keep Old Callers, Add a New Response'
     youtubeId: d3fzHUy9rsA
     pubDate: '2026-11-11T12:00:00Z'
-    # Unlisted until 13:00 Europe/Berlin on 11 Nov 2026. Hide this embed until it is public.
-    draft: true
-    published: false
 relatedShorts: []
 codeUrl: https://github.com/mnafshin/springuniverse-code/tree/main/module-06-products
 draft: false
