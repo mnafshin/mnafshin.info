@@ -104,6 +104,7 @@ Keep `draft: true` for a weekly that is still private or scheduled. The filename
 - **Learning path.** Concept articles show breadcrumbs and previous/next links in `CONCEPT_ORDER` (`src/lib/spring.ts`) or `TERMS_CONCEPT_ORDER` (`src/lib/terms.ts`). Weekly reviews get breadcrumbs but stay out of the previous/next chain.
 - **On this page and code copy.** Articles with four or more sections get a table of contents from their headings; every code block gets a Copy button.
 - **Social previews.** Each public page has its own Open Graph image, generated at build time under `/og/…png` (`src/pages/og/[...key].png.ts`), plus Twitter card tags and JSON-LD (`BlogPosting`, `BreadcrumbList`).
+- **Comments.** Published concept articles and weekly reviews end with a Comments section powered by [giscus](https://giscus.app): each page maps (by pathname) to a thread in this repo's GitHub Discussions, in the **General** category. Readers sign in with GitHub to comment. The [giscus GitHub App](https://github.com/apps/giscus) must be installed on this repo for the widget to load. Settings live in `src/lib/giscus.ts`; the widget follows the site's light/dark theme.
 
 ## Content from channel repos (later)
 

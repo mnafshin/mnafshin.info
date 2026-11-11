@@ -988,6 +988,24 @@ mark.pagefind-highlight {
   border-color: var(--accent);
 }
 
+/* ---------- Comments (giscus) ---------- */
+
+.comments {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.comments .giscus {
+  min-height: 8rem;
+}
+
+.comments-note {
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
 /* ---------- Learning path: previous / next ---------- */
 
 .curriculum-nav {
