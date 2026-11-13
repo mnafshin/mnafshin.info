@@ -1,14 +1,21 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
-import { getCurriculumPosition } from '../../lib/curriculum';
+import { type ArticleSectionId } from '../../lib/articles';
+import { getCurriculum, getCurriculumPosition } from '../../lib/curriculum';
 import { ogKey } from '../../lib/og';
 import { renderOgImage, type OgCard } from '../../lib/og-image';
 import { getSection, SECTIONS, SITE_DESCRIPTION } from '../../lib/site';
 import { getPublishedEntries } from '../../lib/posts';
-import { getConceptArticles } from '../../lib/spring';
-import { getSystemDesignConceptArticles } from '../../lib/system-design';
-import { getTermsConceptArticles, getTermsWeeklies } from '../../lib/terms';
-import { getK8sConceptArticles } from '../../lib/k8s';
+import { getTermsWeeklies } from '../../lib/terms';
 import { getPublishedVideos, videoPath } from '../../lib/videos';
+
+const ARTICLE_SECTIONS: ArticleSectionId[] = [
+  'spring',
+  'terms',
+  'k8s',
+  'system-design',
+  'security',
+  'db',
+];
 
 // One social preview image per public page: /og/<page path>.png
 // (the home page is /og/home.png). Drafts have no page and get no image.
@@ -50,12 +57,13 @@ export const getStaticPaths = (async () => {
     });
   }
 
-  const concepts = [
-    ...(await getConceptArticles()).map((article) => ({ article, section: 'spring' as const })),
-    ...(await getTermsConceptArticles()).map((article) => ({ article, section: 'terms' as const })),
-    ...(await getK8sConceptArticles()).map((article) => ({ article, section: 'k8s' as const })),
-    ...(await getSystemDesignConceptArticles()).map((article) => ({ article, section: 'system-design' as const })),
-  ];
+  const concepts = (
+    await Promise.all(
+      ARTICLE_SECTIONS.map(async (section) =>
+        (await getCurriculum(section)).map((article) => ({ article, section })),
+      ),
+    )
+  ).flat();
   for (const { article, section: sectionId } of concepts) {
     const section = getSection(sectionId);
     const position = await getCurriculumPosition(article, sectionId);

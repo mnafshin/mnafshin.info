@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 /** Sections whose posts are concept articles with videos beside the text. */
-export type ArticleSectionId = 'spring' | 'terms' | 'k8s' | 'system-design';
+export type ArticleSectionId = 'spring' | 'terms' | 'k8s' | 'system-design' | 'security' | 'db';
 export type Article = CollectionEntry<ArticleSectionId>;
 export type RelatedVideo = Article['data']['relatedVideos'][number];
 export type RelatedShort = Article['data']['relatedShorts'][number];

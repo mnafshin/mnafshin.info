@@ -1,0 +1,19 @@
+---
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getSecurityConceptArticles, getSecurityWeeklies } from '../../lib/security';
+
+export async function getStaticPaths() {
+  const articles = [...(await getSecurityConceptArticles()), ...(await getSecurityWeeklies())];
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+---
+<ArticleLayout article={article} sectionId="security" headings={headings}>
+  <Content />
+</ArticleLayout>

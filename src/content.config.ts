@@ -73,6 +73,8 @@ export const collections = {
   terms: defineCollection({ loader: loader('terms'), schema: articleSchema }),
   k8s: defineCollection({ loader: loader('k8s'), schema: articleSchema }),
   'system-design': defineCollection({ loader: loader('system-design'), schema: articleSchema }),
+  security: defineCollection({ loader: loader('security'), schema: articleSchema }),
+  db: defineCollection({ loader: loader('db'), schema: articleSchema }),
   ai: posts('ai'),
   videos: defineCollection({
     loader: glob({

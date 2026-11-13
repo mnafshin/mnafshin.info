@@ -50,6 +50,22 @@ export const SECTIONS = [
     youtube: null,
     inNav: false,
   },
+  {
+    id: 'security',
+    name: 'SecurityPlained',
+    tagline: 'Short articles on software security concepts for working developers, in learning order, with related videos.',
+    path: 'security',
+    youtube: null,
+    inNav: false,
+  },
+  {
+    id: 'db',
+    name: 'Database',
+    tagline: 'Short articles on database concepts for backend developers, in learning order, with related videos.',
+    path: 'db',
+    youtube: null,
+    inNav: false,
+  },
 ] as const;
 
 export type SectionId = (typeof SECTIONS)[number]['id'];
