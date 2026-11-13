@@ -137,3 +137,14 @@ The placeholder resolves first, then the expression computes a warning at 80% of
 - Profile files hold only what changes, and `@Profile` switches beans with no `if` in the code.
 - Keep secrets out of committed files; Spring Boot does not encrypt property values.
 - Use SpEL sparingly. `@ConfigurationProperties` does not evaluate it.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Boot reference: Externalized Configuration](https://docs.spring.io/spring-boot/reference/features/external-config.html)
+- [Spring Boot reference: Profiles](https://docs.spring.io/spring-boot/reference/features/profiles.html)
+- [Spring Framework reference: Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html)
+- [Baeldung: Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
+- [Reflectoring: Configuring a Spring Boot Module with @ConfigurationProperties](https://reflectoring.io/spring-boot-configuration-properties/)
+- [Baeldung: Spring Profiles](https://www.baeldung.com/spring-profiles)

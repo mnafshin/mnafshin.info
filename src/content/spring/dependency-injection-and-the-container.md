@@ -139,3 +139,14 @@ Back in Boot, `@SpringBootApplication` is `@SpringBootConfiguration` (itself a `
 - A missing or duplicate bean fails at startup, with a message naming the type.
 - Use `@Component` for your own classes and a `@Bean` method for library types or anything that needs setup.
 - In `@Bean` methods, take collaborators as parameters; it works with or without `proxyBeanMethods`.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Framework reference: Container Overview](https://docs.spring.io/spring-framework/reference/core/beans/basics.html)
+- [Spring Framework reference: Dependency Injection](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html)
+- [Spring Framework reference: Basic Concepts: @Bean and @Configuration](https://docs.spring.io/spring-framework/reference/core/beans/java/basic-concepts.html)
+- [Baeldung: Intro to Inversion of Control and Dependency Injection with Spring](https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring)
+- [Reflectoring: Why You Should Use Constructor Injection in Spring](https://reflectoring.io/constructor-injection/)
+- [Martin Fowler: Inversion of Control Containers and the Dependency Injection pattern](https://martinfowler.com/articles/injection.html)

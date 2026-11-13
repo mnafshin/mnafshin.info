@@ -112,3 +112,12 @@ The [Spring Framework reference on dependency injection](https://docs.spring.io/
 - First choice: extract the shared part into its own bean.
 - Second choice: publish an event instead of calling back.
 - `@Lazy` and the flag only hide the cycle. Use them as a last resort.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Framework reference: Dependency Injection](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html)
+- [Baeldung: Circular Dependencies in Spring](https://www.baeldung.com/circular-dependencies-in-spring)
+- [LogicBig: Spring Circular Dependencies](https://logicbig.com/tutorials/spring-framework/spring-core/circular-dependencies.html)
+- [Gopi Gorantala: BeanCurrentlyInCreationException: Circular Dependencies in Spring](https://www.ggorantala.dev/beancurrentlyincreationexception-circular-dependencies-in-spring/)

@@ -114,3 +114,13 @@ Shutdown runs in reverse: the cache closes first, then the price source, then th
 - `@Lazy` delays creation, so a broken lazy bean fails only when first used.
 - Destroy callbacks run only when the container closes. Spring Boot registers a shutdown hook, but `kill -9` skips cleanup.
 - `@DependsOn` states a dependency Spring cannot see. Shutdown runs in reverse order.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Framework reference: Using @PostConstruct and @PreDestroy](https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/postconstruct-and-predestroy-annotations.html)
+- [Spring Framework reference: Customizing the Nature of a Bean](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
+- [Baeldung: Spring PostConstruct and PreDestroy Annotations](https://www.baeldung.com/spring-postconstruct-predestroy)
+- [HowToDoInJava: Spring Bean Life Cycle in Spring Boot: Phases and Order](https://howtodoinjava.com/spring-core/spring-bean-life-cycle/)
+- [LogicBig: Receiving lifecycle callbacks by using @PostConstruct and @PreDestroy](https://logicbig.com/tutorials/spring-framework/spring-core/lifecycle-callbacks.html)

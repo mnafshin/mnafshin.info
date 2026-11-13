@@ -113,3 +113,13 @@ The [Spring Boot reference](https://docs.spring.io/spring-boot/reference/using/u
 - Keep your classes in the main class's package or below, or component scanning will not find them.
 - A `@RestController` method can return a record; Spring MVC and Jackson turn it into JSON.
 - `./mvnw package` builds one executable jar that runs with `java -jar`.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Boot reference: Developing Your First Spring Boot Application](https://docs.spring.io/spring-boot/tutorial/first-application/index.html)
+- [Spring Boot reference: Using the @SpringBootApplication Annotation](https://docs.spring.io/spring-boot/reference/using/using-the-springbootapplication-annotation.html)
+- [Spring guide: Building a RESTful Web Service](https://spring.io/guides/gs/rest-service)
+- [IntelliJ IDEA tutorial: Create your first Spring application](https://www.jetbrains.com/help/idea/your-first-spring-application.html)
+- [Baeldung: Spring Boot Tutorial – Bootstrap a Simple Application](https://www.baeldung.com/spring-boot-start)
