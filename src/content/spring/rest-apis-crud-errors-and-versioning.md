@@ -105,3 +105,14 @@ For an app already on Framework 7 that needs versions, this is a sensible choice
 - Use `ProblemDetail` and one `@RestControllerAdvice` so error bodies name what went wrong.
 - When a response must change, keep the old contract. An API version, in the path or a header, chooses which response the caller gets.
 - Built-in versioning in Spring Framework 7 suits a new need, not a migration of an API that already works.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Framework reference: Mapping Requests](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-requestmapping.html)
+- [Spring Framework reference: Error Responses](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html)
+- [Spring Framework reference: API Versioning](https://docs.spring.io/spring-framework/reference/web/webmvc-versioning.html)
+- [Spring guide: Building REST services with Spring](https://spring.io/guides/tutorials/rest)
+- [Baeldung: Returning Errors Using ProblemDetail in Spring Boot](https://www.baeldung.com/spring-boot-return-errors-problemdetail)
+- [Baeldung: API Versioning in Spring](https://www.baeldung.com/spring-api-versioning)

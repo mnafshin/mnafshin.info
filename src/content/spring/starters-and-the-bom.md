@@ -118,3 +118,14 @@ Thread-pool properties then stop having any effect. An app that only runs schedu
 - With your own parent pom, import `spring-boot-dependencies` with `<type>pom</type>` and `<scope>import</scope>`.
 - Override one version through its property, and only for a while. Never hand-write versions on managed dependencies.
 - Upgrading Spring Boot by one number moves the whole tested stack at once.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Boot reference: Build Systems](https://docs.spring.io/spring-boot/reference/using/build-systems.html)
+- [Spring Boot Maven Plugin: Using the Plugin](https://docs.spring.io/spring-boot/maven-plugin/using.html)
+- [Spring Boot reference: Version Properties](https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html)
+- [Baeldung: Intro to Spring Boot Starters](https://www.baeldung.com/spring-boot-starters)
+- [Baeldung: Spring with Maven BOM](https://www.baeldung.com/spring-maven-bom)
+- [Reflectoring: Spring Boot Basics](https://reflectoring.io/spring-boot-basics/)

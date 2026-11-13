@@ -100,3 +100,13 @@ So Spring does what our handler did, at scale, and the trip stays the same. For 
 - An HTTP request names a method and a path. The response starts with a status code and may carry a JSON body.
 - An API is a contract between programs. REST gives each resource a URL and uses the HTTP method as the action.
 - A plain JDK handler can answer `/hello` by hand. In Spring, a `@RestController` method does the same, and the container wires your objects with dependency injection.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [MDN Web Docs: An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview)
+- [JDK 25 API: com.sun.net.httpserver.HttpServer](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/com/sun/net/httpserver/HttpServer.html)
+- [MDN Web Docs: Client-Server overview](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/First_steps/Client-Server_overview)
+- [Jakarta EE Tutorial: Getting Started with Web Applications](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/webapp/webapp.html)
+- [Baeldung: Introduction to Servlets and Servlet Containers](https://www.baeldung.com/java-servlets-containers-intro)

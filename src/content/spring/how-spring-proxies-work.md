@@ -118,3 +118,12 @@ Plain Spring Framework uses a JDK proxy for a bean with an interface and CGLIB f
 - A CGLIB proxy cannot reach final methods, final classes or private methods.
 - Keep proxied methods public and not final, in a class that is not final.
 - A JDK proxy implements interfaces, so ask for the interface, not the class. Spring Boot uses CGLIB by default.
+
+## Sources
+
+Official documentation and well-known tutorials read while writing this article. The wording here is our own.
+
+- [Spring Framework reference: Proxying Mechanisms](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html)
+- [Marco Behler: Spring Transaction Management: @Transactional In-Depth](https://www.marcobehler.com/guides/spring-transaction-management-transactional-in-depth)
+- [Java Code Geeks: How Spring Proxies Actually Work, and the Four Cases Where They Silently Don’t](https://www.javacodegeeks.com/2026/07/how-spring-proxies-actually-work-and-the-four-cases-where-they-silently-dont.html)
+- [JavaBrahman: How Spring Proxies Work and the Self-Invocation Trap](https://www.javabrahman.com/spring/spring-proxies-self-invocation-trap/)
