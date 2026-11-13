@@ -2,10 +2,11 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCurriculumPosition } from '../../lib/curriculum';
 import { ogKey } from '../../lib/og';
 import { renderOgImage, type OgCard } from '../../lib/og-image';
-import { getSection, SITE_DESCRIPTION, type SectionId } from '../../lib/site';
+import { getSection, SECTIONS, SITE_DESCRIPTION } from '../../lib/site';
 import { getPublishedEntries } from '../../lib/posts';
 import { getConceptArticles } from '../../lib/spring';
 import { getTermsConceptArticles, getTermsWeeklies } from '../../lib/terms';
+import { getK8sConceptArticles } from '../../lib/k8s';
 import { getPublishedVideos, videoPath } from '../../lib/videos';
 
 // One social preview image per public page: /og/<page path>.png
@@ -35,7 +36,7 @@ export const getStaticPaths = (async () => {
     },
   ];
 
-  for (const id of ['spring', 'terms'] as SectionId[]) {
+  for (const { id } of SECTIONS) {
     const section = getSection(id);
     cards.push({
       key: section.path,
@@ -51,6 +52,7 @@ export const getStaticPaths = (async () => {
   const concepts = [
     ...(await getConceptArticles()).map((article) => ({ article, section: 'spring' as const })),
     ...(await getTermsConceptArticles()).map((article) => ({ article, section: 'terms' as const })),
+    ...(await getK8sConceptArticles()).map((article) => ({ article, section: 'k8s' as const })),
   ];
   for (const { article, section: sectionId } of concepts) {
     const section = getSection(sectionId);

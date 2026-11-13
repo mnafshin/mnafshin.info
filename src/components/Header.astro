@@ -1,12 +1,11 @@
 ---
-import { getPublishedEntries } from '../lib/posts';
-import { SECTIONS, SITE_TITLE, withBase } from '../lib/site';
+import { getVisibleSections } from '../lib/posts';
+import { SITE_TITLE, withBase } from '../lib/site';
 import SearchDialog from './SearchDialog.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
 const path = Astro.url.pathname;
-const aiPosts = await getPublishedEntries('ai');
-const navItems = SECTIONS.filter((section) => section.inNav || aiPosts.length > 0);
+const navItems = await getVisibleSections();
 
 function isCurrent(href: string) {
   if (href === withBase()) {

@@ -71,6 +71,7 @@ function posts(directory: string) {
 export const collections = {
   spring: defineCollection({ loader: loader('spring'), schema: articleSchema }),
   terms: defineCollection({ loader: loader('terms'), schema: articleSchema }),
+  k8s: defineCollection({ loader: loader('k8s'), schema: articleSchema }),
   ai: posts('ai'),
   videos: defineCollection({
     loader: glob({

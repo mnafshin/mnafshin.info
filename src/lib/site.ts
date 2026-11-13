@@ -34,6 +34,14 @@ export const SECTIONS = [
     youtube: null,
     inNav: false,
   },
+  {
+    id: 'k8s',
+    name: 'KubePlained',
+    tagline: 'Short Kubernetes articles for backend developers, in learning order, with related videos.',
+    path: 'k8s',
+    youtube: null,
+    inNav: false,
+  },
 ] as const;
 
 export type SectionId = (typeof SECTIONS)[number]['id'];
