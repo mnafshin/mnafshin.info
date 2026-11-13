@@ -75,3 +75,10 @@ That is why MoE models are often described with two numbers. The total sets the 
 - Only the picked experts do the math, so the work per token follows the active count.
 - Any expert can be needed next, so all of them stay in memory: the total sets the memory.
 - Mixture of experts means less math for every token, not a smaller model.
+
+## Sources
+
+- [Hugging Face: IBM Granite 3.1 1B-A400M Instruct model card](https://huggingface.co/ibm-granite/granite-3.1-1b-a400m-instruct)
+- [Jiang et al. (2024): Mixtral of Experts](https://arxiv.org/abs/2401.04088)
+- [Mistral AI: Mixtral of experts](https://mistral.ai/news/mixtral-of-experts)
+- [Hugging Face Blog: Mistral Large 4](https://huggingface.co/blog/mistral-large4)

@@ -66,3 +66,9 @@ Those answers tell you more than any demo.
 - Documents are cut into chunks and searched by meaning with embeddings.
 - To update what it knows, update the documents; no retraining needed.
 - It makes hallucinations rarer, not impossible: when it is wrong, check the search step and the documents first.
+
+## Sources
+
+- [OpenAI API docs: Retrieval](https://developers.openai.com/api/docs/guides/retrieval)
+- [Lewis et al. (2020): Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
+- [Stanford Law School: Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools](https://law.stanford.edu/publications/hallucination-free-assessing-the-reliability-of-leading-ai-legal-research-tools/)

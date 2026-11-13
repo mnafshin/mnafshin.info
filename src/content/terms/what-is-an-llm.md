@@ -74,3 +74,13 @@ LLMs are strong at language work: drafting, summarising, rewriting, translating,
 - It writes an answer one token at a time, always picking a likely next token.
 - A second training stage, on human-written and human-ranked answers, turns the guesser into an assistant.
 - It predicts what sounds likely, not what is true, and does not look anything up on its own: check facts, numbers and recent events.
+
+## Sources
+
+- [OpenAI Help Center: Understanding and counting tokens](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them)
+- [OpenAI (2023): GPT-4 Technical Report](https://arxiv.org/abs/2303.08774)
+- [Brown et al. (2020): Language Models are Few-Shot Learners (GPT-3)](https://arxiv.org/abs/2005.14165)
+- [Vaswani et al. (2017): Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+- [Ouyang et al. (2022): Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
+- [OpenAI (2025): Why Language Models Hallucinate (PDF)](https://cdn.openai.com/pdf/d04913be-3f6f-4d2b-b283-ff432ef4aaa5/why-language-models-hallucinate.pdf)
+- [Google for Developers: Introduction to large language models](https://developers.google.com/machine-learning/resources/intro-llms)

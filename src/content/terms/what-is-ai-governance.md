@@ -66,3 +66,11 @@ Four small things are enough to begin: a list of the AI tools you use, an owner 
 - Give every tool an accountable owner.
 - Match the checks to the risk; the EU AI Act sorts AI the same way.
 - Governance makes a clear yes possible, with limits and a way to switch a tool off.
+
+## Sources
+
+- [NIST: AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [European Commission: AI Act](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)
+- [EU AI Act, Article 50: Transparency obligations](https://artificialintelligenceact.eu/article/50/)
+- [NIST AIRC: AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
+- [ISO/IEC 42001:2023 AI management systems](https://www.iso.org/standard/42001)

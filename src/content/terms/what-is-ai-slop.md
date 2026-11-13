@@ -17,9 +17,15 @@ draft: false
 
 AI slop is low-quality digital content produced in bulk with AI, usually unchecked and sent to people who did not ask for it. It often looks polished: bold headings, neat bullet points, a confident summary. The problem is what it does to the reader. It takes seconds to make and hours to clean up, so the work does not disappear; it moves to someone else.
 
+## A report that says nothing
+
+Picture a colleague who sends you a twelve-page report before a meeting. It has a title page, bold headings and a confident summary. Twenty minutes in, you notice it says almost nothing, and two of its sources do not seem to exist.
+
+Nobody meant harm. Your colleague asked an AI tool for a report and sent it on without reading it. Making it took a minute. Reading it, checking it and asking what it really means takes you the rest of the morning. That report is AI slop, and this article comes back to it.
+
 ## What the word means
 
-Merriam-Webster defines slop as digital content of low quality that is produced usually in quantity by means of artificial intelligence. Australia's Macquarie Dictionary adds two useful details: it often contains errors, and it was not requested by the user.
+Merriam-Webster defines slop as digital content of low quality that is produced usually in quantity by means of artificial intelligence. Australia's Macquarie Dictionary adds two useful details: it often contains errors, and it was not requested by the user. The report fits all of it.
 
 The word itself is old. In the 1700s, *slop* meant soft mud; later it meant food waste, as in pig slop. The name is not a compliment: it means cheap, plentiful and not really made for you.
 
@@ -29,21 +35,25 @@ The AI meaning spread fast in 2024. In May that year, the programmer and blogger
 
 By the end of 2025 the word was mainstream. The Macquarie Dictionary named *AI slop* its [word of the year](https://www.macquariedictionary.com.au/word-of-the-year/word-of-the-year-2025/), and a few weeks later Merriam-Webster picked *slop* as its [2025 word of the year](https://www.merriam-webster.com/wordplay/word-of-the-year).
 
-## Slop in the wild
+## The same thing, in public
 
-In May 2025, a summer guide printed in the Chicago Sun-Times recommended fifteen books. Ten of them did not exist: the authors were real, the titles were made up. The freelance writer said he had used AI and had not checked what it produced.
+The report stays inside one office. In public, slop reaches many more people.
 
-The open-source project curl, a tool developers use to fetch data from the web, is a second example. Its lead developer, Daniel Stenberg, wrote in July 2025 that about 20% of the security reports the project received that year were [AI slop](https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/). Only about 5% turned out to be real vulnerabilities, and every report ties up three or four people on the security team for up to a few hours each.
+In May 2025, a summer guide printed in the Chicago Sun-Times recommended fifteen books. [Ten of them did not exist](https://chicago.suntimes.com/news/2025/05/29/special-section-king-fake-book-list-errors-sun-times-review): the authors were real, the titles were made up. The freelance writer said he had used AI and had not checked what it produced.
+
+The open-source project curl, a tool developers use to fetch data from the web, is another case. Its lead developer, Daniel Stenberg, wrote in July 2025 that about 20% of the security reports the project received that year were [AI slop](https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/). Each report ties up several people on the security team for up to a few hours, even when it turns out to be nothing.
 
 ## Workslop: the cost moves to the reader
 
-At work, slop has its own name: workslop. Researchers from BetterUp Labs and the Stanford Social Media Lab describe it as [AI-generated content that looks good but lacks substance](https://www.betterup.com/workslop). In their survey of over a thousand US desk workers, 40% said they had received workslop in the past month, and each case took about two hours to deal with.
+At work, slop has its own name: workslop. Researchers from BetterUp Labs and the Stanford Social Media Lab describe it as [AI-generated content that looks good but lacks substance](https://www.betterup.com/workslop). In their survey of over a thousand US desk workers, 40% said they had received workslop in the past month.
 
-A typical case: a colleague sends a twelve-page report that, twenty minutes in, turns out to say almost nothing, with two sources that do not seem to exist. Nobody meant harm. Someone asked an AI tool for a report and sent it on without reading it.
+The twelve-page report is a typical case. The sender saved a little time. The reader lost a lot more, and probably trusts the sender a little less.
 
 ## Not all AI content is slop
 
-AI involvement alone does not make something slop. Simon Willison put it simply: not all promotional content is spam, and not all AI-generated content is slop. A draft you asked for, checked and improved is just work done with a tool. It becomes slop when nobody checked it and it is pushed at people who did not ask for it. The useful question is not whether AI was used, but whether a human stands behind it.
+AI involvement alone does not make something slop. Simon Willison put it simply: not all promotional content is spam, and not all AI-generated content is slop.
+
+Imagine the colleague had asked for that draft, checked every source, and cut it to the one page the team needed. That is just work done with a tool. It becomes slop when nobody checked it and it is pushed at people who did not ask for it. The useful question is not whether AI was used, but whether a human stands behind it.
 
 ## Five signs of slop
 
@@ -53,11 +63,11 @@ AI involvement alone does not make something slop. Simon Willison put it simply:
 4. **Off target.** It does not answer what was actually asked.
 5. **Volume.** Ten pages where one paragraph would do.
 
-None of these prove AI was used. They tell you to check before you trust it.
+The report shows at least three: little meaning, sources that lead nowhere, and twelve pages where one would do. None of these signs prove AI was used. They tell you to check before you trust it.
 
 ## How never to send it
 
-Read it before you send it, all of it. Check every name, number and source, and cut what you cannot confirm. Trim it to what your reader needs. If AI helped, be open about it: your name on the work means you checked it.
+Read it before you send it, all of it. Check every name, number and source, and cut what you cannot confirm. Trim it to what your reader needs. If AI helped, be open about it: your name on the work means you checked it. Done this way, the twelve-page report becomes one useful page.
 
 ## Recap
 
@@ -66,3 +76,12 @@ Read it before you send it, all of it. Check every name, number and source, and 
 - AI use alone does not make content slop; a human standing behind it is the difference.
 - Watch for padding, generic text, unverifiable details, off-target answers and sheer volume.
 - Before sending AI-assisted work: read it all, check every name, number and source, and trim it.
+
+## Sources
+
+- [Simon Willison: Slop is the new name for unwanted AI-generated content](https://simonwillison.net/2024/May/8/slop/)
+- [Macquarie Dictionary: Word of the Year 2025](https://www.macquariedictionary.com.au/word-of-the-year/word-of-the-year-2025/)
+- [Merriam-Webster: 2025 Word of the Year, slop](https://www.merriam-webster.com/wordplay/word-of-the-year)
+- [Chicago Sun-Times: Special section with fake book list plagued with additional errors](https://chicago.suntimes.com/news/2025/05/29/special-section-king-fake-book-list-errors-sun-times-review)
+- [Daniel Stenberg: Death by a thousand slops](https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/)
+- [BetterUp Labs: Workslop](https://www.betterup.com/workslop)
