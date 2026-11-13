@@ -20,7 +20,7 @@ For now, posts live in this repo:
 - SpringUniverse: `src/content/spring/`
 - Termsplained: `src/content/terms/`
 - SecurityPlained (hidden from the nav until a post is published): `src/content/security/`
-- Database (hidden until a post is published; topic list waits for a curriculum file): `src/content/db/`
+- Database (hidden until a post is published): `src/content/db/`
 - KubePlained (hidden until a post is published): `src/content/k8s/`
 - System Design (hidden until a post is published): `src/content/system-design/`
 - AI (hidden from the nav until a post is published): `src/content/ai/`
@@ -104,7 +104,7 @@ Keep `draft: true` for a weekly that is still private or scheduled. The filename
 ## Search, topic map and page extras
 
 - **Search.** `npm run build` runs `astro check`, `astro build` and then [Pagefind](https://pagefind.app), which writes a static search index to `dist/pagefind/`. The GitHub Pages workflow runs the same build script, so the index is deployed with the site. The header has a Search button (also <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd> or <kbd>/</kbd>) and there is a `/search/?q=…` page. Matches are highlighted in the results and on the page you open. Only pages with `data-pagefind-body` are indexed: published concept articles and weekly reviews. Drafts have no page, hidden related videos (`draft: true` / `published: false`) are never rendered, and the redirect pages are skipped. Search does not work under `npm run dev`; use `npm run build && npm run preview`.
-- **Curriculum indexes.** Each section lists articles in the channel's learning order, grouped by chapter where the curriculum has chapters. Topics that do not yet have a published article appear greyed out and are not links. `/spring/` keeps its published articles as they are (those tutorials were combined or split) and lists later tutorials from the curriculum as upcoming. `/db/` has no topic list yet, because no database curriculum file was found.
+- **Curriculum indexes.** Each section lists articles in the channel's learning order, grouped by chapter where the curriculum has chapters. Topics that do not yet have a published article appear greyed out and are not links. `/spring/` keeps its published articles as they are (those tutorials were combined or split) and lists later tutorials from the curriculum as upcoming. `/db/` lists the 22-topic, four-season curriculum in learning order.
 - **Topic map.** `/spring/` and `/terms/` show a heatmap of the key terms the concept articles use (Spring annotations in inline code, terms in bold), against the articles in learning order. It is computed from the article text at build time (`src/lib/topics.ts`); there is nothing to maintain by hand. Empty sections omit the map.
 - **Learning path.** Concept articles show breadcrumbs and previous/next links in the section's published-article order (for example `CONCEPT_ORDER` in `src/lib/spring.ts` or `TERMS_CONCEPT_ORDER` in `src/lib/terms.ts`). Weekly reviews get breadcrumbs but stay out of the previous/next chain.
 - **On this page and code copy.** Articles with four or more sections get a table of contents from their headings; every code block gets a Copy button.
