@@ -31,3 +31,21 @@ export async function getAllPublishedPosts(): Promise<PublishedPost[]> {
 export function postPath(section: SectionId, id: string) {
   return `${section}/${id}/`;
 }
+
+/**
+ * Sections linked from the main nav and the home-page cards: those marked
+ * `inNav`, plus any other section that already has a published post.
+ * Hidden sections (inNav: false) stay off those lists until the first
+ * article exists.
+ */
+export async function getVisibleSections() {
+  const rows = await Promise.all(
+    SECTIONS.map(async (section) => ({
+      section,
+      count: (await getPublishedEntries(section.id)).length,
+    })),
+  );
+  return rows
+    .filter(({ section, count }) => section.inNav || count > 0)
+    .map(({ section }) => section);
+}

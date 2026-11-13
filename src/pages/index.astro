@@ -2,13 +2,13 @@
 import ComingSoon from '../components/ComingSoon.astro';
 import PostList from '../components/PostList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getAllPublishedPosts } from '../lib/posts';
-import { LINKS, SECTIONS, SITE_DESCRIPTION, withBase } from '../lib/site';
+import { getAllPublishedPosts, getVisibleSections } from '../lib/posts';
+import { LINKS, SITE_DESCRIPTION, withBase } from '../lib/site';
 import { getLatestVideos } from '../lib/latest-videos';
 
 const posts = await getAllPublishedPosts();
 const videos = (await getLatestVideos()).slice(0, 5);
-const publicSections = SECTIONS.filter((section) => section.inNav);
+const publicSections = await getVisibleSections();
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-GB', {

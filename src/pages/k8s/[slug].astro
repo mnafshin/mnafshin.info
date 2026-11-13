@@ -1,0 +1,19 @@
+---
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getK8sConceptArticles, getK8sWeeklies } from '../../lib/k8s';
+
+export async function getStaticPaths() {
+  const articles = [...(await getK8sConceptArticles()), ...(await getK8sWeeklies())];
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+---
+<ArticleLayout article={article} sectionId="k8s" headings={headings}>
+  <Content />
+</ArticleLayout>

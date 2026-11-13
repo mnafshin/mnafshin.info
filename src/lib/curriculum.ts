@@ -1,10 +1,13 @@
 import { type Article, type ArticleSectionId } from './articles';
 import { getConceptArticles } from './spring';
 import { getTermsConceptArticles } from './terms';
+import { getK8sConceptArticles } from './k8s';
 
 /** Published concept articles of a section, in its learning order. */
 export async function getCurriculum(section: ArticleSectionId): Promise<Article[]> {
-  return section === 'spring' ? getConceptArticles() : getTermsConceptArticles();
+  if (section === 'spring') return getConceptArticles();
+  if (section === 'terms') return getTermsConceptArticles();
+  return getK8sConceptArticles();
 }
 
 export type CurriculumPosition = {
