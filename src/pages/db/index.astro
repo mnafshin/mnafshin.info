@@ -1,10 +1,16 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import CurriculumIndex from '../../components/CurriculumIndex.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, withBase } from '../../lib/site';
 import { breadcrumbList } from '../../lib/structured-data';
-import { getDbConceptArticles, getDbWeeklies, type DbArticle } from '../../lib/db';
+import {
+  DB_CURRICULUM,
+  getDbConceptArticles,
+  getDbWeeklies,
+  type DbArticle,
+} from '../../lib/db';
 
 const section = getSection('db');
 const jsonLd = [
@@ -33,11 +39,16 @@ function formatDate(entry: DbArticle) {
     <p class="lede">
       Short written articles on database concepts for backend developers, in
       learning order. Each one will teach a concept on its own, with related
-      videos beside it once both exist. The topic list will appear here once
-      the channel curriculum is published; it is not invented in the meantime.
+      videos beside it once both exist. Topics without an article yet are
+      shown as coming soon.
     </p>
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
+
+    <section class="article-index" aria-labelledby="curriculum-heading">
+      <h2 id="curriculum-heading" class="page-title">Curriculum</h2>
+      <CurriculumIndex topics={DB_CURRICULUM} articles={articles} sectionPath="db" />
+    </section>
 
     <TopicMap articles={articles} sectionPath="db" termsLabel="Database terms" />
 
