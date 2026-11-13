@@ -5,6 +5,7 @@ import { renderOgImage, type OgCard } from '../../lib/og-image';
 import { getSection, SECTIONS, SITE_DESCRIPTION } from '../../lib/site';
 import { getPublishedEntries } from '../../lib/posts';
 import { getConceptArticles } from '../../lib/spring';
+import { getSystemDesignConceptArticles } from '../../lib/system-design';
 import { getTermsConceptArticles, getTermsWeeklies } from '../../lib/terms';
 import { getK8sConceptArticles } from '../../lib/k8s';
 import { getPublishedVideos, videoPath } from '../../lib/videos';
@@ -53,6 +54,7 @@ export const getStaticPaths = (async () => {
     ...(await getConceptArticles()).map((article) => ({ article, section: 'spring' as const })),
     ...(await getTermsConceptArticles()).map((article) => ({ article, section: 'terms' as const })),
     ...(await getK8sConceptArticles()).map((article) => ({ article, section: 'k8s' as const })),
+    ...(await getSystemDesignConceptArticles()).map((article) => ({ article, section: 'system-design' as const })),
   ];
   for (const { article, section: sectionId } of concepts) {
     const section = getSection(sectionId);

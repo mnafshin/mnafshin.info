@@ -1,0 +1,19 @@
+---
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getSystemDesignConceptArticles, getSystemDesignWeeklies } from '../../lib/system-design';
+
+export async function getStaticPaths() {
+  const articles = [...(await getSystemDesignConceptArticles()), ...(await getSystemDesignWeeklies())];
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+---
+<ArticleLayout article={article} sectionId="system-design" headings={headings}>
+  <Content />
+</ArticleLayout>

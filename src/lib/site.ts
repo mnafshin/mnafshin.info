@@ -42,6 +42,14 @@ export const SECTIONS = [
     youtube: null,
     inNav: false,
   },
+  {
+    id: 'system-design',
+    name: 'System Design',
+    tagline: 'Short architecture articles for senior and staff backend engineers, in learning order, with related videos once the channel is public.',
+    path: 'system-design',
+    youtube: null,
+    inNav: false,
+  },
 ] as const;
 
 export type SectionId = (typeof SECTIONS)[number]['id'];
