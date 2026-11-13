@@ -1,5 +1,6 @@
 import { type Article, type ArticleSectionId } from './articles';
 import { getConceptArticles } from './spring';
+import { getSystemDesignConceptArticles } from './system-design';
 import { getTermsConceptArticles } from './terms';
 import { getK8sConceptArticles } from './k8s';
 
@@ -7,7 +8,8 @@ import { getK8sConceptArticles } from './k8s';
 export async function getCurriculum(section: ArticleSectionId): Promise<Article[]> {
   if (section === 'spring') return getConceptArticles();
   if (section === 'terms') return getTermsConceptArticles();
-  return getK8sConceptArticles();
+  if (section === 'k8s') return getK8sConceptArticles();
+  return getSystemDesignConceptArticles();
 }
 
 export type CurriculumPosition = {

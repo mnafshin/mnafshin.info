@@ -1,0 +1,107 @@
+---
+import ComingSoon from '../../components/ComingSoon.astro';
+import TopicMap from '../../components/TopicMap.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSection, withBase } from '../../lib/site';
+import { breadcrumbList } from '../../lib/structured-data';
+import {
+  SYSTEM_DESIGN_CURRICULUM,
+  getSystemDesignConceptArticles,
+  getSystemDesignWeeklies,
+  type SystemDesignArticle,
+  type SystemDesignTopic,
+} from '../../lib/system-design';
+
+const section = getSection('system-design');
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: section.name }],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
+const articles = await getSystemDesignConceptArticles();
+const weeklies = await getSystemDesignWeeklies();
+
+const parts = (['A', 'B', 'C'] as const).map((part) => ({
+  part,
+  title: SYSTEM_DESIGN_CURRICULUM.find((topic) => topic.part === part)?.partTitle ?? part,
+  topics: SYSTEM_DESIGN_CURRICULUM.filter((topic) => topic.part === part),
+}));
+
+function formatDate(entry: SystemDesignArticle) {
+  return entry.data.pubDate.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+}
+
+function articleFor(topic: SystemDesignTopic) {
+  const needle = topic.id.toLowerCase();
+  return articles.find(
+    (article) =>
+      article.id === needle ||
+      article.id.startsWith(`${needle}-`) ||
+      article.data.title === topic.title,
+  );
+}
+---
+<BaseLayout title={section.name} description={section.tagline} jsonLd={jsonLd}>
+  <div class="wrap-narrow section-page">
+    <p class="eyebrow">Articles</p>
+    <h1>{section.name}</h1>
+    <p class="lede">
+      Short written articles on distributed-systems and platform architecture
+      for senior and staff backend engineers, in learning order. Each one
+      teaches one idea and its trade-offs. Related videos will appear beside
+      them once the YouTube channel is public (name and handle TBD). No
+      articles are published yet.
+    </p>
+
+    {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
+
+    <section class="article-index" aria-labelledby="curriculum-heading">
+      <h2 id="curriculum-heading" class="page-title">Curriculum</h2>
+      {parts.map(({ part, title, topics }) => (
+        <section aria-labelledby={`part-${part}-heading`}>
+          <h3 id={`part-${part}-heading`} class="page-title">Part {part} — {title}</h3>
+          <ol class="toc-list" start={topics[0] ? Number(topics[0].id.slice(2)) : 1}>
+            {topics.map((topic) => {
+              const article = articleFor(topic);
+              return (
+                <li>
+                  <span class="step-number" aria-hidden="true">{topic.id}</span>
+                  {article ? (
+                    <a href={withBase(`system-design/${article.id}/`)}>{topic.title}</a>
+                  ) : (
+                    <span>{topic.title}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))}
+    </section>
+
+    <TopicMap articles={articles} sectionPath="system-design" termsLabel="Architecture terms" />
+
+    {weeklies.length > 0 && (
+      <section class="weekly-index" aria-labelledby="weekly-heading">
+        <h2 id="weekly-heading" class="page-title">Weekly reviews</h2>
+        <ol class="toc-list">
+          {weeklies.map((weekly) => (
+            <li>
+              <a href={withBase(`system-design/${weekly.id}/`)}>{weekly.data.title}</a>
+              <p class="meta">
+                <time datetime={weekly.data.pubDate.toISOString()}>{formatDate(weekly)}</time>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+  </div>
+</BaseLayout>
