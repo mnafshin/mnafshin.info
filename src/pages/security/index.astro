@@ -1,0 +1,72 @@
+---
+import ComingSoon from '../../components/ComingSoon.astro';
+import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import TopicMap from '../../components/TopicMap.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSection, withBase } from '../../lib/site';
+import { breadcrumbList } from '../../lib/structured-data';
+import {
+  SECURITY_CURRICULUM,
+  getSecurityConceptArticles,
+  getSecurityWeeklies,
+  type SecurityArticle,
+} from '../../lib/security';
+
+const section = getSection('security');
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: section.name }],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
+const articles = await getSecurityConceptArticles();
+const weeklies = await getSecurityWeeklies();
+
+function formatDate(entry: SecurityArticle) {
+  return entry.data.pubDate.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
+}
+---
+<BaseLayout title={section.name} description={section.tagline} jsonLd={jsonLd}>
+  <div class="wrap-narrow section-page">
+    <p class="eyebrow">Articles</p>
+    <h1>{section.name}</h1>
+    <p class="lede">
+      Short written articles on software security concepts for working
+      developers, in learning order. Each one teaches a concept on its own.
+      Related videos will appear beside them once the matching article is
+      published. The list below is the first wave of the channel curriculum.
+      Topics without an article yet are shown as coming soon.
+    </p>
+
+    {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
+
+    <section class="article-index" aria-labelledby="curriculum-heading">
+      <h2 id="curriculum-heading" class="page-title">Curriculum</h2>
+      <CurriculumIndex topics={SECURITY_CURRICULUM} articles={articles} sectionPath="security" />
+    </section>
+
+    <TopicMap articles={articles} sectionPath="security" termsLabel="Security terms" />
+
+    {weeklies.length > 0 && (
+      <section class="weekly-index" aria-labelledby="weekly-heading">
+        <h2 id="weekly-heading" class="page-title">Weekly reviews</h2>
+        <ol class="toc-list">
+          {weeklies.map((weekly) => (
+            <li>
+              <a href={withBase(`security/${weekly.id}/`)}>{weekly.data.title}</a>
+              <p class="meta">
+                <time datetime={weekly.data.pubDate.toISOString()}>{formatDate(weekly)}</time>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+  </div>
+</BaseLayout>

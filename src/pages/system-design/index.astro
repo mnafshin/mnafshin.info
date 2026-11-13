@@ -1,15 +1,16 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import CurriculumIndex from '../../components/CurriculumIndex.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, withBase } from '../../lib/site';
 import { breadcrumbList } from '../../lib/structured-data';
+import type { CurriculumTopic } from '../../lib/curriculum-topics';
 import {
   SYSTEM_DESIGN_CURRICULUM,
   getSystemDesignConceptArticles,
   getSystemDesignWeeklies,
   type SystemDesignArticle,
-  type SystemDesignTopic,
 } from '../../lib/system-design';
 
 const section = getSection('system-design');
@@ -23,10 +24,10 @@ const jsonLd = [
 const articles = await getSystemDesignConceptArticles();
 const weeklies = await getSystemDesignWeeklies();
 
-const parts = (['A', 'B', 'C'] as const).map((part) => ({
-  part,
-  title: SYSTEM_DESIGN_CURRICULUM.find((topic) => topic.part === part)?.partTitle ?? part,
-  topics: SYSTEM_DESIGN_CURRICULUM.filter((topic) => topic.part === part),
+const topics: CurriculumTopic[] = SYSTEM_DESIGN_CURRICULUM.map((topic) => ({
+  id: topic.id,
+  title: topic.title,
+  group: `Part ${topic.part} — ${topic.partTitle}`,
 }));
 
 function formatDate(entry: SystemDesignArticle) {
@@ -37,16 +38,6 @@ function formatDate(entry: SystemDesignArticle) {
     timeZone: 'Europe/Berlin',
   });
 }
-
-function articleFor(topic: SystemDesignTopic) {
-  const needle = topic.id.toLowerCase();
-  return articles.find(
-    (article) =>
-      article.id === needle ||
-      article.id.startsWith(`${needle}-`) ||
-      article.data.title === topic.title,
-  );
-}
 ---
 <BaseLayout title={section.name} description={section.tagline} jsonLd={jsonLd}>
   <div class="wrap-narrow section-page">
@@ -56,34 +47,15 @@ function articleFor(topic: SystemDesignTopic) {
       Short written articles on distributed-systems and platform architecture
       for senior and staff backend engineers, in learning order. Each one
       teaches one idea and its trade-offs. Related videos will appear beside
-      them once the YouTube channel is public (name and handle TBD). No
-      articles are published yet.
+      them once the YouTube channel is public (name and handle TBD). Topics
+      without an article yet are shown as coming soon.
     </p>
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 
     <section class="article-index" aria-labelledby="curriculum-heading">
       <h2 id="curriculum-heading" class="page-title">Curriculum</h2>
-      {parts.map(({ part, title, topics }) => (
-        <section aria-labelledby={`part-${part}-heading`}>
-          <h3 id={`part-${part}-heading`} class="page-title">Part {part} — {title}</h3>
-          <ol class="toc-list" start={topics[0] ? Number(topics[0].id.slice(2)) : 1}>
-            {topics.map((topic) => {
-              const article = articleFor(topic);
-              return (
-                <li>
-                  <span class="step-number" aria-hidden="true">{topic.id}</span>
-                  {article ? (
-                    <a href={withBase(`system-design/${article.id}/`)}>{topic.title}</a>
-                  ) : (
-                    <span>{topic.title}</span>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-      ))}
+      <CurriculumIndex topics={topics} articles={articles} sectionPath="system-design" />
     </section>
 
     <TopicMap articles={articles} sectionPath="system-design" termsLabel="Architecture terms" />

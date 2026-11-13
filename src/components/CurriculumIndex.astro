@@ -1,0 +1,75 @@
+---
+import type { Article } from '../lib/articles';
+import { type CurriculumTopic, matchCurriculumArticle } from '../lib/curriculum-topics';
+import { withBase } from '../lib/site';
+
+interface Props {
+  topics: readonly CurriculumTopic[];
+  articles: Article[];
+  sectionPath: string;
+  /** 1-based start for ungrouped lists (defaults to 1). */
+  start?: number;
+}
+
+const { topics, articles, sectionPath, start = 1 } = Astro.props;
+
+const groups: { title?: string; topics: CurriculumTopic[] }[] = [];
+for (const topic of topics) {
+  const title = topic.group;
+  const last = groups.at(-1);
+  if (last && last.title === title) {
+    last.topics.push(topic);
+  } else {
+    groups.push({ title, topics: [topic] });
+  }
+}
+
+function articleFor(topic: CurriculumTopic) {
+  return matchCurriculumArticle(topic, articles);
+}
+
+function labelFor(topic: CurriculumTopic, index: number) {
+  return topic.label ?? topic.id ?? String(index);
+}
+---
+{groups.map((group, groupIndex) => {
+  const headingId = group.title
+    ? `chapter-${groupIndex + 1}-heading`
+    : undefined;
+  const startAt =
+    groupIndex === 0 && !group.title
+      ? start
+      : 1;
+  return (
+    <section class:list={{ 'curriculum-chapter': Boolean(group.title) }} aria-labelledby={headingId}>
+      {group.title && (
+        <h3 id={headingId} class="chapter-title page-title">{group.title}</h3>
+      )}
+      <ol class="toc-list" start={startAt}>
+        {group.topics.map((topic, index) => {
+          const article = articleFor(topic);
+          const label = labelFor(topic, startAt + index);
+          return (
+            <li>
+              <span class="step-number" aria-hidden="true">{label}</span>
+              {article ? (
+                <>
+                  <a href={withBase(`${sectionPath}/${article.id}/`)}>{article.data.title}</a>
+                  {article.data.description && (
+                    <p class="muted toc-blurb">{article.data.description}</p>
+                  )}
+                </>
+              ) : (
+                <span class="curriculum-upcoming">
+                  {topic.title}
+                  <span class="coming-label">Coming soon</span>
+                  <span class="visually-hidden"> (not yet published)</span>
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  );
+})}

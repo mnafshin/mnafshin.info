@@ -1,10 +1,16 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import CurriculumIndex from '../../components/CurriculumIndex.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, LINKS, withBase } from '../../lib/site';
 import { breadcrumbList } from '../../lib/structured-data';
-import { getTermsConceptArticles, getTermsWeeklies, type TermsArticle } from '../../lib/terms';
+import {
+  TERMS_CURRICULUM,
+  getTermsConceptArticles,
+  getTermsWeeklies,
+  type TermsArticle,
+} from '../../lib/terms';
 
 const section = getSection('terms');
 const jsonLd = [
@@ -34,25 +40,16 @@ function formatDate(entry: TermsArticle) {
       Short written articles that explain one AI term each, in learning
       order, with the related videos from the
       <a href={LINKS.termsplained}>Termsplained YouTube channel</a>
-      beside them. Weekly reviews of AI news follow below.
+      beside them. Topics without an article yet are shown as coming soon.
+      Weekly reviews of AI news follow below.
     </p>
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 
-    {articles.length > 0 && (
-      <section class="article-index" aria-labelledby="articles-heading">
-        <h2 id="articles-heading" class="page-title">Articles</h2>
-        <ol class="toc-list">
-          {articles.map((article, index) => (
-            <li>
-              <span class="step-number" aria-hidden="true">{index + 1}</span>
-              <a href={withBase(`terms/${article.id}/`)}>{article.data.title}</a>
-              <p class="muted toc-blurb">{article.data.description}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-    )}
+    <section class="article-index" aria-labelledby="articles-heading">
+      <h2 id="articles-heading" class="page-title">Articles</h2>
+      <CurriculumIndex topics={TERMS_CURRICULUM} articles={articles} sectionPath="terms" />
+    </section>
 
     <TopicMap articles={articles} sectionPath="terms" termsLabel="AI terms" />
 

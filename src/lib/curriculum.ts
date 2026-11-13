@@ -1,15 +1,27 @@
 import { type Article, type ArticleSectionId } from './articles';
+import { getDbConceptArticles } from './db';
+import { getK8sConceptArticles } from './k8s';
+import { getSecurityConceptArticles } from './security';
 import { getConceptArticles } from './spring';
 import { getSystemDesignConceptArticles } from './system-design';
 import { getTermsConceptArticles } from './terms';
-import { getK8sConceptArticles } from './k8s';
 
 /** Published concept articles of a section, in its learning order. */
 export async function getCurriculum(section: ArticleSectionId): Promise<Article[]> {
-  if (section === 'spring') return getConceptArticles();
-  if (section === 'terms') return getTermsConceptArticles();
-  if (section === 'k8s') return getK8sConceptArticles();
-  return getSystemDesignConceptArticles();
+  switch (section) {
+    case 'spring':
+      return getConceptArticles();
+    case 'terms':
+      return getTermsConceptArticles();
+    case 'k8s':
+      return getK8sConceptArticles();
+    case 'system-design':
+      return getSystemDesignConceptArticles();
+    case 'security':
+      return getSecurityConceptArticles();
+    case 'db':
+      return getDbConceptArticles();
+  }
 }
 
 export type CurriculumPosition = {

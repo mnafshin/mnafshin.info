@@ -1,10 +1,16 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
+import CurriculumIndex from '../../components/CurriculumIndex.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, withBase } from '../../lib/site';
 import { breadcrumbList } from '../../lib/structured-data';
-import { getK8sConceptArticles, getK8sWeeklies, type K8sArticle } from '../../lib/k8s';
+import {
+  K8S_CURRICULUM,
+  getK8sConceptArticles,
+  getK8sWeeklies,
+  type K8sArticle,
+} from '../../lib/k8s';
 
 const section = getSection('k8s');
 const jsonLd = [
@@ -34,25 +40,16 @@ function formatDate(entry: K8sArticle) {
       Short written articles on Kubernetes from a backend developer's point
       of view, in learning order. Each one teaches a concept on its own.
       Related videos from the KubePlained YouTube channel will appear beside
-      them once the channel is public.
+      them once the channel is public. Topics without an article yet are
+      shown as coming soon.
     </p>
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 
-    {articles.length > 0 && (
-      <section class="article-index" aria-labelledby="articles-heading">
-        <h2 id="articles-heading" class="page-title">Articles</h2>
-        <ol class="toc-list">
-          {articles.map((article, index) => (
-            <li>
-              <span class="step-number" aria-hidden="true">{index + 1}</span>
-              <a href={withBase(`k8s/${article.id}/`)}>{article.data.title}</a>
-              <p class="muted toc-blurb">{article.data.description}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-    )}
+    <section class="article-index" aria-labelledby="curriculum-heading">
+      <h2 id="curriculum-heading" class="page-title">Curriculum</h2>
+      <CurriculumIndex topics={K8S_CURRICULUM} articles={articles} sectionPath="k8s" />
+    </section>
 
     <TopicMap articles={articles} sectionPath="k8s" termsLabel="Kubernetes terms" />
 
