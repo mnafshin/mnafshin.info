@@ -64,3 +64,11 @@ Grounding does not end hallucinations. In a [Stanford study](https://law.stanfor
 - Asking "are you sure?" is not a reliable check.
 - Sources, permission to say "I don't know" and a quote per claim make hallucinations rarer, not impossible.
 - Before you send, sign or publish: check names, numbers, quotes and sources yourself.
+
+## Sources
+
+- [OpenAI: Why language models hallucinate](https://openai.com/index/why-language-models-hallucinate/)
+- [Mata v. Avianca, S.D.N.Y. (2023): sanctions opinion (PDF)](https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf)
+- [Kalai et al. (2025): Why Language Models Hallucinate](https://arxiv.org/abs/2509.04664)
+- [Claude Platform docs: Reduce hallucinations](https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
+- [Stanford Law School: Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools](https://law.stanford.edu/publications/hallucination-free-assessing-the-reliability-of-leading-ai-legal-research-tools/)

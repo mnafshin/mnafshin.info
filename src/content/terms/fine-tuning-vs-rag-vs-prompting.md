@@ -70,3 +70,8 @@ Add RAG when answers need facts the model cannot know: your files, prices, rules
 - Fine-tuning changes the model itself; use it for habits such as tone and format.
 - A fact trained into a model goes stale and can even beat a fresh page in the prompt.
 - Train the habits, look up the facts; many apps never need the third step.
+
+## Sources
+
+- [OpenAI API docs: Optimizing LLM accuracy](https://platform.openai.com/docs/guides/optimizing-llm-accuracy)
+- [OpenAI API docs: Supervised fine-tuning](https://platform.openai.com/docs/guides/supervised-fine-tuning)

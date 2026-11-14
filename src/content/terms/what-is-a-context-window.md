@@ -73,3 +73,11 @@ When the window is too small, the usual workarounds are to drop old messages, su
 - The app resends the chat every turn; when the window is full, old parts are dropped or summarised.
 - Bigger windows help, but the middle of a long input is read less reliably.
 - Start a new chat for a new task, restate key facts near your question, and paste only the part of a document you need.
+
+## Sources
+
+- [Claude Platform docs: Context windows](https://docs.claude.com/en/docs/build-with-claude/context-windows)
+- [OpenAI API docs: Conversation state](https://platform.openai.com/docs/guides/conversation-state)
+- [Google AI for Developers: Long context](https://ai.google.dev/gemini-api/docs/long-context)
+- [Liu et al. (2023): Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
+- [Chroma Research: Context Rot](https://research.trychroma.com/context-rot)

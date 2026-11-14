@@ -75,3 +75,17 @@ Sources were checked on 31 October 2026.
 - **Mixture of experts**: count total parameters for memory and active parameters for the work per token.
 - **Training-data signal**: `User-Agent: __usage_ai-training` is a stated preference, and `User-Agent: *` does not count as one.
 - **Catastrophic forgetting**: the sleep framework is research on keeping old skills while learning new ones, not a shipped feature.
+
+## Sources
+
+- [OpenAI: Introducing GPT-6.1 Terra](https://openai.com/index/introducing-gpt-6-1-terra)
+- [Google: Introducing Gemini 4 Carbon](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/)
+- [Hugging Face Blog: Mistral Large 4](https://huggingface.co/blog/mistral-large4)
+- [IETF draft: Machine-Readable Training Preference Signal](https://www.ietf.org/archive/id/draft-kelley-aipref-training-preference-signal-00.html)
+- [OpenAI: Making it easier for websites to express AI training preferences](https://openai.com/index/helping-websites-express-ai-training-preferences/)
+- [Google Search Central Blog: Supporting a shared AI training control for websites](https://developers.google.com/search/blog/2026/10/ai-training-control)
+- [The Verge: The biggest names in AI are backing a new way to opt out of scraping](https://www.theverge.com/tech/1023763/openai-google-microsoft-ai-scraping-standard-opt-out)
+- [Google Research: The sleep framework](https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/)
+- [Google DeepMind: Introducing Genie 4](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-genie-4/)
+- [Claude Platform release notes](https://platform.claude.com/docs/en/release-notes/overview)
+- [OpenAI Help Center: ChatGPT release notes](https://help.openai.com/en/articles/6825453-chatgpt-release-notes)

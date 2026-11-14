@@ -80,3 +80,9 @@ More knobs only help if the model gets enough practice to set them well. The B t
 - For each token, the model calculates a score for every possible next token with its knobs; it does not search.
 - At about two bytes per knob, the B sets the memory you need, and more knobs mean more math per token.
 - A bigger B does not promise a better model; enough training data matters too.
+
+## Sources
+
+- [NVIDIA: H100 GPU](https://www.nvidia.com/en-us/data-center/h100/)
+- [Hoffmann et al. (2022): Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556)
+- [Hugging Face: Qwen2.5-0.5B model card](https://huggingface.co/Qwen/Qwen2.5-0.5B)

@@ -75,3 +75,11 @@ The specification also says plainly that MCP itself cannot enforce these princip
 - It does not replace APIs; it gives them one common description any MCP app can discover.
 - It is open and widely supported, not tied to one vendor.
 - It does not make anything safe on its own: connect only servers you trust, and check what each one may do.
+
+## Sources
+
+- [Anthropic: Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+- [Model Context Protocol docs: What is MCP?](https://modelcontextprotocol.io/docs/getting-started/intro)
+- [Model Context Protocol docs: Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
+- [MCP Blog: MCP joins the Agentic AI Foundation](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/)
+- [Model Context Protocol: Specification (2026-07-28)](https://modelcontextprotocol.io/specification/2026-07-28)

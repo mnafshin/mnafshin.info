@@ -74,3 +74,9 @@ So open the citation, find the actual line that says what the answer says, and c
 - Citations show which line each sentence came from; the app can add them in code.
 - A check blocks sentences with no line behind them and falls back to "the page doesn't say".
 - A grounded answer is only as good as its page: keep sources owned and dated, and open citations before you trust them.
+
+## Sources
+
+- [Claude Platform docs: Citations](https://docs.claude.com/en/docs/build-with-claude/citations)
+- [Google Cloud docs: Check grounding with RAG](https://docs.cloud.google.com/generative-ai-app-builder/docs/check-grounding)
+- [Columbia Journalism Review, Tow Center: AI Search Has a Citation Problem](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php)

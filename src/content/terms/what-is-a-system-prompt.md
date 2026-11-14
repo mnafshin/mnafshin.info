@@ -70,3 +70,10 @@ The fix is to keep the secret out of the prompt. The OWASP GenAI Security Projec
 - It shapes tone, length, role and format, but it is a strong request, not a switch.
 - It can lose a clash with the user's message, especially on small models.
 - It is not a safe: keep secrets and access rules out of it and enforce them in code.
+
+## Sources
+
+- [OpenAI API docs: Text generation](https://platform.openai.com/docs/guides/text)
+- [Claude Platform docs: System prompts](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/system-prompts)
+- [Claude Platform docs: Published system prompts](https://docs.anthropic.com/en/release-notes/system-prompts)
+- [OWASP GenAI Security Project: LLM07:2025 System Prompt Leakage](https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/)

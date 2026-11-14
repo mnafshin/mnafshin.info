@@ -70,3 +70,10 @@ Three questions sort any pitch. What can it actually do, not just say? Who decid
 - An agent picks its own steps and acts, in a think, act, observe loop.
 - Agentic AI is the umbrella for systems that act; ask how much it decides on its own.
 - Before buying an "agent", ask what it can do, who decides the next step, and what happens when it is wrong.
+
+## Sources
+
+- [OpenAI: A practical guide to building agents (PDF)](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf)
+- [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Yao et al. (2022): ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
+- [Gartner (2025): Over 40% of agentic AI projects will be canceled by end of 2027](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027)

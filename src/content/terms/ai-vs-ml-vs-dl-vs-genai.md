@@ -66,3 +66,11 @@ When the words get swapped, ask three questions. Does it learn? Does it use a st
 - Deep learning is machine learning with a neural network of many layers.
 - Generative AI names the job, producing new content; it is not a smaller circle inside deep learning.
 - To place a product, ask: does it learn, does it use layers, does it produce something new?
+
+## Sources
+
+- [OECD (2024): Explanatory memorandum on the updated OECD definition of an AI system (PDF)](https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/explanatory-memorandum-on-the-updated-oecd-definition-of-an-ai-system_3c815e51/623da898-en.pdf)
+- [EUR-Lex: Regulation (EU) 2024/1689 (AI Act)](https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng)
+- [Goodfellow, Bengio and Courville: Deep Learning](https://www.deeplearningbook.org/)
+- [Claude Shannon (1948): A Mathematical Theory of Communication (PDF)](https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf)
+- [NIST AI 600-1: Generative Artificial Intelligence Profile](https://doi.org/10.6028/NIST.AI.600-1)

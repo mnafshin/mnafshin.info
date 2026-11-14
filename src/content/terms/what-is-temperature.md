@@ -66,3 +66,11 @@ The ranges differ between tools. OpenAI's [API reference](https://developers.ope
 - High temperature is varied, and past about 1.5 answers start to slip into nonsense.
 - It is not a creativity or effort dial; a clearer request usually helps more.
 - Keep it low for facts and code, use a middle setting for drafts, and check each tool's allowed range.
+
+## Sources
+
+- [IBM: What is LLM temperature?](https://www.ibm.com/think/topics/llm-temperature)
+- [Wikipedia: Softmax function](https://en.wikipedia.org/wiki/Softmax_function)
+- [Peeperkorn et al. (2024): Is Temperature the Creativity Parameter of Large Language Models?](https://arxiv.org/abs/2405.00492)
+- [OpenAI API reference: Create completion](https://developers.openai.com/api/reference/resources/completions/methods/create)
+- [Claude Platform docs: Glossary](https://platform.claude.com/docs/en/about-claude/glossary)

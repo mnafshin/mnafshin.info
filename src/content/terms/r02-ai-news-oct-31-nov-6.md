@@ -84,3 +84,15 @@ These two items are not in the video. Sources were checked on 7 November 2026; t
 - **Provable inference**: FlashProve can show which weights produced a reply, at a large extra GPU cost and within tight limits.
 - **Video generation**: Gemini Omni 1.2 Flash makes clips up to 15 seconds, each watermarked with SynthID.
 - **Agent memory**: Meta's gains are on its own tests; check what a memory feature keeps before you rely on it.
+
+## Sources
+
+- [OpenAI: GPT-6 Cyber](https://openai.com/index/introducing-gpt-6-cyber/)
+- [OpenAI: GPT-6 Cyber system card](https://deploymentsafety.openai.com/gpt-6-cyber)
+- [GitHub: deepseek-ai/dsh-superagent-prototype](https://github.com/deepseek-ai/dsh-superagent-prototype)
+- [Anthropic: Progress on provable inference for large language models](https://www.anthropic.com/research/provable-inference)
+- [Google: Gemini Omni 1.2 Flash](https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/)
+- [Google DeepMind: Gemini Omni Flash model card](https://deepmind.google/models/model-cards/gemini-omni-1-2-flash/)
+- [Meta AI Research: Bringing specialized models to Muse and Meta AI](https://research.meta.ai/blog/specialized-models-for-muse-and-metaai)
+- [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/)
+- [METR: Independent Assessment of AI R&D Acceleration at Anthropic](https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/)
