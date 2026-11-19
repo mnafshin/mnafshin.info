@@ -48,7 +48,7 @@ export const SECTIONS = [
     tagline: 'Short architecture articles for senior and staff backend engineers, in learning order, with related videos once the channel is public.',
     path: 'system-design',
     youtube: null,
-    inNav: false,
+    inNav: true,
   },
   {
     id: 'security',

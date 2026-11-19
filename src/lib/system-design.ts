@@ -15,7 +15,7 @@ export type SystemDesignTopic = {
  * Learning order of the System Design section, taken from the channel
  * curriculum (docs/CURRICULUM.md in mnafshin/system-design-channel).
  * Part A is communication and events, part B is data integration and
- * reliability, part C is platform governance. No articles are published yet.
+ * reliability, part C is platform governance.
  */
 export const SYSTEM_DESIGN_CURRICULUM: readonly SystemDesignTopic[] = [
   { id: 'SD01', part: 'A', partTitle: 'Communication and events', title: 'Sync vs async; when events beat calls' },
@@ -48,9 +48,14 @@ export const SYSTEM_DESIGN_CURRICULUM: readonly SystemDesignTopic[] = [
 
 /**
  * Learning order of published concept articles on /system-design/.
- * Entries are added when the matching article is written. Empty for now.
+ * Entries are added when the matching article is written.
  */
-export const SYSTEM_DESIGN_CONCEPT_ORDER = [] as const;
+export const SYSTEM_DESIGN_CONCEPT_ORDER = [
+  'sd01-sync-vs-async',
+  'sd02-rest-vs-grpc-part1',
+  'sd02-rest-vs-grpc-part2',
+  'sd03-queues-vs-logs',
+] as const;
 
 /** Published System Design concept articles, in learning order. */
 export async function getSystemDesignConceptArticles(): Promise<SystemDesignArticle[]> {
