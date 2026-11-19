@@ -3,20 +3,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
   title="Saved"
-  description="Articles you have bookmarked on this device."
+  description="Articles you have bookmarked or started reading on this device."
   ogImage="home"
   noindex={true}
 >
   <div class="wrap-narrow section-page saved-page">
     <p class="eyebrow">Saved</p>
-    <h1>Saved articles</h1>
+    <h1>Saved</h1>
     <p class="lede">
-      Bookmarks are stored in this browser. They stay on this device and are not
-      synced.
+      Bookmarks and reading progress are stored in this browser. They stay on
+      this device and are not synced.
     </p>
+    <div data-continue-list hidden>
+      <h2 class="page-title">Continue reading</h2>
+      <div data-continue-items></div>
+    </div>
+    <h2 class="page-title">Saved articles</h2>
     <div data-saved-list></div>
     <noscript>
-      <p class="muted">Bookmarks need JavaScript.</p>
+      <p class="muted">Bookmarks and reading progress need JavaScript.</p>
     </noscript>
   </div>
 </BaseLayout>

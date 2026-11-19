@@ -41,6 +41,21 @@ const { title, section, like = false } = Astro.props;
     <span aria-hidden="true">🔖</span>
     <span class="article-action-label" data-bookmark-label>Bookmark</span>
   </button>
+  <button
+    class="article-action"
+    type="button"
+    data-read-toggle
+    aria-pressed="false"
+    aria-label="Mark as read"
+  >
+    <span aria-hidden="true">✓</span>
+    <span class="article-action-label" data-read-label>Mark as read</span>
+  </button>
+</div>
+<div class="continue-prompt" data-continue-prompt hidden role="status" data-pagefind-ignore>
+  <p>Continue where you left off</p>
+  <button type="button" class="article-action" data-continue-go>Continue</button>
+  <button type="button" class="article-action" data-continue-dismiss>Dismiss</button>
 </div>
 
 <script>
