@@ -47,7 +47,12 @@ export default defineConfig({
   redirects,
   integrations: [
     // The search results page is for readers, not for search engines.
-    sitemap({ filter: (page) => !new URL(page).pathname.endsWith('/search/') }),
+    sitemap({
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        return !path.endsWith('/search/') && !path.endsWith('/saved/');
+      },
+    }),
   ],
   markdown: {
     shikiConfig: {

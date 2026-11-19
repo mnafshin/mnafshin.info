@@ -38,7 +38,7 @@ const tocExtra: TocItem[] = [
   ...(shorts.length > 0 ? [{ slug: 'related-shorts-heading', text: 'Related Shorts', depth: 2 }] : []),
 ];
 ---
-<PostLayout sectionId={sectionId} post={article} headings={headings} tocExtra={tocExtra}>
+<PostLayout sectionId={sectionId} post={article} headings={headings} tocExtra={tocExtra} like={true}>
   <div class="article-body">
     <slot />
   </div>

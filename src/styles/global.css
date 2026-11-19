@@ -581,6 +581,21 @@ kbd {
   border-color: var(--accent);
 }
 
+.saved-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav a.saved-nav {
+  color: var(--muted);
+}
+
+.nav a.saved-nav:hover,
+.nav a.saved-nav[aria-current="page"] {
+  color: var(--text);
+}
+
 .search-kbd {
   margin-left: 0.15rem;
 }
@@ -603,6 +618,15 @@ kbd {
 
   .search-kbd {
     display: none;
+  }
+
+  .saved-nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 
@@ -1294,3 +1318,83 @@ a.curriculum-link:hover {
     display: none;
   }
 }
+
+/* ---------- Article actions (views, like, bookmark) ---------- */
+
+.article .meta:has(+ .article-actions) {
+  margin-bottom: 0.65rem;
+}
+
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 2rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--faint);
+}
+
+.article-action {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 2rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.article-action,
+a.article-action:hover {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.article-action:hover,
+a.article-action:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.article-action.is-on {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ---------- Saved bookmarks ---------- */
+
+.saved-list li {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.saved-remove {
+  appearance: none;
+  justify-self: start;
+  height: 2rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.saved-remove:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+

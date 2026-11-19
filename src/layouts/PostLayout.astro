@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+import ArticleActions from '../components/ArticleActions.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import type { Crumb, TocItem } from '../lib/nav';
@@ -21,9 +22,11 @@ interface Props {
   headings?: MarkdownHeading[];
   /** Sections the layout adds after the body, listed at the end of the contents. */
   tocExtra?: TocItem[];
+  /** Show a 👍 link that jumps to the giscus reactions on this page. */
+  like?: boolean;
 }
 
-const { sectionId, post, headings = [], tocExtra = [] } = Astro.props;
+const { sectionId, post, headings = [], tocExtra = [], like = false } = Astro.props;
 const section = getSection(sectionId);
 const isWeekly = 'kind' in post.data && post.data.kind === 'weekly';
 const date = post.data.pubDate.toLocaleDateString('en-GB', {
@@ -98,6 +101,7 @@ const jsonLd = [
       )}
       {' '}· {minutes} min read
     </p>
+    <ArticleActions title={post.data.title} section={section.name} like={like} />
     <TableOfContents headings={headings} extra={tocExtra} />
     <slot />
   </article>

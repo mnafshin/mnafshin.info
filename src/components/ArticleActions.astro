@@ -1,0 +1,48 @@
+---
+import { GOATCOUNTER_CODE } from '../lib/goatcounter';
+
+interface Props {
+  title: string;
+  section: string;
+  /** Show a 👍 link that jumps to the existing giscus reactions. */
+  like?: boolean;
+}
+
+const { title, section, like = false } = Astro.props;
+---
+<div
+  class="article-actions"
+  data-article-actions
+  data-title={title}
+  data-section={section}
+  data-goatcounter-code={GOATCOUNTER_CODE}
+  data-pagefind-ignore
+>
+  <span class="view-count" data-view-count hidden></span>
+  {like && (
+    <a
+      class="article-action"
+      href="#comments-heading"
+      data-like-link
+      aria-label="Like this article, jump to reactions in comments"
+    >
+      <span aria-hidden="true">👍</span>
+      <span class="article-action-label">Like</span>
+      <span data-like-count hidden></span>
+    </a>
+  )}
+  <button
+    class="article-action"
+    type="button"
+    data-bookmark-toggle
+    aria-pressed="false"
+    aria-label="Bookmark this article"
+  >
+    <span aria-hidden="true">🔖</span>
+    <span class="article-action-label" data-bookmark-label>Bookmark</span>
+  </button>
+</div>
+
+<script>
+  import '../scripts/article-actions';
+</script>

@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
+import { goatCounterEndpoint, GOATCOUNTER_SCRIPT } from '../lib/goatcounter';
 import { isPreviewHost, SITE_DESCRIPTION, SITE_TITLE, withBase } from '../lib/site';
 import { OG_HEIGHT, OG_WIDTH, ogImageUrl, ogKey, stripBase } from '../lib/og';
 import '../styles/global.css';
@@ -103,5 +104,6 @@ const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SIT
       import '../scripts/code-copy';
       import '../scripts/search-highlight';
     </script>
+    <script is:inline data-goatcounter={goatCounterEndpoint()} async src={GOATCOUNTER_SCRIPT}></script>
   </body>
 </html>

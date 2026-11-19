@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Saved"
+  description="Articles you have bookmarked on this device."
+  ogImage="home"
+  noindex={true}
+>
+  <div class="wrap-narrow section-page saved-page">
+    <p class="eyebrow">Saved</p>
+    <h1>Saved articles</h1>
+    <p class="lede">
+      Bookmarks are stored in this browser. They stay on this device and are not
+      synced.
+    </p>
+    <div data-saved-list></div>
+    <noscript>
+      <p class="muted">Bookmarks need JavaScript.</p>
+    </noscript>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/saved';
+</script>
