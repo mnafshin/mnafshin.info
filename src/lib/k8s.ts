@@ -7,10 +7,11 @@ export type K8sArticle = CollectionEntry<'k8s'>;
 /**
  * Learning order of the KubePlained section, taken from the channel
  * curriculum (docs/CURRICULUM.md in mnafshin/kubeplained-channel,
- * Basics K01–K17, then Platform K18–K25). No articles are published yet.
+ * Basics K01–K17, then Platform K18–K25). Topics with an `articleId` link
+ * to their published article; the rest are listed as coming soon.
  */
 export const K8S_CURRICULUM: readonly CurriculumTopic[] = [
-  { id: 'K01', group: 'Basics', title: 'Why containers and orchestration; images' },
+  { id: 'K01', group: 'Basics', title: 'Why containers and orchestration; images', articleId: 'containers-images-and-orchestration' },
   { id: 'K02', group: 'Basics', title: 'Cluster architecture: control plane and nodes' },
   { id: 'K03', group: 'Basics', title: 'Local setup: kind or minikube and kubectl basics' },
   { id: 'K04', group: 'Basics', title: 'Pods' },
@@ -41,7 +42,9 @@ export const K8S_CURRICULUM: readonly CurriculumTopic[] = [
  * Learning order of published concept articles on /k8s/.
  * Entries are added when the matching article is written.
  */
-export const K8S_CONCEPT_ORDER = [] as const;
+export const K8S_CONCEPT_ORDER = [
+  'containers-images-and-orchestration', // K01
+] as const;
 
 /** Published KubePlained concept articles, in learning order. */
 export async function getK8sConceptArticles(): Promise<K8sArticle[]> {
