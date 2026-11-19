@@ -7,12 +7,13 @@ export type DbArticle = CollectionEntry<'db'>;
 /**
  * Learning order of the Database section, taken from the channel
  * curriculum on the box (/home/box/channels/database/docs/CURRICULUM.md):
- * 22 topics in four seasons. There is no GitHub repo yet. No articles
- * are published yet.
+ * 22 topics in four seasons. There is no GitHub repo yet. Topics with
+ * an `articleId` link to their published article; the rest are listed
+ * as coming soon.
  */
 export const DB_CURRICULUM: readonly CurriculumTopic[] = [
-  { id: '1', group: 'Season 1: Foundations', title: 'The relational model and the SQL a backend developer actually writes (joins, aggregates, subqueries)', label: '1' },
-  { id: '2', group: 'Season 1: Foundations', title: 'Keys, constraints and normalization', label: '2' },
+  { id: '1', group: 'Season 1: Foundations', title: 'The relational model and the SQL a backend developer actually writes (joins, aggregates, subqueries)', label: '1', articleId: '01-relational-model-and-sql' },
+  { id: '2', group: 'Season 1: Foundations', title: 'Keys, constraints and normalization', label: '2', articleId: '02-keys-constraints-normalization' },
   { id: '3', group: 'Season 1: Foundations', title: "Indexes: B-tree, composite, covering, and why an index isn't used", label: '3' },
   { id: '4', group: 'Season 1: Foundations', title: 'Reading query plans with EXPLAIN', label: '4' },
   { id: '5', group: 'Season 2: Correctness under concurrency', title: 'Transactions and ACID', label: '5' },
@@ -39,7 +40,10 @@ export const DB_CURRICULUM: readonly CurriculumTopic[] = [
  * Learning order of published concept articles on /db/.
  * Entries are added when the matching article is written.
  */
-export const DB_CONCEPT_ORDER = [] as const;
+export const DB_CONCEPT_ORDER = [
+  '01-relational-model-and-sql',
+  '02-keys-constraints-normalization',
+] as const;
 
 /** Published Database concept articles, in learning order. */
 export async function getDbConceptArticles(): Promise<DbArticle[]> {
