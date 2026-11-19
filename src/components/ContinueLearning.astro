@@ -1,0 +1,14 @@
+---
+import { getCurriculumGraph } from '../lib/curriculum';
+
+const graph = await getCurriculumGraph();
+---
+<section class="continue-learning" data-continue-learning hidden>
+  <h2 class="page-title">Continue learning</h2>
+  <div data-continue-learning-items></div>
+</section>
+<script type="application/json" data-curriculum-paths set:html={JSON.stringify(graph)}></script>
+
+<script>
+  import '../scripts/continue-learning';
+</script>

@@ -1,5 +1,6 @@
 ---
 import ComingSoon from '../components/ComingSoon.astro';
+import ContinueLearning from '../components/ContinueLearning.astro';
 import PostList from '../components/PostList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllPublishedPosts, getVisibleSections } from '../lib/posts';
@@ -35,6 +36,8 @@ function formatDate(date: Date) {
         <li><a href={LINKS.linkedin}>LinkedIn</a></li>
       </ul>
     </section>
+
+    <ContinueLearning />
 
     <section>
       <h2 class="page-title">Blogs</h2>

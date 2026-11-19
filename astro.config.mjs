@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { satteri } from '@astrojs/markdown-satteri';
+import { termTipsPlugin } from './src/lib/rehype-term-tips';
 import sitemap from '@astrojs/sitemap';
 
 // Flip this to true when cutting over to the custom domain.
@@ -55,6 +57,9 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    processor: satteri({
+      hastPlugins: [termTipsPlugin(CUSTOM_DOMAIN ? '/' : '/mnafshin.info/')],
+    }),
     shikiConfig: {
       themes: {
         light: 'github-light',

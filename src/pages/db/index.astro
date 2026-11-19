@@ -1,6 +1,7 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
 import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import LearningMap from '../../components/LearningMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, withBase } from '../../lib/site';
@@ -42,6 +43,8 @@ function formatDate(entry: DbArticle) {
       videos beside it once both exist. Topics without an article yet are
       shown as coming soon.
     </p>
+
+    <LearningMap topics={DB_CURRICULUM} articles={articles} sectionPath="db" />
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 

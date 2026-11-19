@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import ShortcutHelp from '../components/ShortcutHelp.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { goatCounterEndpoint, GOATCOUNTER_SCRIPT } from '../lib/goatcounter';
@@ -100,10 +101,13 @@ const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SIT
       <slot />
     </main>
     <Footer />
+    <ShortcutHelp />
     <script>
       import '../scripts/code-copy';
       import '../scripts/search-highlight';
       import '../scripts/section-progress';
+      import '../scripts/term-tips';
+      import '../scripts/shortcuts';
     </script>
     <script is:inline data-goatcounter={goatCounterEndpoint()} async src={GOATCOUNTER_SCRIPT}></script>
   </body>

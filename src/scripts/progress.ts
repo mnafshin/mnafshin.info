@@ -11,6 +11,7 @@ export type ArticleProgress = {
   read: boolean;
   visitedAt: string;
   dismissedPercent?: number;
+  quizComplete?: boolean;
 };
 
 export function pageUrl(href?: string): string {
@@ -56,6 +57,7 @@ export function upsertProgress(
       input.dismissedPercent !== undefined
         ? input.dismissedPercent
         : current?.dismissedPercent,
+    quizComplete: input.quizComplete ?? current?.quizComplete,
   };
   items[input.url] = next;
   saveProgress(items);

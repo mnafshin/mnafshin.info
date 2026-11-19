@@ -1,5 +1,6 @@
 ---
 import type { MarkdownHeading } from 'astro';
+import CheckYourself from '../components/CheckYourself.astro';
 import Comments from '../components/Comments.astro';
 import CurriculumNav from '../components/CurriculumNav.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
@@ -10,6 +11,7 @@ import {
   type Article,
   type ArticleSectionId,
 } from '../lib/articles';
+import { questionsFor } from '../data/check-questions';
 import { getCurriculumPosition } from '../lib/curriculum';
 import type { TocItem } from '../lib/nav';
 import { getSection } from '../lib/site';
@@ -31,17 +33,22 @@ const shorts = publicRelatedShorts(article);
 const section = getSection(sectionId);
 // Concept articles only; weekly reviews are dated posts, not part of the path.
 const position = await getCurriculumPosition(article, sectionId);
+const questions =
+  article.data.kind === 'weekly' ? [] : (questionsFor(sectionId, article.id) ?? []);
 
 const tocExtra: TocItem[] = [
   ...(videos.length > 0 ? [{ slug: 'related-videos-heading', text: 'Related videos', depth: 2 }] : []),
   ...(codes.length > 0 ? [{ slug: 'companion-code-heading', text: 'Companion code', depth: 2 }] : []),
   ...(shorts.length > 0 ? [{ slug: 'related-shorts-heading', text: 'Related Shorts', depth: 2 }] : []),
+  ...(questions.length > 0 ? [{ slug: 'check-yourself-heading', text: 'Check yourself', depth: 2 }] : []),
 ];
 ---
 <PostLayout sectionId={sectionId} post={article} headings={headings} tocExtra={tocExtra} like={true}>
   <div class="article-body">
     <slot />
   </div>
+
+  {questions.length > 0 && <CheckYourself questions={questions} />}
 
   {videos.length > 0 && (
     <section class="related-videos" aria-labelledby="related-videos-heading">

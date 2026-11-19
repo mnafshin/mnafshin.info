@@ -1,6 +1,7 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
 import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import LearningMap from '../../components/LearningMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSection, withBase } from '../../lib/site';
@@ -43,6 +44,8 @@ function formatDate(entry: K8sArticle) {
       them once the channel is public. Topics without an article yet are
       shown as coming soon.
     </p>
+
+    <LearningMap topics={K8S_CURRICULUM} articles={articles} sectionPath="k8s" />
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 
