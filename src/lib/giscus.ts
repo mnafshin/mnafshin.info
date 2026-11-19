@@ -9,7 +9,7 @@ export const GISCUS = {
   mapping: 'pathname',
   strict: '1',
   reactionsEnabled: '1',
-  emitMetadata: '0',
+  emitMetadata: '1',
   inputPosition: 'top',
   lang: 'en',
   loading: 'lazy',

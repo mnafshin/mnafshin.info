@@ -28,6 +28,16 @@ function isCurrent(href: string) {
         );
       })}
       <a
+        class="saved-nav"
+        href={withBase('saved/')}
+        aria-current={isCurrent(withBase('saved/')) ? 'page' : undefined}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+          <path d="M7 4.5h10a1 1 0 0 1 1 1V20l-6-3.2L6 20V5.5a1 1 0 0 1 1-1z" stroke-linejoin="round"/>
+        </svg>
+        <span class="saved-nav-label">Saved</span>
+      </a>
+      <a
         class="search-trigger"
         href={withBase('search/')}
         aria-keyshortcuts="Control+K Meta+K /"
