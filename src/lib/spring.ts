@@ -27,6 +27,8 @@ export const CONCEPT_ORDER = [
   'circular-dependencies',
   'auto-configuration',
   'rest-apis-crud-errors-and-versioning',
+  'restclient-and-http-service-clients',
+  'jdbcclient-and-flyway',
 ] as const;
 
 /** Published concept articles, in learning order. */
@@ -37,14 +39,12 @@ export async function getConceptArticles(): Promise<SpringArticle[]> {
 /**
  * Remaining SpringUniverse tutorials from the channel curriculum
  * (docs/CURRICULUM.md in mnafshin/springuniverse-channel), after the
- * modules that already have published articles (T0.1–T6.3). Listed as
+ * modules that already have published articles (T0.1–T8.1). Listed as
  * upcoming on /spring/ until the matching article is written. Modules
  * 0–6 are not repeated here: those tutorials were combined or split
  * into the published articles, so a 1:1 list would not fit cleanly.
  */
 export const SPRING_UPCOMING_CURRICULUM: readonly CurriculumTopic[] = [
-  { id: 'T7.1', group: '7. Calling other services: RestClient and HTTP interfaces', title: 'RestClient and declarative HTTP Service Clients (@HttpExchange) with Boot 4 auto-configuration' },
-  { id: 'T8.1', group: '8. Data access with JdbcClient', title: 'Plain SQL the modern way: JdbcClient, row mapping, exception translation, Flyway migrations' },
   { id: 'T9.1', group: '9. Spring Data JPA', title: 'Entities, repositories and derived queries with Hibernate 7' },
   { id: 'T9.2', group: '9. Spring Data JPA', title: 'Relationships, N+1, fetch strategies, projections, paging' },
   { id: 'T10.1', group: '10. Transactions', title: '@Transactional explained: boundaries, propagation, isolation, rollback rules, testing' },
