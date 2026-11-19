@@ -13,6 +13,7 @@ export type TermsArticle = CollectionEntry<'terms'>;
 export const TERMS_CONCEPT_ORDER = [
   'what-is-an-llm',
   'ai-vs-ml-vs-dl-vs-genai',
+  'how-ai-learns-from-data',
   'what-parameters-mean',
   'what-is-a-token',
   'what-is-a-context-window',
@@ -38,7 +39,7 @@ export const TERMS_CONCEPT_ORDER = [
 export const TERMS_CURRICULUM: readonly CurriculumTopic[] = [
   { id: 'what-is-an-llm', group: 'Chapter 1 · AI Basics', title: 'What is an LLM?', label: '1', articleId: 'what-is-an-llm' },
   { id: 'ai-vs-ml-vs-dl-vs-genai', group: 'Chapter 1 · AI Basics', title: 'AI vs machine learning vs deep learning vs generative AI', label: '2', articleId: 'ai-vs-ml-vs-dl-vs-genai' },
-  { id: 'terms-c1-3', group: 'Chapter 1 · AI Basics', title: 'How AI learns from data: supervised, unsupervised, reinforcement', label: '3' },
+  { id: 'how-ai-learns-from-data', group: 'Chapter 1 · AI Basics', title: 'How AI learns from data: supervised, unsupervised, reinforcement', label: '3', articleId: 'how-ai-learns-from-data' },
   { id: 'terms-c1-4', group: 'Chapter 1 · AI Basics', title: 'Neural network', label: '4' },
   { id: 'terms-c1-5', group: 'Chapter 1 · AI Basics', title: 'Training vs inference', label: '5' },
   { id: 'what-parameters-mean', group: 'Chapter 1 · AI Basics', title: 'Parameters: what 7B and 70B mean', label: '6', articleId: 'what-parameters-mean' },
