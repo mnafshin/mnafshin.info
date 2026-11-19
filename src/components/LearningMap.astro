@@ -1,0 +1,48 @@
+---
+import type { Article } from '../lib/articles';
+import { type CurriculumTopic, matchCurriculumArticle } from '../lib/curriculum-topics';
+import { withBase } from '../lib/site';
+
+interface Props {
+  topics: readonly CurriculumTopic[];
+  articles: Article[];
+  sectionPath: string;
+}
+
+const { topics, articles, sectionPath } = Astro.props;
+
+function labelFor(topic: CurriculumTopic, index: number) {
+  return topic.label ?? topic.id ?? String(index + 1);
+}
+---
+{topics.length > 0 && (
+<section class="learning-map" aria-labelledby="learning-map-heading" data-learning-map data-pagefind-ignore>
+  <h2 id="learning-map-heading" class="page-title">Learning map</h2>
+  <p class="muted learning-map-intro">
+    Topics in learning order. Coming soon items are not links yet; read and
+    in-progress states appear in this browser once you start an article.
+  </p>
+  <ol class="learning-map-track">
+    {topics.map((topic, index) => {
+      const article = matchCurriculumArticle(topic, articles);
+      const label = labelFor(topic, index);
+      return article ? (
+        <li class="learning-map-node is-published" data-map-url={withBase(`${sectionPath}/${article.id}/`)}>
+          <a href={withBase(`${sectionPath}/${article.id}/`)} title={article.data.title}>
+            <span class="map-id">{label}</span>
+            <span class="map-name">{article.data.title}</span>
+          </a>
+        </li>
+      ) : (
+        <li class="learning-map-node is-soon">
+          <span title={`${topic.title} (coming soon)`}>
+            <span class="map-id">{label}</span>
+            <span class="map-name">{topic.title}</span>
+            <span class="visually-hidden"> (coming soon)</span>
+          </span>
+        </li>
+      );
+    })}
+  </ol>
+</section>
+)}

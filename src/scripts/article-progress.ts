@@ -31,6 +31,7 @@ export function initArticleProgress(root: HTMLElement) {
 
   syncRead(Boolean(saved?.read));
   maybeShowPrompt(prompt, saved);
+  updateReadingBar();
 
   if (readButton) {
     readButton.addEventListener('click', () => {
@@ -73,7 +74,10 @@ export function initArticleProgress(root: HTMLElement) {
     timer = window.setTimeout(() => persist(), SAVE_MS);
   };
 
-  window.addEventListener('scroll', queueSave, { passive: true });
+  window.addEventListener('scroll', () => {
+    updateReadingBar();
+    queueSave();
+  }, { passive: true });
   window.addEventListener('pagehide', () => persist());
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') persist();
@@ -103,6 +107,12 @@ export function initArticleProgress(root: HTMLElement) {
       /* localStorage can be unavailable */
     }
   }
+}
+
+function updateReadingBar() {
+  const fill = document.querySelector<HTMLElement>('[data-reading-bar-fill]');
+  if (!fill) return;
+  fill.style.width = `${readingPercent()}%`;
 }
 
 function isOn(button: HTMLButtonElement) {

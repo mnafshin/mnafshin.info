@@ -44,6 +44,13 @@ function apply(page: Element) {
     }
   }
 
+  page.querySelectorAll<HTMLElement>('[data-map-url]').forEach((node) => {
+    const progress = items[pageUrl(node.dataset.mapUrl)];
+    if (!progress) return;
+    if (progress.read) node.classList.add('is-read');
+    else if (progress.percent >= 10) node.classList.add('is-started');
+  });
+
   if (read === 0 && started === 0) return;
 
   const line = document.createElement('p');

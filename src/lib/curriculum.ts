@@ -1,4 +1,5 @@
 import { type Article, type ArticleSectionId } from './articles';
+import { withBase, getSection } from './site';
 import { getDbConceptArticles } from './db';
 import { getK8sConceptArticles } from './k8s';
 import { getSecurityConceptArticles } from './security';
@@ -51,4 +52,32 @@ export async function getCurriculumPosition(
     previous: articles[at - 1],
     next: articles[at + 1],
   };
+}
+
+export type CurriculumGraphEntry = {
+  title: string;
+  section: string;
+  next?: { url: string; title: string };
+};
+
+/** Published concept articles and the next item in each section's learning path. */
+export async function getCurriculumGraph(): Promise<Record<string, CurriculumGraphEntry>> {
+  const sections: ArticleSectionId[] = ['spring', 'terms', 'k8s', 'system-design', 'security', 'db'];
+  const graph: Record<string, CurriculumGraphEntry> = {};
+  for (const id of sections) {
+    const articles = await getCurriculum(id);
+    const section = getSection(id);
+    articles.forEach((article, index) => {
+      const url = withBase(`${section.path}/${article.id}/`);
+      const following = articles[index + 1];
+      graph[url] = {
+        title: article.data.title,
+        section: section.name,
+        next: following
+          ? { url: withBase(`${section.path}/${following.id}/`), title: following.data.title }
+          : undefined,
+      };
+    });
+  }
+  return graph;
 }

@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import ArticleActions from '../components/ArticleActions.astro';
+import ReadingBar from '../components/ReadingBar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import type { Crumb, TocItem } from '../lib/nav';
@@ -82,6 +83,7 @@ const jsonLd = [
   modifiedTime={post.data.updatedDate}
   jsonLd={jsonLd}
 >
+  <ReadingBar />
   <article
     class="wrap-narrow article"
     data-pagefind-body

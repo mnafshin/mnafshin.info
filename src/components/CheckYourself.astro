@@ -1,0 +1,31 @@
+---
+import type { CheckQuestion } from '../data/check-questions';
+
+interface Props {
+  questions: CheckQuestion[];
+}
+
+const { questions } = Astro.props;
+---
+{questions.length > 0 && (
+<section class="check-yourself" aria-labelledby="check-yourself-heading" data-check-yourself data-pagefind-ignore>
+  <h2 id="check-yourself-heading">Check yourself</h2>
+  <p class="muted">Two or three questions on what this article just covered. You will see the explanation as soon as you pick an answer.</p>
+  {questions.map((question, index) => (
+    <fieldset class="check-question" data-check-question data-answer={question.answer}>
+      <legend>{index + 1}. {question.prompt}</legend>
+      {question.choices.map((choice, choiceIndex) => (
+        <label>
+          <input type="radio" name={`check-q-${index}`} value={String(choiceIndex)} />
+          <span>{choice}</span>
+        </label>
+      ))}
+      <p class="check-feedback" data-check-feedback hidden data-explain={question.explain}></p>
+    </fieldset>
+  ))}
+</section>
+
+<script>
+  import '../scripts/check-yourself';
+</script>
+)}

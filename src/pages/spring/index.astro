@@ -1,6 +1,7 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
 import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import LearningMap from '../../components/LearningMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { matchCurriculumArticle } from '../../lib/curriculum-topics';
@@ -22,6 +23,14 @@ const weeklies = await getPublishedVideosByDate();
 const upcoming = SPRING_UPCOMING_CURRICULUM.filter(
   (topic) => !matchCurriculumArticle(topic, articles),
 );
+const mapTopics = [
+  ...articles.map((article, index) => ({
+    id: String(index + 1),
+    title: article.data.title,
+    articleId: article.id,
+  })),
+  ...upcoming,
+];
 
 function formatDate(video: VideoEntry) {
   return video.data.pubDate.toLocaleDateString('en-GB', {
@@ -43,6 +52,8 @@ function formatDate(video: VideoEntry) {
       beside it. Later curriculum topics without an article yet follow as
       coming soon.
     </p>
+
+    <LearningMap topics={mapTopics} articles={articles} sectionPath="spring" />
 
     {articles.length === 0 ? (
       <ComingSoon name="SpringUniverse" />
