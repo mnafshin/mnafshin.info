@@ -1,4 +1,5 @@
 import { isBookmarked, toggleBookmark } from './bookmarks';
+import { initArticleProgress } from './article-progress';
 
 const GISCUS_ORIGIN = 'https://giscus.app';
 
@@ -7,6 +8,7 @@ if (root) {
   initViews(root);
   initLike();
   initBookmark(root);
+  initArticleProgress(root);
 }
 
 function initViews(root: HTMLElement) {

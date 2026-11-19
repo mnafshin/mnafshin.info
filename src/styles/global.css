@@ -1336,6 +1336,10 @@ a.curriculum-link:hover {
   color: var(--faint);
 }
 
+.article-actions:has(+ .continue-prompt:not([hidden])) {
+  margin-bottom: 0.65rem;
+}
+
 .article-action {
   appearance: none;
   display: inline-flex;
@@ -1396,5 +1400,69 @@ a.article-action:hover {
 .saved-remove:hover {
   color: var(--text);
   border-color: var(--accent);
+}
+
+/* ---------- Reading progress ---------- */
+
+.continue-prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.7rem;
+  margin: 0 0 2rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.continue-prompt[hidden] {
+  display: none;
+}
+
+.continue-prompt p {
+  margin: 0;
+  flex: 1 1 12rem;
+}
+
+.section-read-progress {
+  margin: -0.4rem 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.toc-list li.is-read > a::after,
+.post-list li.is-read > a::after {
+  content: " ✓";
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.85em;
+  font-weight: 650;
+}
+
+.index-progress {
+  display: block;
+  width: min(12rem, 100%);
+  height: 3px;
+  margin-top: 0.45rem;
+  border-radius: 99px;
+  background: var(--border);
+}
+
+.index-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+[data-continue-list][hidden] {
+  display: none;
+}
+
+[data-continue-list] {
+  margin-bottom: 2rem;
 }
 

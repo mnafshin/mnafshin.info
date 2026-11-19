@@ -1,9 +1,11 @@
 import { loadBookmarks, removeBookmark, type Bookmark } from './bookmarks';
+import { listInProgress, type ArticleProgress } from './progress';
 
 const list = document.querySelector<HTMLElement>('[data-saved-list]');
 if (list) {
   render(list);
 }
+renderContinue();
 
 function render(list: HTMLElement) {
   let items: Bookmark[] = [];
@@ -59,6 +61,44 @@ function render(list: HTMLElement) {
   }
 
   list.replaceChildren(ul);
+}
+
+function renderContinue() {
+  const section = document.querySelector<HTMLElement>('[data-continue-list]');
+  const target = document.querySelector<HTMLElement>('[data-continue-items]');
+  if (!section || !target) return;
+
+  let items: ArticleProgress[] = [];
+  try {
+    items = listInProgress().slice(0, 8);
+  } catch {
+    return;
+  }
+  if (items.length === 0) {
+    section.hidden = true;
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.className = 'post-list saved-list';
+  for (const item of items) {
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = item.url;
+    link.textContent = item.title;
+    li.append(link);
+
+    const meta = document.createElement('p');
+    meta.className = 'meta';
+    const when = formatSavedAt(item.visitedAt);
+    const parts = [item.section, `${Math.round(item.percent)}% through`];
+    if (when) parts.push(`Last read ${when}`);
+    meta.textContent = parts.join(' · ');
+    li.append(meta);
+    ul.append(li);
+  }
+  target.replaceChildren(ul);
+  section.hidden = false;
 }
 
 function formatSavedAt(iso: string): string | null {
