@@ -1,15 +1,58 @@
 ---
-import { withBase } from '../lib/site';
+import { getLearningPathSummaries } from '../lib/learning-paths';
+import { LINKS, withBase } from '../lib/site';
 
 const year = new Date().getFullYear();
+const paths = await getLearningPathSummaries();
 ---
 <footer class="site-footer">
-  <div class="wrap bar">
-    <p>© {year} Afshin Amini</p>
-    <div class="footer-links">
-      <a href={withBase('rss.xml')}>RSS</a>
-      <a href={withBase('spring/rss.xml')}>Spring feed</a>
-      <a href={withBase('terms/rss.xml')}>Terms feed</a>
+  <div class="wrap footer-inner">
+    <p class="footer-intro">
+      Learning paths for backend developers: short articles, in order, on Spring, AI terms, security, databases, Kubernetes and system design.
+    </p>
+
+    <div class="footer-grid">
+      <nav class="footer-col" aria-labelledby="footer-paths-heading">
+        <h2 id="footer-paths-heading">Learning paths</h2>
+        <ul>
+          {paths.map((path) => (
+            <li>
+              <a href={path.href}>
+                {path.name}
+                {path.comingSoon && <span class="footer-soon">Coming soon</span>}
+              </a>
+              <a class="footer-rss" href={path.rssHref} aria-label={`${path.name} RSS feed`}>RSS</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-labelledby="footer-useful-heading">
+        <h2 id="footer-useful-heading">Useful links</h2>
+        <ul>
+          <li><a href={withBase('saved/')}>Saved</a></li>
+          <li><a href={withBase('search/')}>Search</a></li>
+          <li><a href={withBase('rss.xml')}>RSS, all posts</a></li>
+          <li>
+            <button type="button" class="footer-text-button" data-shortcut-help-open>
+              Keyboard shortcuts
+              <kbd class="footer-kbd">?</kbd>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-labelledby="footer-elsewhere-heading">
+        <h2 id="footer-elsewhere-heading">Elsewhere</h2>
+        <ul>
+          <li><a href={LINKS.github} rel="me">GitHub</a></li>
+          <li><a href={LINKS.linkedin} rel="me">LinkedIn</a></li>
+          <li><a href={LINKS.springuniverse}>SpringUniverse on YouTube</a></li>
+          <li><a href={LINKS.termsplained}>Termsplained on YouTube</a></li>
+        </ul>
+      </nav>
     </div>
+
+    <p class="footer-copy">© {year} Afshin Amini</p>
   </div>
 </footer>

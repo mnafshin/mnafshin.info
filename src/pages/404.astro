@@ -1,11 +1,73 @@
 ---
+import ContinueLearning from '../components/ContinueLearning.astro';
+import SearchBox from '../components/SearchBox.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLearningPathSummaries, getPublishedPageIndex } from '../lib/learning-paths';
 import { withBase } from '../lib/site';
+
+const paths = await getLearningPathSummaries();
+const pages = await getPublishedPageIndex();
 ---
-<BaseLayout title="Page not found" description="This page does not exist." ogImage="home">
-  <div class="wrap-narrow">
-    <h1 class="page-title">Page not found</h1>
-    <p class="lede">That address is not on this site.</p>
-    <p><a href={withBase()}>Back to the home page</a> or <a href={withBase('search/')}>search the site</a>.</p>
+<BaseLayout
+  title="Page not found"
+  description="This address is not on the site. Search, pick a learning path, or go back home."
+  ogImage="home"
+  noindex={true}
+>
+  <div class="wrap not-found">
+    <p class="eyebrow">404</p>
+    <h1 class="page-title">This page is not here</h1>
+    <p class="lede">
+      I looked, and this address is not on the site. If you followed an old
+      link, the article may have a new URL. You can search, jump into a
+      learning path, or go back home.
+    </p>
+
+    <aside class="not-found-suggest" data-not-found-suggest hidden>
+      <p>
+        Did you mean <a data-not-found-link href="#"></a>?
+      </p>
+    </aside>
+    <script type="application/json" data-published-pages set:html={JSON.stringify(pages)}></script>
+
+    <section class="not-found-search" data-search-page aria-labelledby="not-found-search-heading">
+      <h2 id="not-found-search-heading" class="page-title">Search the site</h2>
+      <SearchBox id="not-found-search" />
+      <noscript>
+        <p class="muted">
+          Search needs JavaScript. You can <a href={withBase('search/')}>open the search page</a>
+          after turning it on, or browse a learning path below.
+        </p>
+      </noscript>
+    </section>
+
+    <ContinueLearning />
+
+    <section aria-labelledby="not-found-paths-heading">
+      <h2 id="not-found-paths-heading" class="page-title">Learning paths</h2>
+      <div class="cards">
+        {paths.map((path) => (
+          <a class:list={['card', path.comingSoon && 'is-soon']} href={path.href}>
+            <p class="eyebrow">{path.comingSoon ? 'Coming soon' : 'Learning path'}</p>
+            <h3>{path.name}</h3>
+            <p class="muted">
+              {path.comingSoon
+                ? 'The first article is still on the way. The path is ready to browse.'
+                : path.count === 1
+                  ? '1 published article, in learning order.'
+                  : `${path.count} published articles, in learning order.`}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <p class="not-found-home">
+      <a href={withBase()}>Back to the home page</a>
+    </p>
   </div>
 </BaseLayout>
+
+<script>
+  import '../scripts/not-found';
+</script>

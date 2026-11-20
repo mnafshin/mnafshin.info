@@ -6,6 +6,13 @@ help?.addEventListener('click', (event) => {
   if (event.target === help) help.close();
 });
 
+document.querySelectorAll('[data-shortcut-help-open]').forEach((trigger) => {
+  trigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (help && !help.open) help.showModal();
+  });
+});
+
 document.addEventListener('keydown', (event) => {
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   if (isTyping(event.target)) return;
