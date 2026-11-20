@@ -1,0 +1,39 @@
+---
+import SectionIcon from '../components/SectionIcon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadGlossaryHub } from '../lib/glossary';
+import { withBase } from '../lib/site';
+import { breadcrumbList } from '../lib/structured-data';
+
+const items = loadGlossaryHub(withBase());
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: 'Glossary' }],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
+---
+<BaseLayout
+  title="Glossary"
+  description="A–Z glossaries for each learning path: Spring, AI terms, security, databases, Kubernetes and system design."
+  jsonLd={jsonLd}
+>
+  <div class="wrap-narrow">
+    <p class="eyebrow">Glossaries</p>
+    <h1>Glossary</h1>
+    <p class="lede">
+      Each learning path has its own A–Z glossary of key terms from the
+      published articles. Pick a section to browse its terms, or search the
+      site with <kbd>/</kbd> or <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd>.
+    </p>
+    <div class="cards glossary-hub">
+      {items.map((item) => (
+        <a class="card" href={item.href} data-section={item.sectionId}>
+          <p class="eyebrow">{item.count > 0 ? `${item.count} terms` : 'Coming soon'}</p>
+          <h2><SectionIcon section={item.sectionId} /> {item.name}</h2>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

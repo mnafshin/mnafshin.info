@@ -2,6 +2,7 @@
 import ArticleCard from '../../components/ArticleCard.astro';
 import ComingSoon from '../../components/ComingSoon.astro';
 import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import GlossaryLink from '../../components/GlossaryLink.astro';
 import LearningMap from '../../components/LearningMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import SectionIcon from '../../components/SectionIcon.astro';
@@ -49,6 +50,7 @@ function formatDate(entry: K8sArticle) {
     </p>
 
     <LearningMap topics={K8S_CURRICULUM} articles={articles} sectionPath="k8s" />
+    <GlossaryLink sectionId="k8s" />
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 

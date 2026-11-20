@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { CURATED_GLOSSARIES } from '../data/glossaries';
+import { SECTIONS, type SectionId } from './site';
 
 export type GlossaryEntry = {
   slug: string;
@@ -79,7 +81,7 @@ const TITLE_PREFIX = /^(what is(?: an?)?|what are)\s+/i;
 
 /** Sort and letter-jump key: the term itself, not a leading "What is". */
 export function termSortKey(title: string) {
-  return title.replace(TITLE_PREFIX, '').replace(/^["“]+/, '').trim() || title;
+  return title.replace(TITLE_PREFIX, '').replace(/^["“'@]+/, '').trim() || title;
 }
 
 /** Every published Termsplained concept article, A–Z, for the public glossary. */
@@ -107,4 +109,93 @@ export function loadPublishedTerms(base = '/'): GlossaryEntry[] {
   return entries.sort((a, b) =>
     termSortKey(a.title).localeCompare(termSortKey(b.title), 'en', { sensitivity: 'base' }),
   );
+}
+
+/** One term on a section glossary page, always linked to a published article. */
+export type SectionGlossaryTerm = {
+  term: string;
+  definition: string;
+  href: string;
+  articleId: string;
+};
+
+export const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+const SECTIONS_WITH_GLOSSARY: SectionId[] = SECTIONS.map((section) => section.id);
+
+function publishedConceptIds(sectionId: string) {
+  const dir = path.resolve(process.cwd(), 'src/content', sectionId);
+  const ids = new Set<string>();
+  if (!fs.existsSync(dir)) return ids;
+  for (const file of fs.readdirSync(dir)) {
+    if (!file.endsWith('.md')) continue;
+    const meta = frontmatter(fs.readFileSync(path.join(dir, file), 'utf8'));
+    if (meta.draft === 'true' || meta.kind === 'weekly') continue;
+    ids.add(file.slice(0, -3));
+  }
+  return ids;
+}
+
+/** Terms for one section. Missing, draft or weekly article ids are dropped. */
+export function loadSectionGlossary(sectionId: SectionId, base = '/'): SectionGlossaryTerm[] {
+  if (sectionId === 'terms') {
+    return loadPublishedTerms(base).map((entry) => ({
+      term: entry.title,
+      definition: entry.description,
+      href: entry.href,
+      articleId: entry.slug,
+    }));
+  }
+
+  const prefix = base.endsWith('/') ? base : `${base}/`;
+  const published = publishedConceptIds(sectionId);
+  const entries: SectionGlossaryTerm[] = [];
+  for (const item of CURATED_GLOSSARIES[sectionId] ?? []) {
+    if (!published.has(item.articleId)) continue;
+    entries.push({
+      term: item.term,
+      definition: item.definition,
+      href: `${prefix}${sectionId}/${item.articleId}/`,
+      articleId: item.articleId,
+    });
+  }
+  return entries.sort((a, b) =>
+    termSortKey(a.term).localeCompare(termSortKey(b.term), 'en', { sensitivity: 'base' }),
+  );
+}
+
+export function groupGlossaryByLetter(terms: SectionGlossaryTerm[]) {
+  const byLetter = new Map<string, SectionGlossaryTerm[]>();
+  for (const entry of terms) {
+    const letter = termSortKey(entry.term).charAt(0).toUpperCase();
+    const key = /[A-Z]/.test(letter) ? letter : '#';
+    const list = byLetter.get(key) ?? [];
+    list.push(entry);
+    byLetter.set(key, list);
+  }
+  return {
+    byLetter,
+    present: new Set(byLetter.keys()),
+  };
+}
+
+export type GlossaryHubItem = {
+  sectionId: SectionId;
+  name: string;
+  href: string;
+  count: number;
+};
+
+/** One card per section for the /glossary/ hub. */
+export function loadGlossaryHub(base = '/'): GlossaryHubItem[] {
+  const prefix = base.endsWith('/') ? base : `${base}/`;
+  return SECTIONS_WITH_GLOSSARY.map((sectionId) => {
+    const section = SECTIONS.find((item) => item.id === sectionId);
+    return {
+      sectionId,
+      name: section?.name ?? sectionId,
+      href: `${prefix}${section?.path ?? sectionId}/glossary/`,
+      count: loadSectionGlossary(sectionId, base).length,
+    };
+  });
 }

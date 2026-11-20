@@ -25,3 +25,22 @@ Put the entry in `src/data/check-questions.ts`, keyed by the public path `{secti
 Write questions that can be answered from that page, in plain language, with one clearly correct choice. `npm run build` fails if a published markdown file has no entry, or fewer than two questions, and the error names the file.
 
 Do not skip weekly or monthly reviews, and do not skip `/ai` posts once they are published.
+
+
+## Glossary terms
+
+Every section has an A–Z glossary at `/<section>/glossary/`, built at site build time. Glossary pages are not articles, so they do not need check-yourself questions.
+
+**Termsplained.** A published concept article is added to `/terms/glossary/` automatically from its title and description. Skip weekly reviews and drafts. When you add a terms article, write a one-line `description` that can stand as the glossary definition.
+
+**Other sections** (Spring, Database, Kubernetes, System Design, and later Security and AI). Add a row to the section's list in `src/data/glossaries.ts` in the same pull request as the article:
+
+```ts
+{
+  term: 'Auto-configuration',
+  articleId: 'auto-configuration', // the markdown file's id in this section
+  definition: 'A short, plain-English definition in your own words, accurate to the article.',
+}
+```
+
+Use a short term name, not the full article title, and link only to a published concept article in that same section. The build drops any row whose article is missing, still a draft, or a weekly review. Do not invent articles to fill the list. If a section has no published articles yet, its glossary shows a coming-soon message.

@@ -48,10 +48,7 @@ export default defineConfig({
   site: CUSTOM_DOMAIN ? 'https://mnafshin.info' : 'https://mnafshin.github.io',
   base: CUSTOM_DOMAIN ? '/' : '/mnafshin.info',
   trailingSlash: 'always',
-  redirects: {
-    ...tutorialRedirects,
-    '/glossary/': '/terms/glossary/',
-  },
+  redirects: tutorialRedirects,
   integrations: [
     // The search results page is for readers, not for search engines.
     sitemap({
