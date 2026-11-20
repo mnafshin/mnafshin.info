@@ -74,3 +74,37 @@ export function loadGlossary(base = '/'): GlossaryEntry[] {
 
   return entries.sort((a, b) => b.phrases[0].length - a.phrases[0].length);
 }
+
+const TITLE_PREFIX = /^(what is(?: an?)?|what are)\s+/i;
+
+/** Sort and letter-jump key: the term itself, not a leading "What is". */
+export function termSortKey(title: string) {
+  return title.replace(TITLE_PREFIX, '').replace(/^["“]+/, '').trim() || title;
+}
+
+/** Every published Termsplained concept article, A–Z, for the public glossary. */
+export function loadPublishedTerms(base = '/'): GlossaryEntry[] {
+  const dir = path.resolve(process.cwd(), 'src/content/terms');
+  const prefix = base.endsWith('/') ? base : `${base}/`;
+  const entries: GlossaryEntry[] = [];
+  if (!fs.existsSync(dir)) return entries;
+
+  for (const file of fs.readdirSync(dir)) {
+    if (!file.endsWith('.md')) continue;
+    const slug = file.slice(0, -3);
+    const meta = frontmatter(fs.readFileSync(path.join(dir, file), 'utf8'));
+    if (meta.draft === 'true' || meta.kind === 'weekly') continue;
+    if (!meta.title || !meta.description) continue;
+    entries.push({
+      slug,
+      title: meta.title,
+      description: meta.description,
+      href: `${prefix}terms/${slug}/`,
+      phrases: PHRASES[slug] ?? [meta.title],
+    });
+  }
+
+  return entries.sort((a, b) =>
+    termSortKey(a.title).localeCompare(termSortKey(b.title), 'en', { sensitivity: 'base' }),
+  );
+}

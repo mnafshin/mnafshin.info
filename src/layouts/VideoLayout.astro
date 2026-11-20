@@ -1,12 +1,18 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import ArticleActions from '../components/ArticleActions.astro';
+import CheckYourself from '../components/CheckYourself.astro';
+import Helpful from '../components/Helpful.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
 import ReadingBar from '../components/ReadingBar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Comments from '../components/Comments.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import type { Crumb } from '../lib/nav';
 import { ogImageUrl, ogKey } from '../lib/og';
+import { questionsFor } from '../data/check-questions';
+import { contentFile, displayUpdatedDate, suggestEditUrl } from '../lib/content-meta';
+import { relatedArticles } from '../lib/related';
 import { getSection, withBase } from '../lib/site';
 import { blogPosting, breadcrumbList, wordCount } from '../lib/structured-data';
 import { codeLinks, shortUrl, videoPath, watchUrl } from '../lib/videos';
@@ -26,6 +32,23 @@ const date = video.data.pubDate.toLocaleDateString('en-GB', {
 const codes = codeLinks(video);
 const shorts = video.data.shorts;
 const section = getSection('spring');
+const questions = questionsFor('spring', video.id) ?? [];
+const related = await relatedArticles({
+  sectionId: 'spring',
+  id: video.id,
+  data: video.data,
+});
+const sourceFile = contentFile('videos', video.id);
+const updatedDate = displayUpdatedDate(video.data.pubDate, undefined, sourceFile);
+const updated = updatedDate
+  ? updatedDate.toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'Europe/Berlin',
+    })
+  : null;
+const editHref = suggestEditUrl(sourceFile);
 const sectionHref = withBase(`${section.path}/`);
 const crumbs: Crumb[] = [
   { label: 'Home', href: withBase() },
@@ -73,6 +96,17 @@ const jsonLd = [
     <h1 data-pagefind-meta="title">{video.data.title}</h1>
     <p class="meta" data-pagefind-ignore>
       <time datetime={video.data.pubDate.toISOString()}>{date}</time>
+      {updated && (
+        <>
+          {' '}
+          · Updated <time datetime={updatedDate?.toISOString()}>{updated}</time>
+        </>
+      )}
+      {editHref && (
+        <>
+          {' '}· <a class="article-edit" href={editHref}>Suggest an edit</a>
+        </>
+      )}
     </p>
     <ArticleActions title={video.data.title} section={section.name} like={true} />
 
@@ -110,6 +144,10 @@ const jsonLd = [
       <h2 id="narration-heading">Narration script</h2>
       <slot />
     </section>
+
+    {questions.length > 0 && <CheckYourself questions={questions} />}
+    <RelatedArticles items={related} />
+    <Helpful slug={`spring/${video.id}`} />
 
     <Comments />
   </article>

@@ -1,6 +1,8 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import CheckYourself from '../components/CheckYourself.astro';
+import Helpful from '../components/Helpful.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
 import Comments from '../components/Comments.astro';
 import CurriculumNav from '../components/CurriculumNav.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
@@ -12,6 +14,7 @@ import {
   type ArticleSectionId,
 } from '../lib/articles';
 import { questionsFor } from '../data/check-questions';
+import { relatedArticles } from '../lib/related';
 import { getCurriculumPosition } from '../lib/curriculum';
 import type { TocItem } from '../lib/nav';
 import { getSection } from '../lib/site';
@@ -33,14 +36,16 @@ const shorts = publicRelatedShorts(article);
 const section = getSection(sectionId);
 // Concept articles only; weekly reviews are dated posts, not part of the path.
 const position = await getCurriculumPosition(article, sectionId);
-const questions =
-  article.data.kind === 'weekly' ? [] : (questionsFor(sectionId, article.id) ?? []);
+const questions = questionsFor(sectionId, article.id) ?? [];
+const related = await relatedArticles({ sectionId, id: article.id, data: article.data });
+const helpfulSlug = `${sectionId}/${article.id}`;
 
 const tocExtra: TocItem[] = [
   ...(videos.length > 0 ? [{ slug: 'related-videos-heading', text: 'Related videos', depth: 2 }] : []),
   ...(codes.length > 0 ? [{ slug: 'companion-code-heading', text: 'Companion code', depth: 2 }] : []),
   ...(shorts.length > 0 ? [{ slug: 'related-shorts-heading', text: 'Related Shorts', depth: 2 }] : []),
   ...(questions.length > 0 ? [{ slug: 'check-yourself-heading', text: 'Check yourself', depth: 2 }] : []),
+  ...(related.length > 0 ? [{ slug: 'related-articles-heading', text: 'Related articles', depth: 2 }] : []),
 ];
 ---
 <PostLayout sectionId={sectionId} post={article} headings={headings} tocExtra={tocExtra} like={true}>
@@ -101,6 +106,9 @@ const tocExtra: TocItem[] = [
   {position && (
     <CurriculumNav position={position} sectionPath={section.path} sectionName={section.name} />
   )}
+
+  <RelatedArticles items={related} />
+  <Helpful slug={helpfulSlug} />
 
   <Comments />
 </PostLayout>

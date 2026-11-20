@@ -1,0 +1,72 @@
+---
+import SectionIcon from '../../components/SectionIcon.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadPublishedTerms, termSortKey } from '../../lib/glossary';
+import { getSection, withBase } from '../../lib/site';
+import { breadcrumbList } from '../../lib/structured-data';
+
+const section = getSection('terms');
+const terms = loadPublishedTerms(withBase());
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const byLetter = new Map<string, typeof terms>();
+for (const entry of terms) {
+  const letter = termSortKey(entry.title).charAt(0).toUpperCase();
+  const key = /[A-Z]/.test(letter) ? letter : '#';
+  const list = byLetter.get(key) ?? [];
+  list.push(entry);
+  byLetter.set(key, list);
+}
+const present = new Set(byLetter.keys());
+const jsonLd = [
+  breadcrumbList(
+    [
+      { label: 'Home', href: withBase() },
+      { label: section.name, href: withBase('terms/') },
+      { label: 'Glossary' },
+    ],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
+---
+<BaseLayout
+  title="Glossary"
+  description="An A–Z list of published Termsplained terms, each with a one-line definition and a link to the article."
+  jsonLd={jsonLd}
+>
+  <div class="wrap-narrow section-page" data-section="terms" data-pagefind-body>
+    <p class="eyebrow">Termsplained</p>
+    <h1><SectionIcon section="terms" size={32} /> Glossary</h1>
+    <p class="lede">
+      Every published term, in alphabetical order, with a one-line definition.
+      Use the letters to jump, or search the site with <kbd>/</kbd> or
+      <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd> — this page is included in Pagefind.
+    </p>
+
+    <nav class="glossary-jump" aria-label="Jump to a letter">
+      {letters.map((letter) => (
+        present.has(letter) ? (
+          <a href={`#letter-${letter.toLowerCase()}`}>{letter}</a>
+        ) : (
+          <span class="glossary-jump-empty">{letter}</span>
+        )
+      ))}
+    </nav>
+
+    {letters.filter((letter) => present.has(letter)).map((letter) => (
+      <section aria-labelledby={`letter-${letter.toLowerCase()}`}>
+        <h2 class="glossary-letter" id={`letter-${letter.toLowerCase()}`}>{letter}</h2>
+        <ul class="glossary-list">
+          {(byLetter.get(letter) ?? []).map((entry) => (
+            <li>
+              <a href={entry.href}>
+                <span class="glossary-term">{entry.title}</span>
+                <span class="muted glossary-def">{entry.description}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
