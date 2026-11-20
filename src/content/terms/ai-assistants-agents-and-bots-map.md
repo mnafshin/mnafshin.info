@@ -25,7 +25,7 @@ Picture three steps on the scale.
 
 1. **Answers when asked.** The everyday chat apps: ChatGPT, Claude, Gemini and Perplexity. Sara asks, "What does this client's company do?" and gets a summary.
 2. **Acts when asked.** You give a task, and it works through many steps by itself. ChatGPT Work, for example, has its own cloud browser that keeps going after you close your laptop and pauses when it needs your sign-in or confirmation.
-3. **Acts on its own schedule.** This kind is called **proactive**: it starts work without being asked each time. Anthropic's Claude Duet, a research preview, prepares a morning brief and checks your connected apps every few hours.
+3. **Acts on its own schedule.** This kind is called **proactive**: it starts work without being asked each time. Anthropic's Claude Duet, a research preview, sends a morning brief and keeps working on its own cloud computer while you are away.
 
 The further down the list, the more the tool can save you, and the more you need to trust it. That is why products such as Claude Duet and OpenDot ask before they send, pay or delete anything.
 
@@ -47,7 +47,7 @@ Put the two questions together and most names fall into one of these boxes.
 | Kind | What it does | Examples | Read more |
 |---|---|---|---|
 | Chat assistant | Answers, and sometimes acts when asked | ChatGPT, Claude, Gemini, Perplexity | This article |
-| Hosted agent | Works for you on the company's computer, often on a schedule | ChatGPT dots, Claude Duet, Claude Cowork, Meta Muse, Grok Bot, Manus | Part 2 (coming soon) |
+| Hosted agent | Works for you on the company's computer, often on a schedule | ChatGPT dots, Claude Duet, Claude Cowork, Meta Muse, Grok Bot, Manus | [Hosted AI agents](/terms/hosted-ai-agents/) |
 | Self-hosted agent | Free software on your computer or server, reached from chat apps | OpenClaw, Hermes Agent, NanoClaw, Suparagent | Part 3 (coming soon) |
 | Builder tools | Write code, build apps or run automations | Claude Code, Codex, Cursor, Lovable, n8n | Part 4 (coming soon) |
 
@@ -65,7 +65,7 @@ She does not need one tool for everything. A chat assistant for daily questions 
 
 ## Behind every helper: a model
 
-Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. What an agent is actually made of, from the model to its tools and instruction files, is the next article in this group (coming soon). Later ones explain those keys, how to choose a model, and where OpenRouter fits.
+Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. What an agent is actually made of, from the model to its tools and instruction files, is explained in [What is an AI agent made of?](/terms/what-is-an-ai-agent-made-of/). Later ones explain those keys, how to choose a model, and where OpenRouter fits.
 
 ## Recap
 
@@ -81,7 +81,7 @@ Every product on this map sends your words to a **language model**, the engine t
 - [IBM: AI agents vs. AI assistants](https://www.ibm.com/think/topics/ai-agents-vs-ai-assistants)
 - [OpenAI Help Center: Using cloud browser in ChatGPT](https://help.openai.com/en/articles/20001280-using-cloud-browser-in-chatgpt)
 - [OpenAI: Introducing dots](https://openai.com/index/introducing-dots/)
-- [The Verge: Anthropic's Claude Duet AI agent](https://www.theverge.com/ai-artificial-intelligence/1015843/anthropic-claude-duet-ai-agent)
+- [Anthropic: Introducing Claude Duet](https://claude.com/resources/articles/claude-duet)
 - [Meta: Introducing Muse, a personal AI agent](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/)
 - [Manus docs: Welcome](https://manus.im/docs/introduction/welcome)
 - [Grok Bot 101](https://x.ai/bot/guides/grok-bot-101)
