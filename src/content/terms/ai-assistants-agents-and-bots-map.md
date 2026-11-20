@@ -48,7 +48,7 @@ Put the two questions together and most names fall into one of these boxes.
 |---|---|---|---|
 | Chat assistant | Answers, and sometimes acts when asked | ChatGPT, Claude, Gemini, Perplexity | This article |
 | Hosted agent | Works for you on the company's computer, often on a schedule | ChatGPT dots, Claude Duet, Claude Cowork, Meta Muse, Grok Bot, Manus | [Hosted AI agents](/terms/hosted-ai-agents/) |
-| Self-hosted agent | Free software on your computer or server, reached from chat apps | OpenClaw, Hermes Agent, NanoClaw, Suparagent | Part 3 (coming soon) |
+| Self-hosted agent | Free software on your computer or server, reached from chat apps | OpenClaw, Hermes Agent, NanoClaw, Suparagent | [Self-hosted AI agents](/terms/self-hosted-ai-agents/) |
 | Builder tools | Write code, build apps or run automations | Claude Code, Codex, Cursor, Lovable, n8n | Part 4 (coming soon) |
 
 Some famous names are not agents at all. **OpenRouter** gives you one account and one key for many AI models; it is plumbing that other tools plug into. **Copilot** is a brand name that covers several Microsoft and GitHub products. Both get their own articles in this group. Until then, [What is an AI copilot?](/terms/what-is-an-ai-copilot/) explains the brand versus the idea.
@@ -65,7 +65,7 @@ She does not need one tool for everything. A chat assistant for daily questions 
 
 ## Behind every helper: a model
 
-Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. What an agent is actually made of, from the model to its tools and instruction files, is explained in [What is an AI agent made of?](/terms/what-is-an-ai-agent-made-of/). Later ones explain those keys, how to choose a model, and where OpenRouter fits.
+Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. What an agent is actually made of, from the model to its tools and instruction files, is explained in [What is an AI agent made of?](/terms/what-is-an-ai-agent-made-of/). Later ones explain [API keys](/terms/what-is-an-api-key/), [how to choose a model](/terms/which-ai-model-should-i-use/) and [what OpenRouter is](/terms/what-is-openrouter/).
 
 ## Recap
 
