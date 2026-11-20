@@ -12,7 +12,7 @@
   --shadow: 0 1px 2px rgb(28 25 23 / 0.06);
   --font-sans: "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --content: 42rem;
   --wide: 64rem;
   --radius: 0.75rem;
@@ -300,8 +300,12 @@ a.card:hover {
 
 .article {
   font-family: var(--font-serif);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+.article.wrap-narrow {
+  width: min(72ch, calc(100% - 2rem));
 }
 
 .article .meta {
@@ -314,7 +318,27 @@ a.card:hover {
 .article :is(h2, h3, h4) {
   line-height: 1.25;
   letter-spacing: -0.02em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+.article h2 {
+  font-size: 1.5rem;
+  margin: 2.4rem 0 0.8rem;
+}
+
+.article h3 {
+  font-size: 1.25rem;
   margin: 2rem 0 0.7rem;
+}
+
+.article h4 {
+  font-size: 1.1rem;
+  margin: 1.75rem 0 0.6rem;
+}
+
+.article-body > h2:first-child {
+  margin-top: 1.5rem;
 }
 
 .article p,
@@ -328,7 +352,10 @@ a.card:hover {
   padding: 1rem 1.1rem;
   border-radius: 0.7rem;
   overflow-x: auto;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  tab-size: 2;
+  font-variant-ligatures: none;
   border: 1px solid var(--border);
 }
 
@@ -1655,6 +1682,7 @@ a.article-action:hover {
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
   font-family: var(--font-sans);
+  font-size: 1rem;
 }
 
 .check-question {
@@ -1782,3 +1810,342 @@ html.dark .shortcut-help {
   font-size: 0.85em;
 }
 
+
+
+/* ---------- Callout boxes ---------- */
+
+.callout {
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin: 0 0 1.35rem;
+  padding: 0.85rem 1rem 0.9rem 1rem;
+  border: 1px solid var(--callout-border, var(--border));
+  border-left-width: 0.35rem;
+  border-radius: calc(var(--radius) - 0.15rem);
+  background: var(--callout-bg, var(--bg-elevated));
+  color: var(--text);
+}
+
+.callout-label {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--callout-label, var(--accent));
+}
+
+.callout-title {
+  margin: 0 0 0.35rem;
+  font-weight: 650;
+}
+
+.callout-body > :last-child {
+  margin-bottom: 0;
+}
+
+.callout-note {
+  --callout-label: var(--accent);
+  --callout-border: var(--accent);
+  --callout-bg: var(--accent-soft);
+}
+
+.callout-tip {
+  --callout-label: #0369a1;
+  --callout-border: #0284c7;
+  --callout-bg: #e0f2fe;
+}
+
+.callout-important {
+  --callout-label: #6d28d9;
+  --callout-border: #7c3aed;
+  --callout-bg: #ede9fe;
+}
+
+.callout-warning {
+  --callout-label: #b45309;
+  --callout-border: #d97706;
+  --callout-bg: #fef3c7;
+}
+
+.callout-mistake {
+  --callout-label: #b91c1c;
+  --callout-border: #dc2626;
+  --callout-bg: #fee2e2;
+}
+
+html.dark .callout-tip {
+  --callout-label: #7dd3fc;
+  --callout-border: #38bdf8;
+  --callout-bg: #0c4a6e;
+}
+
+html.dark .callout-important {
+  --callout-label: #c4b5fd;
+  --callout-border: #a78bfa;
+  --callout-bg: #2e1065;
+}
+
+html.dark .callout-warning {
+  --callout-label: #fcd34d;
+  --callout-border: #f59e0b;
+  --callout-bg: #451a03;
+}
+
+html.dark .callout-mistake {
+  --callout-label: #fca5a5;
+  --callout-border: #f87171;
+  --callout-bg: #450a0a;
+}
+
+/* ---------- Diagrams and image zoom ---------- */
+
+.diagram {
+  margin: 0 0 1.4rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow-x: auto;
+}
+
+.diagram-view {
+  display: flex;
+  justify-content: center;
+  cursor: zoom-in;
+}
+
+.diagram-view svg {
+  max-width: 100%;
+  height: auto;
+  background: transparent;
+}
+
+.diagram-error {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--muted);
+  cursor: default;
+}
+
+.article-body img,
+.article img {
+  border-radius: calc(var(--radius) - 0.15rem);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.article-body img[data-zoom-trigger],
+.article img[data-zoom-trigger] {
+  cursor: zoom-in;
+}
+
+.media-zoom {
+  width: min(72rem, calc(100% - 1rem));
+  max-width: calc(100% - 1rem);
+  height: min(52rem, calc(100% - 1rem));
+  max-height: calc(100% - 1rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 24px 60px rgb(28 25 23 / 0.28);
+}
+
+html.dark .media-zoom {
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.55);
+}
+
+.media-zoom::backdrop {
+  background: rgb(28 25 23 / 0.55);
+}
+
+.media-zoom-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.media-zoom-close {
+  align-self: flex-end;
+  margin: 0.6rem 0.7rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+}
+
+.media-zoom-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem 1.1rem;
+}
+
+.media-zoom-stage img,
+.media-zoom-stage svg {
+  max-width: 100%;
+  max-height: min(80vh, 46rem);
+  height: auto;
+  width: auto;
+  background: var(--bg-elevated);
+  border-radius: 0.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media-zoom,
+  .toc-sheet,
+  .toc-fab {
+    transition: none;
+  }
+}
+
+/* ---------- Floating mobile TOC ---------- */
+
+.toc a[aria-current="location"] {
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.toc-fab {
+  display: none;
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 30;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--bg);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 8px 24px rgb(28 25 23 / 0.2);
+  cursor: pointer;
+}
+
+html.dark .toc-fab {
+  color: #1c1917;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+}
+
+.toc-sheet {
+  width: min(40rem, 100%);
+  max-width: 100%;
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 1rem 1rem 0 0;
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 -16px 40px rgb(28 25 23 / 0.18);
+}
+
+.toc-sheet::backdrop {
+  background: rgb(28 25 23 / 0.45);
+}
+
+.toc-sheet-panel {
+  padding: 0.85rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  max-height: min(82vh, 40rem);
+  overflow: auto;
+}
+
+.toc-sheet-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.toc-sheet-bar h2 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.toc-sheet-close {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+.toc-sheet ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-sheet li {
+  padding: 0.15rem 0;
+}
+
+.toc-sheet li.toc-sub {
+  padding-left: 0.9rem;
+}
+
+.toc-sheet a {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.4rem 0.2rem;
+  border-radius: 0.35rem;
+}
+
+.toc-sheet a:hover,
+.toc-sheet a[aria-current="location"] {
+  color: var(--accent);
+}
+
+.toc-sheet a[aria-current="location"] {
+  font-weight: 650;
+  background: var(--accent-soft);
+}
+
+@media (max-width: 52rem) {
+  .has-toc-fab .article {
+    padding-bottom: 4.75rem;
+  }
+
+  .has-toc-fab .article > .article-toc > .toc,
+  .has-toc-fab .article-toc > .toc {
+    display: none;
+  }
+
+  .has-toc-fab .toc-fab {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 52.01rem) {
+  .toc-fab,
+  .toc-sheet {
+    display: none;
+  }
+}

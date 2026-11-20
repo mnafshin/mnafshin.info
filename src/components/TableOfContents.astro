@@ -18,16 +18,42 @@ const items: TocItem[] = [
 const sections = headings.filter((heading) => heading.depth === 2).length;
 ---
 {sections >= minSections && (
-  <details class="toc" open data-pagefind-ignore>
-    <summary id="toc-heading">On this page</summary>
-    <nav aria-labelledby="toc-heading">
-      <ol>
-        {items.map((item) => (
-          <li class={item.depth === 3 ? 'toc-sub' : undefined}>
-            <a href={`#${item.slug}`}>{item.text}</a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  </details>
+  <div class="article-toc" data-article-toc data-pagefind-ignore>
+    <details class="toc" open>
+      <summary id="toc-heading">On this page</summary>
+      <nav aria-labelledby="toc-heading">
+        <ol>
+          {items.map((item) => (
+            <li class={item.depth === 3 ? 'toc-sub' : undefined}>
+              <a href={`#${item.slug}`}>{item.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </details>
+
+    <button type="button" class="toc-fab" data-toc-open aria-haspopup="dialog" aria-controls="toc-sheet">
+      On this page
+    </button>
+
+    <dialog class="toc-sheet" id="toc-sheet" data-toc-sheet aria-labelledby="toc-sheet-title">
+      <div class="toc-sheet-panel">
+        <div class="toc-sheet-bar">
+          <h2 id="toc-sheet-title">On this page</h2>
+          <button type="button" class="toc-sheet-close" data-toc-close>
+            Close
+          </button>
+        </div>
+        <nav aria-labelledby="toc-sheet-title">
+          <ol>
+            {items.map((item) => (
+              <li class={item.depth === 3 ? 'toc-sub' : undefined}>
+                <a href={`#${item.slug}`}>{item.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </div>
+    </dialog>
+  </div>
 )}

@@ -2,6 +2,7 @@
 title: 'How a Java Web App Works: From Browser to Spring and Back'
 description: What happens between typing an address and seeing a JSON answer, written as a short trip through client, HTTP, JSON and a plain Java server, and the one part of that trip Spring automates.
 pubDate: '2026-10-17T16:00:21Z'
+updatedDate: '2026-11-20T00:00:00Z'
 section: spring
 topic: java-web-basics
 relatedVideos:
@@ -32,15 +33,27 @@ draft: false
 
 A Java web app is a program that waits for HTTP requests and answers each one. Every request makes the same trip: a client asks, HTTP carries the question, a handler on the server builds the answer, and the response travels back. Spring automates one part of that trip, so it helps to know the whole route first.
 
+```mermaid
+flowchart LR
+  client[Client] -->|"1. HTTP request"| server[Server]
+  server -->|"2. HTTP response"| client
+```
+
 ## Client and server
 
 The web has two roles. The client asks and the server answers. A browser is a client, and so is a phone app or a small Java program.
 
 The server is a program that waits for requests and answers each one; it never calls a client first. One server can answer many clients at once. When we write Spring code, we write the server side.
 
+> [!MISTAKE]
+> It is easy to think the server starts the conversation. It never calls a client first. It waits for a request, then answers.
+
 ## An HTTP request is a letter
 
 Once connected, the client sends an HTTP request. Think of it as a letter. The first line says what you want: a method such as `GET` and a path such as `/hello`. Then come headers, short notes like "I accept JSON". Some requests, such as `POST`, also carry a body.
+
+> [!TIP]
+> Read an HTTP request the way you would a letter: the first line is the request, the headers are short notes, and some letters also have a body.
 
 The server writes back in the same format. Its first line holds a status code: 200 means OK, 404 means not found, 500 means the server broke. Then come headers, such as the content type, and finally the body you asked for.
 
@@ -92,7 +105,12 @@ Our handler did everything by hand: it checked the method, read the parameter, w
 
 Spring also creates your objects and connects them. This is dependency injection: instead of building its helpers with `new`, a class asks for them in its constructor, and Spring's container passes them in.
 
-So Spring does what our handler did, at scale, and the trip stays the same. For more on the request and response format, see MDN's [overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview).
+So Spring does what our handler did, at scale, and the trip stays the same.
+
+> [!IMPORTANT]
+> Spring automates the handler work, but the trip stays the same: a client still sends an HTTP request, and the server still sends a response.
+
+For more on the request and response format, see MDN's [overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview).
 
 ## Recap
 

@@ -107,7 +107,29 @@ Keep `draft: true` for a weekly that is still private or scheduled. The filename
 - **Curriculum indexes.** Each section lists articles in the channel's learning order, grouped by chapter where the curriculum has chapters. Topics that do not yet have a published article appear greyed out and are not links. `/spring/` keeps its published articles as they are (those tutorials were combined or split) and lists later tutorials from the curriculum as upcoming. `/db/` lists the 22-topic, four-season curriculum in learning order.
 - **Topic map.** `/spring/` and `/terms/` show a heatmap of the key terms the concept articles use (Spring annotations in inline code, terms in bold), against the articles in learning order. It is computed from the article text at build time (`src/lib/topics.ts`); there is nothing to maintain by hand. Empty sections omit the map.
 - **Learning path.** Concept articles show breadcrumbs and previous/next links in the section's published-article order (for example `CONCEPT_ORDER` in `src/lib/spring.ts` or `TERMS_CONCEPT_ORDER` in `src/lib/terms.ts`). Weekly reviews get breadcrumbs but stay out of the previous/next chain.
-- **On this page and code copy.** Articles with four or more sections get a table of contents from their headings; every code block gets a Copy button.
+- **On this page and code copy.** Articles with four or more sections get a table of contents from their headings; every code block gets a Copy button. On narrow screens the inline contents hide once JavaScript is available, and a small “On this page” button opens them as a bottom sheet (it highlights the current section and closes on a choice, Escape, or the backdrop). The desktop contents stay at the top of the article.
+- **Callout boxes.** In article Markdown you can use GitHub-style alert blockquotes. They become labelled, theme-aware asides (the meaning is in the label, not only the colour):
+
+  ```md
+  > [!NOTE]
+  > A short note.
+
+  > [!TIP]
+  > A helpful tip.
+
+  > [!IMPORTANT]
+  > Something the reader should not skip.
+
+  > [!WARNING]
+  > A warning. `[!CAUTION]` is an alias of Warning.
+
+  > [!MISTAKE]
+  > A common mistake. `[!COMMON MISTAKE]` also works.
+  ```
+
+  An optional title can follow the tag on the same line, for example `> [!TIP] Remember the letter`.
+- **Diagrams.** A ` ```mermaid ` fence is rendered in the browser with Mermaid, using the current light or dark theme. Article images and diagrams open in a full-screen view on click or tap (Escape or Close returns focus). No Mermaid script is fetched on pages without a diagram.
+
 - **Social previews.** Each public page has its own Open Graph image, generated at build time under `/og/…png` (`src/pages/og/[...key].png.ts`), plus Twitter card tags and JSON-LD (`BlogPosting`, `BreadcrumbList`).
 - **Comments.** Published concept articles and weekly reviews end with a Comments section powered by [giscus](https://giscus.app): each page maps (by pathname) to a thread in this repo's GitHub Discussions, in the **General** category. Readers sign in with GitHub to comment. The [giscus GitHub App](https://github.com/apps/giscus) must be installed on this repo for the widget to load. Settings live in `src/lib/giscus.ts`; the widget follows the site's light/dark theme. A 👍 link near the top of those articles jumps to the existing giscus reactions (no separate like system).
 - **View counts.** [GoatCounter](https://www.goatcounter.com) (`src/lib/goatcounter.ts`, default site code `mnafshin`) is loaded on every page. Articles show an "N views" line fetched from GoatCounter's public counter endpoint; if the account is missing or the request fails, the line stays hidden. In the GoatCounter dashboard, enable **Allow adding visitor counts on your website**.
