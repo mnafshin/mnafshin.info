@@ -53,6 +53,7 @@ export const getStaticPaths = (async () => {
         title: section.name,
         description: section.tagline,
         footer: `${DOMAIN}/${section.path}`,
+        sectionId: id,
       },
     });
   }
@@ -76,6 +77,7 @@ export const getStaticPaths = (async () => {
         title: article.data.title,
         description: article.data.description,
         footer: `${DOMAIN}/${section.path}`,
+        sectionId,
       },
     });
   }
@@ -88,6 +90,7 @@ export const getStaticPaths = (async () => {
         title: weekly.data.title,
         description: weekly.data.description,
         footer: `${DOMAIN}/terms`,
+        sectionId: 'terms',
       },
     });
   }
@@ -100,6 +103,7 @@ export const getStaticPaths = (async () => {
         title: video.data.title,
         description: video.data.description,
         footer: `${DOMAIN}/spring`,
+        sectionId: 'spring',
       },
     });
   }
@@ -113,6 +117,7 @@ export const getStaticPaths = (async () => {
         title: post.data.title,
         description: post.data.description,
         footer: `${DOMAIN}/ai`,
+        sectionId: 'ai',
       },
     });
   }
