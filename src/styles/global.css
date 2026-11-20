@@ -1773,12 +1773,7 @@ a.article-action:hover {
   color: var(--accent);
 }
 
-/* ---------- Term tooltips ---------- */
-
-.term-wrap {
-  position: relative;
-  display: inline;
-}
+/* ---------- Definition popover ---------- */
 
 .term-tip {
   appearance: none;
@@ -1790,21 +1785,38 @@ a.article-action:hover {
   color: inherit;
   font: inherit;
   cursor: help;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.term-tip:hover,
 .term-tip:focus-visible,
 .term-tip[aria-expanded="true"] {
   color: var(--accent);
 }
 
-.term-popover {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 0.35rem);
-  z-index: 15;
-  width: min(22rem, 70vw);
-  padding: 0.7rem 0.85rem;
+@media (hover: hover) and (pointer: fine) {
+  .term-tip:hover {
+    color: var(--accent);
+  }
+}
+
+.def-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 34;
+  background: rgb(28 25 23 / 0.45);
+}
+
+.def-backdrop[hidden] {
+  display: none;
+}
+
+.def-popover {
+  position: fixed;
+  z-index: 35;
+  width: min(22rem, calc(100vw - 1.5rem));
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 0.75rem 0.9rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);
@@ -1816,18 +1828,132 @@ a.article-action:hover {
   font-weight: 400;
 }
 
-.term-popover[hidden] {
+.def-popover[hidden] {
   display: none;
 }
 
-.term-def {
-  display: block;
-  color: var(--muted);
-  margin: 0 0 0.45rem;
+.def-popover-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
 }
 
-.term-more {
+.def-popover-term {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.def-popover-close {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -0.25rem -0.2rem 0 0;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.def-popover-badge {
+  display: inline-block;
+  margin: 0 0 0.45rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: var(--section-soft, var(--accent-soft));
+  color: var(--section, var(--accent));
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.def-popover-def {
+  margin: 0 0 0.55rem;
+  color: var(--muted);
+}
+
+.def-popover-source {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.def-popover-link {
+  display: inline-block;
   font-size: 0.88rem;
+}
+
+.def-popover-attr {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.def-select-btn {
+  position: fixed;
+  z-index: 32;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 650;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.def-select-btn[hidden],
+.def-popover-badge[hidden],
+.def-popover-source[hidden],
+.def-popover-link[hidden],
+.def-popover-attr[hidden] {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .def-popover,
+  .def-popover.is-sheet {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    max-height: min(82vh, 40rem);
+    overflow: auto;
+    padding: 0.9rem 1rem calc(1rem + env(safe-area-inset-bottom));
+    border-radius: 1rem 1rem 0 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    box-shadow: 0 -16px 40px rgb(28 25 23 / 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .def-popover,
+  .def-backdrop,
+  .def-select-btn {
+    transition: none;
+  }
 }
 
 /* ---------- Learning map ---------- */

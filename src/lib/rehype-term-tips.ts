@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import type { HastPluginEntry } from 'satteri';
-import { loadGlossary, type GlossaryEntry } from './glossary';
+import { isCaseSensitivePhrase, phrasesMatch } from '../data/glossary-marking';
+import { loadMarkableTerms, type MarkableTerm } from './glossary';
 
 const SKIP = new Set(['pre', 'code', 'kbd', 'script', 'style', 'svg', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'button']);
 
@@ -13,26 +14,30 @@ type HastElement = {
 };
 type HastParent = { type: string; tagName?: string };
 
+type Pattern = { phrase: string; entry: MarkableTerm };
+
 /**
- * Annotate the first occurrence of published Termsplained terms in markdown
- * from other sections. Skips code, headings and links, and does nothing on
- * /terms articles themselves. This is a Sätteri hast plugin.
+ * Annotate the first occurrence of glossary terms in article prose.
+ * Uses every section glossary, prefers the article's own section, and
+ * skips code, headings, links, the defining article, and glossary pages.
+ * This is a Sätteri hast plugin.
  */
 export function termTipsPlugin(base = '/') {
-  const glossary = loadGlossary(base);
-  const patterns = glossary.flatMap((entry) =>
+  const glossary = loadMarkableTerms(base);
+  const patterns: Pattern[] = glossary.flatMap((entry) =>
     entry.phrases.map((phrase) => ({ phrase, entry })),
   );
   patterns.sort((a, b) => b.phrase.length - a.phrase.length);
   const source = patterns
     .map(({ phrase }) => phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     .join('|');
-  const regex = source ? new RegExp(`(^|[^A-Za-z0-9_+-])(${source})(?![A-Za-z0-9_+-])`, 'gi') : null;
+  const insensitive = source ? new RegExp(`(^|[^A-Za-z0-9_+-])(${source})(?![A-Za-z0-9_+-])`, 'gi') : null;
 
   const plugin = (ctx: { fileURL?: URL }) => {
-    if (!regex || patterns.length === 0) return false;
+    if (!insensitive || patterns.length === 0) return false;
     const filePath = ctx.fileURL ? fileURLToPath(ctx.fileURL) : '';
-    if (/[/\\]content[/\\]terms[/\\]/.test(filePath)) return false;
+    if (isGlossaryPage(filePath)) return false;
+    const current = fileContext(filePath);
 
     const used = new Set<string>();
     return {
@@ -42,12 +47,27 @@ export function termTipsPlugin(base = '/') {
         replaceNode: (node: unknown, next: unknown[]) => void;
       }) {
         if (isSkipped(node, visitor)) return;
-        const next = splitText(node.value, regex, patterns, used);
+        const next = splitText(node.value, insensitive, patterns, used, current);
         if (next) visitor.replaceNode(node, next);
       },
     };
   };
   return plugin as HastPluginEntry;
+}
+
+function isGlossaryPage(filePath: string) {
+  return /[/\\](?:pages[/\\].*glossary|content[/\\].*glossary)/i.test(filePath.replace(/\\/g, '/'));
+}
+
+function fileContext(filePath: string) {
+  const posix = filePath.replace(/\\/g, '/');
+  const match = posix.match(/\/content\/([^/]+)\/([^/]+)\.md$/);
+  if (!match) return null;
+  const folder = match[1];
+  return {
+    section: folder === 'videos' ? 'spring' : folder,
+    id: match[2],
+  };
 }
 
 function isSkipped(
@@ -66,8 +86,9 @@ function isSkipped(
 function splitText(
   value: string,
   regex: RegExp,
-  patterns: { phrase: string; entry: GlossaryEntry }[],
+  patterns: Pattern[],
   used: Set<string>,
+  current: { section: string; id: string } | null,
 ): unknown[] | null {
   regex.lastIndex = 0;
   const parts: unknown[] = [];
@@ -79,9 +100,13 @@ function splitText(
     const lead = match[1] ?? '';
     const text = match[2] ?? '';
     const start = match.index + lead.length;
-    const entry = matchEntry(text, patterns, used);
-    if (!entry) continue;
-    used.add(entry.slug);
+    const entry = matchEntry(text, patterns, used, current);
+    if (!entry) {
+      // Avoid stalling when a case-insensitive hit is rejected.
+      regex.lastIndex = start + Math.max(text.length, 1);
+      continue;
+    }
+    used.add(entry.id);
     if (start > last) parts.push({ type: 'text', value: value.slice(last, start) });
     parts.push(termNode(text, entry));
     last = start + text.length;
@@ -96,59 +121,42 @@ function splitText(
 
 function matchEntry(
   text: string,
-  patterns: { phrase: string; entry: GlossaryEntry }[],
+  patterns: Pattern[],
   used: Set<string>,
+  current: { section: string; id: string } | null,
 ) {
-  const lower = text.toLowerCase();
+  const candidates: MarkableTerm[] = [];
+  const seen = new Set<string>();
   for (const { phrase, entry } of patterns) {
-    if (used.has(entry.slug)) continue;
-    if (phrase.toLowerCase() === lower) return entry;
+    if (used.has(entry.id) || seen.has(entry.id)) continue;
+    if (current && entry.sectionId === current.section && entry.articleId === current.id) continue;
+    if (!phrasesMatch(phrase, text)) continue;
+    // Reject a case-insensitive regex hit that only matched a sensitive phrase loosely.
+    if (isCaseSensitivePhrase(phrase) && phrase !== text) continue;
+    seen.add(entry.id);
+    candidates.push(entry);
   }
-  return undefined;
+  if (candidates.length === 0) return undefined;
+  if (current) {
+    const own = candidates.find((entry) => entry.sectionId === current.section);
+    if (own) return own;
+  }
+  return candidates[0];
 }
 
-function termNode(text: string, entry: GlossaryEntry): HastElement {
-  const tipId = `term-tip-${entry.slug}`;
+function termNode(text: string, entry: MarkableTerm): HastElement {
   return {
     type: 'element',
-    tagName: 'span',
-    properties: { className: ['term-wrap'] },
-    children: [
-      {
-        type: 'element',
-        tagName: 'button',
-        properties: {
-          type: 'button',
-          className: ['term-tip'],
-          'aria-expanded': 'false',
-          'aria-controls': tipId,
-        },
-        children: [{ type: 'text', value: text }],
-      },
-      {
-        type: 'element',
-        tagName: 'span',
-        properties: {
-          id: tipId,
-          className: ['term-popover'],
-          role: 'tooltip',
-          hidden: true,
-        },
-        children: [
-          {
-            type: 'element',
-            tagName: 'span',
-            properties: { className: ['term-def'] },
-            children: [{ type: 'text', value: entry.description }],
-          },
-          {
-            type: 'element',
-            tagName: 'a',
-            properties: { href: entry.href, className: ['term-more'] },
-            children: [{ type: 'text', value: `Read: ${entry.title}` }],
-          },
-        ],
-      },
-    ],
+    tagName: 'button',
+    properties: {
+      type: 'button',
+      className: ['term-tip'],
+      'data-term-id': entry.id,
+      'aria-expanded': 'false',
+      'aria-haspopup': 'dialog',
+      'aria-controls': 'def-popover',
+    },
+    children: [{ type: 'text', value: text }],
   };
 }
+

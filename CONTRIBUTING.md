@@ -44,3 +44,10 @@ Every section has an A–Z glossary at `/<section>/glossary/`, built at site bui
 ```
 
 Use a short term name, not the full article title, and link only to a published concept article in that same section. The build drops any row whose article is missing, still a draft, or a weekly review. Do not invent articles to fill the list. If a section has no published articles yet, its glossary shows a coming-soon message.
+
+
+## Glossary term marking
+
+The build marks the first occurrence of glossary terms in article prose so readers can open a short definition. Terms come from every section glossary (`src/data/glossaries.ts` and published Termsplained articles). The article's own section is preferred when more than one term could match. Code, headings, links, glossary pages, and the article that defines a term are skipped.
+
+Matching is whole-word and case-aware: acronyms such as `REST` or `SQL`, camelCase names, and `@annotations` must appear in that form. Everyday words are not auto-marked. The skip list and safer aliases live in `src/data/glossary-marking.ts`. If you add a short, common term such as `image` or `profile`, put the bare word in `SKIP_MARKING` and add a distinctive alias (for example `container image` or `Spring profile`) in `GLOSSARY_ALIASES`. Readers can still look up the bare word with the Define shortcut (`Alt+I` or `I`) or the mobile Define button.

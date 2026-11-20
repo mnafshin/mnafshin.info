@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import ShortcutHelp from '../components/ShortcutHelp.astro';
 import MediaZoom from '../components/MediaZoom.astro';
+import DefinitionPopover from '../components/DefinitionPopover.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { goatCounterEndpoint, GOATCOUNTER_SCRIPT } from '../lib/goatcounter';
@@ -104,6 +105,7 @@ const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SIT
     <Footer />
     <ShortcutHelp />
     <MediaZoom />
+    <DefinitionPopover />
     <script>
       import '../scripts/code-copy';
       import '../scripts/search-highlight';

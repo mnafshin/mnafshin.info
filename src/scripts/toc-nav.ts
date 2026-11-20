@@ -52,9 +52,15 @@ if (toc) {
 
   function openSheet() {
     if (!sheet || sheet.open) return;
+    document.dispatchEvent(new CustomEvent('mnafshin:overlay-open', { detail: 'toc' }));
     sheet.showModal();
     closeBtn?.focus();
   }
+
+  document.addEventListener('mnafshin:overlay-open', ((event: Event) => {
+    const custom = event as CustomEvent<string>;
+    if (custom.detail !== 'toc') closeSheet();
+  }) as EventListener);
 
   function closeSheet() {
     if (sheet?.open) sheet.close();

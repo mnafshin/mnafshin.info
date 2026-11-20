@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { CURATED_GLOSSARIES } from '../data/glossaries';
+import { GLOSSARY_ALIASES, isSkippedPhrase } from '../data/glossary-marking';
 import { SECTIONS, type SectionId } from './site';
 
 export type GlossaryEntry = {
@@ -32,6 +33,11 @@ const PHRASES: Record<string, string[]> = {
   'what-parameters-mean': ['model parameters', '405B', '70B', '8B'],
   'what-is-a-token': ['token counter', 'tokenizers', 'tokenisers', 'tokenizer', 'tokeniser'],
   'what-is-temperature': ['model temperature'],
+  'what-is-an-api-key': ['API key', 'API keys'],
+  'what-is-openrouter': ['OpenRouter'],
+  'hosted-ai-agents': ['hosted AI agents', 'hosted AI agent'],
+  'self-hosted-ai-agents': ['self-hosted AI agents', 'self-hosted AI agent'],
+  'coding-agents-app-builders-and-workflow-agents': ['coding agents', 'workflow agents'],
 };
 
 function frontmatter(text: string) {
@@ -198,4 +204,74 @@ export function loadGlossaryHub(base = '/'): GlossaryHubItem[] {
       count: loadSectionGlossary(sectionId, base).length,
     };
   });
+}
+
+/** A glossary term that can be marked in prose or looked up from a shortcut. */
+export type MarkableTerm = {
+  id: string;
+  term: string;
+  definition: string;
+  href: string;
+  sectionId: SectionId;
+  sectionName: string;
+  articleId: string;
+  /** Conservative phrases that may be auto-marked in article prose. */
+  phrases: string[];
+  /** Phrases used for on-demand lookup (selection and shortcuts), including skipped everyday words. */
+  lookupPhrases: string[];
+  linkLabel: 'Read the article' | 'Open in glossary';
+};
+
+function uniquePhrases(phrases: string[]) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const phrase of phrases) {
+    const trimmed = phrase.trim();
+    if (!trimmed) continue;
+    const key = trimmed.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(trimmed);
+  }
+  return out;
+}
+
+function titlePhrases(title: string) {
+  const core = termSortKey(title);
+  const phrases = [core];
+  if (core !== title) phrases.push(title);
+  return phrases;
+}
+
+/**
+ * Every published glossary term, with conservative phrases for auto-marking.
+ * Bare everyday words are omitted from `phrases` unless an alias replaces them.
+ * The term itself is still used for on-demand lookup (selection / shortcut).
+ */
+export function loadMarkableTerms(base = '/'): MarkableTerm[] {
+  const entries: MarkableTerm[] = [];
+  for (const section of SECTIONS) {
+    const sectionTerms = loadSectionGlossary(section.id, base);
+    for (const item of sectionTerms) {
+      const aliases = GLOSSARY_ALIASES[`${section.id}:${item.term}`] ?? [];
+      const auto = uniquePhrases(
+        (section.id === 'terms' ? (PHRASES[item.articleId] ?? titlePhrases(item.term)) : [item.term, ...aliases])
+          .filter((phrase) => !isSkippedPhrase(phrase)),
+      );
+      const lookup = uniquePhrases([item.term, ...auto, ...aliases]);
+      entries.push({
+        id: `${section.id}:${item.articleId}:${item.term}`,
+        term: item.term,
+        definition: item.definition,
+        href: item.href,
+        sectionId: section.id,
+        sectionName: section.name,
+        articleId: item.articleId,
+        phrases: auto,
+        lookupPhrases: lookup,
+        linkLabel: 'Read the article',
+      });
+    }
+  }
+  return entries;
 }
