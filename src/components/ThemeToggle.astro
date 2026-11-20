@@ -21,6 +21,7 @@
     document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
       button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     });
+    document.documentElement.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
   }
 
   document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {

@@ -10,6 +10,8 @@ document.addEventListener('keydown', (event) => {
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   if (isTyping(event.target)) return;
   if (searchOpen()) return;
+  const openDialog = document.querySelector('dialog[open]');
+  if (openDialog && openDialog !== help) return;
 
   if (event.key === '?' && help) {
     event.preventDefault();

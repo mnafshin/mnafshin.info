@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import { satteri } from '@astrojs/markdown-satteri';
+import { calloutsPlugin } from './src/lib/callouts';
+import { mermaidBlocksPlugin } from './src/lib/mermaid-blocks';
 import { termTipsPlugin } from './src/lib/rehype-term-tips';
 import sitemap from '@astrojs/sitemap';
 
@@ -58,7 +60,11 @@ export default defineConfig({
   ],
   markdown: {
     processor: satteri({
-      hastPlugins: [termTipsPlugin(CUSTOM_DOMAIN ? '/' : '/mnafshin.info/')],
+      hastPlugins: [
+        calloutsPlugin(),
+        mermaidBlocksPlugin(),
+        termTipsPlugin(CUSTOM_DOMAIN ? '/' : '/mnafshin.info/'),
+      ],
     }),
     shikiConfig: {
       themes: {
