@@ -2,6 +2,7 @@
 import ArticleCard from '../../components/ArticleCard.astro';
 import ComingSoon from '../../components/ComingSoon.astro';
 import CurriculumIndex from '../../components/CurriculumIndex.astro';
+import GlossaryLink from '../../components/GlossaryLink.astro';
 import LearningMap from '../../components/LearningMap.astro';
 import TopicMap from '../../components/TopicMap.astro';
 import SectionIcon from '../../components/SectionIcon.astro';
@@ -46,10 +47,10 @@ function formatDate(entry: TermsArticle) {
       <a href={LINKS.termsplained}>Termsplained YouTube channel</a>
       {' '}beside them. Topics without an article yet are shown as coming soon.
       Weekly reviews of AI news follow below.
-      A short <a href={withBase("terms/glossary/")}>A–Z glossary</a> lists every published term.
     </p>
 
     <LearningMap topics={TERMS_CURRICULUM} articles={articles} sectionPath="terms" />
+    <GlossaryLink sectionId="terms" />
 
     {articles.length === 0 && weeklies.length === 0 && <ComingSoon name={section.name} />}
 

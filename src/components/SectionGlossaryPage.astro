@@ -1,0 +1,86 @@
+---
+import ComingSoon from './ComingSoon.astro';
+import SectionIcon from './SectionIcon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  groupGlossaryByLetter,
+  LETTERS,
+  loadSectionGlossary,
+} from '../lib/glossary';
+import { getSection, type SectionId, withBase } from '../lib/site';
+import { breadcrumbList } from '../lib/structured-data';
+
+interface Props {
+  sectionId: SectionId;
+}
+
+const { sectionId } = Astro.props;
+const section = getSection(sectionId);
+const terms = loadSectionGlossary(sectionId, withBase());
+const { byLetter, present } = groupGlossaryByLetter(terms);
+const jsonLd = [
+  breadcrumbList(
+    [
+      { label: 'Home', href: withBase() },
+      { label: section.name, href: withBase(`${section.path}/`) },
+      { label: 'Glossary' },
+    ],
+    new URL(Astro.url.pathname, Astro.site),
+    Astro.site,
+  ),
+];
+const title = `${section.name} glossary`;
+const description = terms.length
+  ? `An A–Z list of key ${section.name} terms from the published articles, each with a short definition and a link to the article that explains it.`
+  : `${section.name} has no published articles yet, so this glossary will appear once the first one is out.`;
+---
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <div class="wrap-narrow section-page" data-section={sectionId} data-pagefind-body>
+    <p class="eyebrow">{section.name}</p>
+    <h1><SectionIcon section={sectionId} size={32} /> Glossary</h1>
+    {terms.length > 0 ? (
+      <>
+        <p class="lede">
+          Key terms from the published {section.name} articles, in
+          alphabetical order, each with a short definition and a link to the
+          article that explains it. Use the letters to jump, or search the
+          site with <kbd>/</kbd> or <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd>
+          — this page is included in Pagefind.
+        </p>
+        <nav class="glossary-jump" aria-label="Jump to a letter">
+          {LETTERS.map((letter) => (
+            present.has(letter) ? (
+              <a href={`#letter-${letter.toLowerCase()}`}>{letter}</a>
+            ) : (
+              <span class="glossary-jump-empty">{letter}</span>
+            )
+          ))}
+        </nav>
+        {LETTERS.filter((letter) => present.has(letter)).map((letter) => (
+          <section aria-labelledby={`letter-${letter.toLowerCase()}`}>
+            <h2 class="glossary-letter" id={`letter-${letter.toLowerCase()}`}>{letter}</h2>
+            <ul class="glossary-list">
+              {(byLetter.get(letter) ?? []).map((entry) => (
+                <li>
+                  <a href={entry.href}>
+                    <span class="glossary-term">{entry.term}</span>
+                    <span class="muted glossary-def">{entry.definition}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </>
+    ) : (
+      <>
+        <p class="lede">
+          This glossary will list key terms from published {section.name}
+          articles, each with a short definition and a link to the article
+          that explains it.
+        </p>
+        <ComingSoon name={section.name} />
+      </>
+    )}
+  </div>
+</BaseLayout>
