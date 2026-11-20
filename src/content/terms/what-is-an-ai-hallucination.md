@@ -1,6 +1,7 @@
 ---
 title: 'What Is an AI Hallucination? Why AI Sounds Sure and Is Still Wrong'
 description: An AI hallucination is an answer that sounds right but is false. It comes from how language models write, a perfect form filled with a guess, and it can be made rarer but not switched off.
+summary: "An AI hallucination is a confident answer that is wrong. The article explains why a model can sound sure anyway, and how to treat those answers."
 pubDate: '2026-11-02T16:18:59Z'
 section: terms
 topic: hallucination

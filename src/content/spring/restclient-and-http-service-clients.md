@@ -1,6 +1,7 @@
 ---
 title: 'Calling Another API with RestClient and HTTP Service Clients'
 description: How a Spring Boot app calls another app's API, first with the RestClient builder Spring Boot provides, then with an HTTP service client described by @GetExchange, imported with @ImportHttpServices, and given its base URL by one property.
+summary: "How a Spring Boot app calls another app's API, first with the RestClient builder Spring Boot provides, then with an HTTP service client described by @GetExchange and imported with @ImportHttpServices."
 pubDate: '2026-11-12T12:00:00Z'
 section: spring
 topic: restclient

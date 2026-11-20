@@ -1,6 +1,7 @@
 ---
 title: 'What Is a Context Window? Why AI Seems to Forget'
 description: A context window is all the text a model can look at while it writes one answer, measured in tokens. The app resends the whole chat every turn, old parts fall out when the window is full, and even a huge window is not read equally well.
+summary: "A context window is the amount of text a model can consider at once, which is why a chat can seem to forget earlier turns. This article explains what fills that window and what happens when it is full."
 pubDate: '2026-10-26T23:12:59Z'
 section: terms
 topic: context-window

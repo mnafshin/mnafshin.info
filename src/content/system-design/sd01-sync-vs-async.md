@@ -1,6 +1,7 @@
 ---
 title: 'Sync vs Async: When Events Beat Calls'
 description: 'A synchronous call waits for an answer; an asynchronous message does not. A simple two-question test for choosing, using one securities order flow from start to finish.'
+summary: "A synchronous call waits for an answer; an asynchronous design fires an event and continues. This article shows when events beat direct calls, and the trade-offs that come with each choice."
 pubDate: '2026-11-19T14:00:00+01:00'
 section: system-design
 topic: sd01

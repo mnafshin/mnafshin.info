@@ -1,6 +1,7 @@
 ---
 title: 'Coding Agents, App Builders and Workflow Agents'
 description: Some AI tools are not personal assistants but builders. Coding agents such as Claude Code, Codex, Cursor and Devin change code; app builders such as Replit Agent and Lovable turn a prompt into a website; n8n and Zapier Agents automate repeated work. How they differ and what they cost as of November 2026.
+summary: "Coding agents, app builders and workflow agents build or automate things instead of chatting: they change a project's files, turn a description into a website, or run the same steps across your apps. The article explains how they differ and what they cost as of November 2026."
 pubDate: '2026-11-20T03:20:00+01:00'
 section: terms
 topic: agents

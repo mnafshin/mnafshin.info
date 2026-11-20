@@ -1,6 +1,7 @@
 ---
 title: 'What Is AI Slop? Why Polished AI Content Wastes Everyone''s Time'
 description: AI slop is low-quality digital content made in bulk with AI, unchecked and unasked for. Where the word came from, what it costs the people who receive it, how to spot it, and how never to send it.
+summary: "AI slop is polished-looking content that adds little and wastes the reader's time. The article says what makes something slop, and why volume and a fluent tone are not the same as usefulness."
 pubDate: '2026-10-24T23:31:36Z'
 section: terms
 topic: ai-slop

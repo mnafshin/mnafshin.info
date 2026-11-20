@@ -6,6 +6,7 @@ import PostList from '../components/PostList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllPublishedPosts, getVisibleSections } from '../lib/posts';
 import { LINKS, SITE_DESCRIPTION, withBase } from '../lib/site';
+import { personPage, webSite } from '../lib/structured-data';
 import { getLatestVideos } from '../lib/latest-videos';
 
 const posts = await getAllPublishedPosts();
@@ -20,8 +21,9 @@ function formatDate(date: Date) {
     timeZone: 'Europe/Berlin',
   });
 }
+const jsonLd = [webSite(Astro.site), personPage(Astro.site)];
 ---
-<BaseLayout description={SITE_DESCRIPTION}>
+<BaseLayout description={SITE_DESCRIPTION} jsonLd={jsonLd}>
   <div class="wrap">
     <section class="hero">
       <h1>Afshin Amini</h1>

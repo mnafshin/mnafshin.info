@@ -1,6 +1,7 @@
 ---
 title: 'REST APIs with Spring Boot 4: CRUD, Useful Errors and API Versioning'
 description: How a small Spring Boot product API reads, adds, changes and removes data with the right status codes, answers errors with ProblemDetail, and keeps old callers working when the response has to change.
+summary: "A small Spring Boot product API that reads, adds, changes and removes data with the right status codes. Errors are returned as ProblemDetail, and API versioning keeps old callers working when the response has to change."
 pubDate: '2026-11-06T12:00:01Z'
 section: spring
 topic: rest-apis

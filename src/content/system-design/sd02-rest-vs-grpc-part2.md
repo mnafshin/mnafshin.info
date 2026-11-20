@@ -1,6 +1,7 @@
 ---
 title: 'REST vs gRPC for Internal Calls (Part 2): JSON at the Edge and the Event Bridge'
 description: 'How one gRPC contract can also serve JSON callers at the edge through transcoding, and how an event bridge turns calls into events for the rest of the platform.'
+summary: "One gRPC contract can also serve JSON callers at the edge through transcoding. An event bridge then turns calls into events for the rest of the platform."
 pubDate: '2026-11-19T14:02:00+01:00'
 section: system-design
 topic: sd02

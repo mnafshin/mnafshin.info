@@ -1,6 +1,7 @@
 ---
 title: 'Spring Boot Auto-Configuration: How It Decides, and How to Change, Write, Disable and Test It'
 description: How Spring Boot builds beans such as the web server from what is on the classpath, why your own bean wins, and how to change one setting, write an auto-configuration for your own library, turn one off and test it with ApplicationContextRunner.
+summary: "Spring Boot creates the usual beans, such as the web server, from what is on the classpath, which is why a web app starts without any server code. Once you know how it decides, you can change a setting, write an auto-configuration for your own library, turn one off, and test it with ApplicationContextRunner."
 pubDate: '2026-11-02T12:00:16Z'
 section: spring
 topic: auto-configuration

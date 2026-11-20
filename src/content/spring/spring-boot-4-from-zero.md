@@ -1,6 +1,7 @@
 ---
 title: 'Spring Boot 4 from Zero: Your First App and REST Controller'
 description: How to generate a Spring Boot 4 project, what each file is for, how @SpringBootApplication finds your classes, and how a small REST controller returns JSON.
+summary: "How to generate a Spring Boot 4 project, what each file is for, and how @SpringBootApplication finds your classes. A small REST controller then returns JSON."
 pubDate: '2026-10-22T16:00:21Z'
 section: spring
 topic: first-boot-app

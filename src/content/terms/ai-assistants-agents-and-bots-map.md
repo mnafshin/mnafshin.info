@@ -1,6 +1,7 @@
 ---
 title: 'AI Assistants, Agents and Bots: A Simple Map'
 description: ChatGPT dots, Claude Duet, OpenClaw, Hermes, Cursor… Two questions sort almost every AI helper you hear about. Does it only answer, or does it act? And whose computer does it run on?
+summary: "AI assistants, agents and bots are programs built on a language model, and they differ in how much they do on their own and whose computer they run on. Two questions place almost any product on that map and tell you roughly what it can do and what it costs to run."
 pubDate: '2026-11-20T01:30:00+01:00'
 section: terms
 topic: agents

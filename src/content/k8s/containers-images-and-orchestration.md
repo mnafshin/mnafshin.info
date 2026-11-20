@@ -1,6 +1,7 @@
 ---
 title: 'Containers, Images and Why We Need Orchestration'
 description: What a container and an image really are, how an image is named, layered and shipped through a registry, and why running many containers on many machines needs an orchestrator such as Kubernetes.
+summary: "A container is an app running as a process with its own files, network and resource limits; an image is the package it starts from. Once many containers run on many machines, an orchestrator such as Kubernetes decides where they run and keeps them running."
 pubDate: '2026-11-19T12:00:00Z'
 section: k8s
 topic: containers-and-images

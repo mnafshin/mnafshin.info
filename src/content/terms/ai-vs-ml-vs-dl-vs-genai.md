@@ -1,6 +1,7 @@
 ---
 title: 'AI vs Machine Learning vs Deep Learning vs Generative AI'
 description: Four names that overlap but do not stack. AI contains machine learning, machine learning contains deep learning, and generative names the job, not a smaller circle. One shop email shows each of them.
+summary: "AI, machine learning, deep learning and generative AI are often used as if they meant the same thing. This article nests them in plain words: each term is a narrower way of building or using AI."
 pubDate: '2026-11-06T12:00:07Z'
 section: terms
 topic: ai-ml-dl-genai

@@ -1,6 +1,7 @@
 ---
 title: 'What Is a Token? Why AI Bills You per Token, Not per Word'
 description: A token is a chunk of text that a model treats as one unit. Models read, write and bill in tokens, so a ten-word request can be twelve tokens, and the same request costs more in some languages than in others.
+summary: "A token is a chunk of text a model reads or writes, which is why AI bills are per token, not per word. The article explains how text is split and why the count is not the same as the word count."
 pubDate: '2026-10-25T11:00:21Z'
 section: terms
 topic: token

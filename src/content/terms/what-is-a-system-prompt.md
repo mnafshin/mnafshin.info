@@ -1,6 +1,7 @@
 ---
 title: 'What Is a System Prompt? The Orders a Chatbot Gets Before You Type'
 description: A system prompt is the set of instructions an app gives the AI before your first message. It shapes tone, length and role, but it is a strong request rather than a switch, and it cannot keep a secret.
+summary: "A system prompt is the set of orders a chatbot gets before you type, and it can override or shape what you ask. The article shows how it differs from an ordinary prompt and why it matters."
 pubDate: '2026-11-04T12:00:19Z'
 section: terms
 topic: system-prompt

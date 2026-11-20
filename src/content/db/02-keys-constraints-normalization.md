@@ -1,6 +1,7 @@
 ---
 title: 'Keys, constraints and normalization'
 description: 'Primary and foreign keys, NOT NULL, UNIQUE and CHECK, and normalization so that every fact is stored once. We continue with the online shop from the previous article.'
+summary: "Primary and foreign keys, plus NOT NULL, UNIQUE and CHECK, keep rows valid, and normalization stores each fact once. The article continues with the online shop from the previous piece."
 pubDate: '2026-11-19T14:05:01+01:00'
 section: db
 topic: keys-constraints-normalization

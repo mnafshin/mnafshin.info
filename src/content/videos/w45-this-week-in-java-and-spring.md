@@ -1,6 +1,7 @@
 ---
 title: Spring Boot 4.2 RC2, HTTP QUERY, RestTemplate Deprecated | W45
 description: This week we cover the second Spring release candidate wave, the Framework seven point one headlines, Project Detroit, and the JDK twenty seven garbage collector changes.
+summary: "A weekly Java and Spring review of 30 October to 5 November 2026: the second Spring release-candidate wave, including Boot 4.2 RC2, the HTTP QUERY method, RestTemplate's deprecation, and other Framework and JDK headlines."
 youtubeId: mXlChNpxj_M
 pubDate: '2026-11-09T07:27:21Z'
 series: weekly

@@ -1,6 +1,7 @@
 ---
 title: 'What Is AI Governance? One Example Week, Explained Simply'
 description: AI governance is the set of rules, roles and routines an organisation uses to decide which AI it uses, what for, and who answers for it. One ordinary week with an AI note-taker shows what that looks like in practice.
+summary: "AI governance is the rules, roles and checks around how an organisation uses AI. This article explains the idea through one example week, in plain words."
 pubDate: '2026-10-26T17:00:02Z'
 section: terms
 topic: ai-governance

@@ -1,6 +1,7 @@
 ---
 title: 'Which AI Model Should I Use? Quality, Price, Speed and Privacy'
 description: The same agent or chat app can run on very different models. How to choose one by quality, price per token, speed, context size, open versus closed, and whether it can run on your own computer, with real prices from November 2026.
+summary: "Choosing an AI model is a trade-off between quality, price, speed and privacy. This article walks through those four questions so you can pick a model for a real project."
 pubDate: '2026-11-20T02:40:00+01:00'
 section: terms
 topic: models

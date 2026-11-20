@@ -1,6 +1,7 @@
 ---
 title: 'Hosted AI Agents: An Assistant With Its Own Computer'
 description: ChatGPT dots, Claude Duet, Claude Cowork, Meta Muse, Grok Bot, Manus and Perplexity Comet run on the company's computers, so you install nothing. What each is for, what it costs as of November 2026, and how the open-source OpenDot compares with ChatGPT dots.
+summary: "A hosted AI agent runs on the company's computers, with its own virtual machine, so you install nothing and maintain nothing. The article explains that trade-off and compares products such as ChatGPT dots, Claude Duet and the open-source OpenDot, including what they cost as of November 2026."
 pubDate: '2026-11-20T02:10:00+01:00'
 section: terms
 topic: agents

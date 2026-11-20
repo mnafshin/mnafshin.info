@@ -1,6 +1,7 @@
 ---
 title: 'What Is an API Key? The Secret Code Apps Use to Reach AI'
 description: An API key is a long secret code that lets a program use an AI model on your account and your bill. Why agents ask for one, why your ChatGPT or Claude subscription usually does not cover it, and how to keep it from leaking.
+summary: "An API key is a secret code an app uses to reach an AI service, and it is tied to a bill and a set of permissions. This article explains what it is, where it lives, and why it must be kept private."
 pubDate: '2026-11-20T02:20:00+01:00'
 section: terms
 topic: agents

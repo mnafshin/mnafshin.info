@@ -1,6 +1,7 @@
 ---
 title: 'What Is MCP? The Model Context Protocol, Explained Simply'
 description: MCP is not a model, it is a plug. The Model Context Protocol is an open standard for connecting AI applications to the tools and data they need. What hosts, clients and servers are, what a server offers, and four common mix-ups.
+summary: "The Model Context Protocol (MCP) is a standard way for an AI app to use tools and data sources. The article explains what problem it solves and what a client and a server each do."
 pubDate: '2026-10-26T11:00:28Z'
 section: terms
 topic: mcp

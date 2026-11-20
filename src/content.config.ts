@@ -5,6 +5,8 @@ import { z } from 'astro/zod';
 const postSchema = z.object({
   title: z.string(),
   description: z.string(),
+  /** Optional 1–2 sentence TL;DR, shown as an “In short” box and used in llms.txt. */
+  summary: z.string().optional(),
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
   draft: z.boolean().default(false),
@@ -48,6 +50,8 @@ const articleSchema = postSchema.extend({
 const videoSchema = z.object({
   title: z.string(),
   description: z.string(),
+  /** Optional 1–2 sentence TL;DR, shown as an “In short” box and used in llms.txt. */
+  summary: z.string().optional(),
   youtubeId: z.string(),
   pubDate: z.coerce.date(),
   series: z.enum(['tutorials', 'weekly']),

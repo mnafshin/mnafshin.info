@@ -1,6 +1,7 @@
 ---
 title: 'Grounding and Citations: Did That AI Answer Come From Its Source?'
 description: Grounding means tying an AI's answer to a real source so every claim can be traced back to it. Having the right page is not enough, a rule in the prompt cannot be trusted alone, and citations plus a check make the difference, though a grounded answer is only as good as its page.
+summary: "Grounding means an AI answer is tied to a source, and a citation is how that source is shown. The article explains how to tell whether an answer actually came from the document it names."
 pubDate: '2026-11-05T12:00:35Z'
 section: terms
 topic: grounding

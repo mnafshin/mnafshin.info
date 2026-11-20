@@ -1,6 +1,7 @@
 ---
 title: 'What AI Model Parameters Mean: 8B, 70B and 405B'
 description: A parameter is one number inside a model that is set during training, and the B in 8B or 70B counts how many there are. A two-knob taxi-fare model shows what a parameter is, and a real 0.5B model shows what the count costs.
+summary: "When a model is described as 8B, 70B or 405B, those numbers are its parameters: the weights it learned during training. The article explains what the size is a proxy for, and what it is not."
 pubDate: '2026-11-05T17:00:23Z'
 section: terms
 topic: parameters

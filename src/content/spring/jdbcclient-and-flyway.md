@@ -1,6 +1,7 @@
 ---
 title: 'Reading a Database with JdbcClient and Flyway'
 description: 'How Flyway creates and fills a products table from one numbered SQL file when the app starts, and how JdbcClient, which Spring Boot builds for you, maps those rows to records: a list with list(), and one product with param() and optional().'
+summary: "Flyway creates and fills a products table from one numbered SQL file when the app starts. JdbcClient, which Spring Boot builds for you, then maps those rows to records."
 pubDate: '2026-11-13T12:00:00Z'
 section: spring
 topic: jdbcclient

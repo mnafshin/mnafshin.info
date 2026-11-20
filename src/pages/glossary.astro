@@ -1,17 +1,27 @@
 ---
 import SectionIcon from '../components/SectionIcon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadGlossaryHub } from '../lib/glossary';
+import { loadGlossaryHub, loadSectionGlossary } from '../lib/glossary';
 import { withBase } from '../lib/site';
-import { breadcrumbList } from '../lib/structured-data';
+import { breadcrumbList, definedTermSet } from '../lib/structured-data';
 
 const items = loadGlossaryHub(withBase());
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
 const jsonLd = [
   breadcrumbList(
     [{ label: 'Home', href: withBase() }, { label: 'Glossary' }],
-    new URL(Astro.url.pathname, Astro.site),
+    pageUrl,
     Astro.site,
   ),
+  ...items
+    .map((item) =>
+      definedTermSet({
+        name: `${item.name} glossary`,
+        url: new URL(item.href, Astro.site),
+        terms: loadSectionGlossary(item.sectionId, withBase()),
+      }),
+    )
+    .filter((set) => Array.isArray(set.hasDefinedTerm) && set.hasDefinedTerm.length > 0),
 ];
 ---
 <BaseLayout

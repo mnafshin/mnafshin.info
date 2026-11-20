@@ -1,6 +1,7 @@
 ---
 title: 'Spring Boot Configuration: application.yml, @ConfigurationProperties, Profiles and a Little SpEL'
 description: How one Spring Boot jar runs with different settings on a laptop, in tests and in production. Properties live outside the code, sources override each other in a fixed order, and profiles switch values and beans.
+summary: "One Spring Boot jar can run with different settings on a laptop, in tests and in production. Properties live outside the code, sources override each other in a fixed order, and profiles switch values and beans."
 pubDate: '2026-10-25T10:30:30Z'
 section: spring
 topic: configuration

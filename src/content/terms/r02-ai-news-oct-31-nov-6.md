@@ -1,6 +1,7 @@
 ---
 title: 'AI News This Week (31 October–6 November 2026): Five Stories, Five AI Words'
 description: 'Five AI stories from 31 October to 6 November 2026, each with one term in plain words: GPT-6 Cyber and authorized scope, dsh-superagent and coding agents, FlashProve and provable inference, Gemini Omni 1.2 Flash and video generation, and Meta''s Active Memory.'
+summary: "Five AI stories from 31 October to 6 November 2026, each with one term in plain words: GPT-6 Cyber and authorized scope, dsh-superagent and coding agents, FlashProve and provable inference, Gemini Omni 1.2 Flash and video generation, and Meta's Active Memory."
 pubDate: '2026-11-10T12:00:21Z'
 kind: weekly
 section: terms

@@ -26,6 +26,8 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   /** Keep this page out of search engines (e.g. the search results page). */
   noindex?: boolean;
+  /** Clean Markdown copy of this page, if one exists. */
+  markdownUrl?: string;
 }
 
 const {
@@ -38,6 +40,7 @@ const {
   modifiedTime,
   jsonLd = [],
   noindex = false,
+  markdownUrl,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
@@ -55,6 +58,9 @@ const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SIT
     <meta name="description" content={description} />
     {(preview || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
+    {markdownUrl && (
+      <link rel="alternate" type="text/markdown" href={new URL(markdownUrl, Astro.site)} title="Markdown" />
+    )}
     <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — all posts`} href={withBase('rss.xml')} />
     <link rel="alternate" type="application/rss+xml" title="SpringUniverse" href={withBase('spring/rss.xml')} />

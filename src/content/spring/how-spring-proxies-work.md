@@ -1,6 +1,7 @@
 ---
 title: 'How Spring Proxies Work: the Self-Call Trap, CGLIB vs JDK, final and private'
 description: Annotations such as @Async and @Transactional work through a proxy, a stand-in object Spring puts in front of your bean. Knowing what the proxy can and cannot see explains the self-call trap, final methods, final classes and private methods.
+summary: "Annotations such as @Async and @Transactional work through a proxy Spring puts in front of your bean. That explains the self-call trap, why final and private methods are skipped, and the difference between CGLIB and JDK proxies."
 pubDate: '2026-10-27T18:03:31Z'
 section: spring
 topic: proxies

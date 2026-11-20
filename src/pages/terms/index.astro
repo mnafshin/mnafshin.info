@@ -9,7 +9,7 @@ import SectionIcon from '../../components/SectionIcon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articleCover } from '../../lib/covers';
 import { getSection, LINKS, withBase } from '../../lib/site';
-import { breadcrumbList, readingMinutes, wordCount } from '../../lib/structured-data';
+import { breadcrumbList, learningCourse, readingMinutes, wordCount } from '../../lib/structured-data';
 import {
   TERMS_CURRICULUM,
   getTermsConceptArticles,
@@ -18,14 +18,25 @@ import {
 } from '../../lib/terms';
 
 const section = getSection('terms');
+const articles = await getTermsConceptArticles();
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
 const jsonLd = [
   breadcrumbList(
     [{ label: 'Home', href: withBase() }, { label: section.name }],
-    new URL(Astro.url.pathname, Astro.site),
+    pageUrl,
     Astro.site,
   ),
+  learningCourse({
+    site: Astro.site,
+    url: pageUrl,
+    name: section.name,
+    description: section.tagline,
+    parts: articles.map((article) => ({
+      name: article.data.title,
+      url: new URL(withBase(`${section.path}/${article.id}/`), Astro.site).toString(),
+    })),
+  }),
 ];
-const articles = await getTermsConceptArticles();
 const weeklies = await getTermsWeeklies();
 
 function formatDate(entry: TermsArticle) {

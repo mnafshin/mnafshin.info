@@ -1,6 +1,7 @@
 ---
 title: 'Spring Bean Lifecycle: @PostConstruct, @PreDestroy, @Lazy and @DependsOn'
 description: When Spring creates a bean, injects it, runs its setup and cleans it up, and how to put your code at the right moment. Covers @PostConstruct, @PreDestroy, @Lazy, @DependsOn and why cleanup needs a closed container.
+summary: "A Spring bean is created, injected, initialised, used, and cleaned up when the container closes. This article shows where @PostConstruct, @PreDestroy, @Lazy and @DependsOn belong, and why cleanup only runs on a closed container."
 pubDate: '2026-10-29T17:11:43Z'
 section: spring
 topic: bean-lifecycle

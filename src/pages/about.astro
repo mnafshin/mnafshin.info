@@ -1,0 +1,64 @@
+---
+/**
+ * TODO(Afshin): expand this bio with any credentials, timeline or
+ * experience you want public. Keep only facts you are happy to stand
+ * behind; do not invent.
+ */
+import SectionIcon from '../components/SectionIcon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getVisibleSections } from '../lib/posts';
+import { LINKS, SITE_DESCRIPTION, SITE_TITLE, withBase } from '../lib/site';
+import { breadcrumbList, personPage } from '../lib/structured-data';
+
+const sections = await getVisibleSections();
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const jsonLd = [
+  personPage(Astro.site),
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: 'About' }],
+    pageUrl,
+    Astro.site,
+  ),
+];
+---
+<BaseLayout
+  title="About"
+  description={`About ${SITE_TITLE}: ${SITE_DESCRIPTION}`}
+  jsonLd={jsonLd}
+>
+  <div class="wrap-narrow section-page about-page">
+    <p class="eyebrow">About</p>
+    <h1>{SITE_TITLE}</h1>
+    <p class="lede">
+      I’m a Java and Spring developer. I teach on YouTube and write here about
+      the same topics: practical Spring work, and clear explanations of the
+      terms that keep coming up.
+    </p>
+    <p>
+      This site, <a href={withBase()}>mnafshin.info</a>, is a set of short
+      articles in learning order for backend developers, on Spring, AI terms,
+      security, databases, Kubernetes and system design.
+    </p>
+
+    <h2>Learning paths</h2>
+    <ul class="about-paths">
+      {sections.map((section) => (
+        <li>
+          <a href={withBase(`${section.path}/`)} data-section={section.id}>
+            <SectionIcon section={section.id} size={18} />
+            {section.name}
+          </a>
+          <span class="muted"> {section.tagline}</span>
+        </li>
+      ))}
+    </ul>
+
+    <h2>Elsewhere</h2>
+    <ul class="link-row">
+      <li><a href={LINKS.springuniverse}>SpringUniverse on YouTube</a></li>
+      <li><a href={LINKS.termsplained}>Termsplained on YouTube</a></li>
+      <li><a href={LINKS.github} rel="me">GitHub</a></li>
+      <li><a href={LINKS.linkedin} rel="me">LinkedIn</a></li>
+    </ul>
+  </div>
+</BaseLayout>

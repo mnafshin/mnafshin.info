@@ -1,6 +1,7 @@
 ---
 title: 'What Is Mixture of Experts (MoE)? Less Math, Not a Smaller Model'
 description: A mixture of experts model splits many of its parameters into groups called experts, and a router picks a few of them for each token. That cuts the math per token, but every expert still has to sit in memory.
+summary: "Mixture of Experts (MoE) is a way to build a large model that only uses some of its parts for each token. That means less work per answer, not a smaller model, and this article explains why."
 pubDate: '2026-11-07T12:00:34Z'
 section: terms
 topic: mixture-of-experts

@@ -1,6 +1,7 @@
 ---
 title: 'What Is Temperature in AI? The Setting That Makes It Random or Predictable'
 description: Temperature decides how often a language model takes a less likely word. Low is predictable, high is varied and, past a point, nonsense. A coffee-shop slogan at different settings shows the whole dial.
+summary: "Temperature is the setting that makes a model's answers more random or more predictable. This article explains what the number does, and when you might turn it up or down."
 pubDate: '2026-11-03T17:00:29Z'
 section: terms
 topic: temperature

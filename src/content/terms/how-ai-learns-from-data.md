@@ -1,6 +1,7 @@
 ---
 title: 'How AI Learns From Data: Supervised, Unsupervised and Reinforcement Learning'
 description: Machine learning learns in three classic ways, and the difference is what comes with the data. Right answers mean supervised learning, no answers mean unsupervised learning, and a score for each try means reinforcement learning. One music app shows all three.
+summary: "AI learns from data in three main ways: supervised learning, unsupervised learning and reinforcement learning. The article explains each one in plain words, without the usual jargon."
 pubDate: '2026-11-19T12:00:00Z'
 section: terms
 topic: how-ai-learns

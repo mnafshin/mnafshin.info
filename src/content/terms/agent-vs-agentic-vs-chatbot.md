@@ -1,6 +1,7 @@
 ---
 title: "AI Agent vs Agentic AI vs Chatbot: What's the Actual Difference?"
 description: A chatbot talks, a workflow follows steps someone wrote, and an agent picks its own steps and acts, in a loop. Agentic AI is the umbrella for systems that act. How to tell them apart in a sales pitch.
+summary: "A chatbot talks, a workflow follows steps someone wrote, and an agent picks its own steps and acts in a loop. Agentic AI is the umbrella for systems that act, and this article shows how to tell them apart in a sales pitch."
 pubDate: '2026-10-24T21:41:36Z'
 section: terms
 topic: agents

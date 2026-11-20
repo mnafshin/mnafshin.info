@@ -1,6 +1,7 @@
 ---
 title: 'How to Choose an AI Agent (and What It Really Costs)'
 description: Five questions that point you to the right kind of AI helper, a table of what each kind costs and who maintains it as of November 2026, and the common traps, from paying twice to giving an agent too much access.
+summary: "Choosing an AI agent means matching a job to the right kind of tool, then checking cost in money, setup and upkeep. Five questions narrow the field, and a short cost check stops surprises on the first bill."
 pubDate: '2026-11-20T03:30:00+01:00'
 section: terms
 topic: agents
