@@ -3,17 +3,21 @@ import { join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import satori from 'satori';
 import { OG_HEIGHT, OG_WIDTH } from './og';
+import { sectionAccent, SECTION_ICON_INNER, type SectionId } from './section-style';
 
 // Build-time social preview images, drawn in the site's own colours and
-// type: the warm paper background, the teal accent and a serif title.
+// type: the warm paper background, the section accent, its icon, and a
+// clear mnafshin.info mark.
 
 export type OgCard = {
   /** Small uppercase line above the title, e.g. "SpringUniverse · Article 4 of 10". */
   eyebrow: string;
   title: string;
   description?: string;
-  /** Path shown at the bottom, e.g. "mnafshin.info/spring". */
+  /** Path shown under the wordmark, e.g. "mnafshin.info/spring". */
   footer: string;
+  /** When set, the card uses this section's colour and icon. */
+  sectionId?: SectionId;
 };
 
 const COLORS = {
@@ -50,6 +54,19 @@ function loadFonts() {
   return fonts;
 }
 
+const iconCache = new Map<string, string>();
+
+function sectionIconSrc(sectionId: SectionId, stroke = '#f6f2ea'): string {
+  const key = `${sectionId}:${stroke}`;
+  const cached = iconCache.get(key);
+  if (cached) return cached;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${SECTION_ICON_INNER[sectionId]}</svg>`;
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: 80 } }).render().asPng();
+  const src = `data:image/png;base64,${Buffer.from(png).toString('base64')}`;
+  iconCache.set(key, src);
+  return src;
+}
+
 function clip(text: string, max: number) {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
@@ -63,14 +80,21 @@ function titleSize(title: string) {
   return 48;
 }
 
-function card({ eyebrow, title, description, footer }: OgCard): Node {
-  const logo = h(
+function logoMark(accent: string, sectionId?: SectionId): Node {
+  const content = sectionId
+    ? {
+        type: 'img',
+        props: { src: sectionIconSrc(sectionId), width: 40, height: 40 },
+      }
+    : 'A';
+
+  return h(
     'div',
     {
       width: 64,
       height: 64,
       borderRadius: 16,
-      background: COLORS.accent,
+      background: accent,
       color: COLORS.bg,
       display: 'flex',
       alignItems: 'center',
@@ -79,12 +103,20 @@ function card({ eyebrow, title, description, footer }: OgCard): Node {
       fontSize: 38,
       fontWeight: 600,
     },
-    'A',
+    content,
   );
+}
+
+function card({ eyebrow, title, description, footer, sectionId }: OgCard): Node {
+  const accent = sectionAccent(sectionId);
 
   const header = h('div', { display: 'flex', alignItems: 'center', gap: 22 }, [
-    logo,
-    h('div', { fontFamily: 'Source Serif 4', fontSize: 34, fontWeight: 600, color: COLORS.text, letterSpacing: -0.5 }, 'Afshin Amini'),
+    logoMark(accent, sectionId),
+    h(
+      'div',
+      { fontFamily: 'Source Serif 4', fontSize: 34, fontWeight: 600, color: COLORS.text, letterSpacing: -0.5 },
+      'Afshin Amini',
+    ),
   ]);
 
   const body = h('div', { display: 'flex', flexDirection: 'column', gap: 22 }, [
@@ -96,7 +128,7 @@ function card({ eyebrow, title, description, footer }: OgCard): Node {
         fontWeight: 600,
         letterSpacing: 2.4,
         textTransform: 'uppercase',
-        color: COLORS.accent,
+        color: accent,
       },
       eyebrow,
     ),
@@ -123,21 +155,34 @@ function card({ eyebrow, title, description, footer }: OgCard): Node {
       : []),
   ]);
 
+  const path = footer.replace(/^mnafshin\.info\/?/, '');
   const foot = h(
     'div',
     {
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       borderTop: `2px solid ${COLORS.border}`,
       paddingTop: 22,
-      fontFamily: 'Inter',
-      fontSize: 24,
-      color: COLORS.faint,
     },
     [
-      h('div', { fontWeight: 600, color: COLORS.muted }, footer),
-      h('div', {}, 'Java · Spring · AI terms, explained'),
+      h('div', { display: 'flex', flexDirection: 'column', gap: 4 }, [
+        h(
+          'div',
+          {
+            fontFamily: 'Source Serif 4',
+            fontSize: 32,
+            fontWeight: 600,
+            color: COLORS.text,
+            letterSpacing: -0.4,
+          },
+          'mnafshin.info',
+        ),
+        ...(path
+          ? [h('div', { fontFamily: 'Inter', fontSize: 20, fontWeight: 400, color: COLORS.faint }, `/${path}`)]
+          : []),
+      ]),
+      h('div', { fontFamily: 'Inter', fontSize: 22, color: COLORS.faint }, 'Java · Spring · AI terms, explained'),
     ],
   );
 
@@ -150,7 +195,7 @@ function card({ eyebrow, title, description, footer }: OgCard): Node {
       background: COLORS.bg,
     },
     [
-      h('div', { width: 18, height: OG_HEIGHT, background: COLORS.accent }),
+      h('div', { width: 18, height: OG_HEIGHT, background: accent }),
       h(
         'div',
         {

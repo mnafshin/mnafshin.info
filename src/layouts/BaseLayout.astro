@@ -103,11 +103,24 @@ const imageAlt = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SIT
       <slot />
     </main>
     <Footer />
+    <div class="print-chrome" aria-hidden="true">
+      <p class="print-banner print-banner-top">
+        <span class="print-banner-mark">mnafshin.info</span>
+        <span class="print-banner-url">{canonical}</span>
+      </p>
+      <div class="print-watermark">
+        <span>mnafshin.info</span>
+        <span>mnafshin.info</span>
+        <span>mnafshin.info</span>
+      </div>
+      <p class="print-banner print-banner-bottom">{canonical}</p>
+    </div>
     <ShortcutHelp />
     <MediaZoom />
     <DefinitionPopover />
     <script>
       import '../scripts/code-copy';
+      import '../scripts/copy-attribution';
       import '../scripts/search-highlight';
       import '../scripts/section-progress';
       import '../scripts/term-tips';
