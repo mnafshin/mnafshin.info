@@ -749,6 +749,206 @@ export const CHECK_QUESTIONS: Record<string, CheckQuestion[]> = {
       explain: 'A bigger B does not promise a better model; enough training data matters too.',
     },
   ],
+  'terms/ai-assistants-agents-and-bots-map': [
+    {
+      prompt: 'How do an assistant, an agent and a bot differ?',
+      choices: ['They are three names for the same thing', 'An assistant answers, an agent acts, and a bot is the chat-app face of either', 'A bot is always smarter than an agent'],
+      answer: 1,
+      explain: 'They sit on one scale: an assistant answers, an agent takes actions, and a bot is just how either one shows up in a chat app.',
+    },
+    {
+      prompt: 'Which two questions place any AI helper on the map?',
+      choices: ['Who made it, and what colour is its logo?', 'How many languages it speaks, and how fast it types', 'Does it answer or act, and whose computer does it run on?'],
+      answer: 2,
+      explain: 'Ask whether it only answers, acts when asked or acts on its own schedule, and whether it runs on the company\'s cloud, your computer, your server or your code editor.',
+    },
+    {
+      prompt: 'Why are OpenRouter and Copilot not on the agent map as agents?',
+      choices: ['OpenRouter is plumbing that connects you to models, and Copilot is a brand name for several products', 'Both are banned in Europe', 'Both only work offline'],
+      answer: 0,
+      explain: 'OpenRouter routes your requests to many models, and Copilot is a name used for several different products. Neither is one agent.',
+    },
+  ],
+  'terms/what-is-an-ai-agent-made-of': [
+    {
+      prompt: 'What turns a language model into an agent?',
+      choices: ['A bigger model', 'A loop (harness) that calls the model, runs tools and repeats until the task is done', 'A longer system prompt'],
+      answer: 1,
+      explain: 'The model only produces text. The loop around it reads that text, runs the tools it asks for, feeds the results back and repeats.',
+    },
+    {
+      prompt: 'What is a file such as AGENTS.md or SKILL.md?',
+      choices: ['Plain-text instructions the loop reads', 'The agent itself', 'A secret key for the model'],
+      answer: 0,
+      explain: 'These files are instructions in plain text. The loop reads them to know how to behave; changing them changes behaviour, but they are not the program.',
+    },
+    {
+      prompt: 'How is a subagent different from a multi-agent setup?',
+      choices: ['They are the same', 'A multi-agent setup is just one agent with more memory', 'A subagent is a helper for one side task; a multi-agent setup is a team of agents with a lead'],
+      answer: 2,
+      explain: 'A subagent does one side job and hands back a summary. A multi-agent setup has several named agents with their own jobs, coordinated by a lead.',
+    },
+  ],
+  'terms/hosted-ai-agents': [
+    {
+      prompt: 'Why can a hosted agent keep working when your laptop is off?',
+      choices: ['It runs on the company\'s cloud computer, not on your device', 'It saves battery by pausing', 'It only works while your laptop is on'],
+      answer: 0,
+      explain: 'A hosted agent has its own computer in the company\'s cloud, so it keeps going while your devices sleep.',
+    },
+    {
+      prompt: 'What is the main trade-off of a hosted agent?',
+      choices: ['You must update the software yourself every week', 'No upkeep for you, but shared usage limits and trusting the company with your data', 'It can never use the web'],
+      answer: 1,
+      explain: 'You pay a subscription and maintain nothing, but you live within the plan\'s limits and the company handles your data.',
+    },
+    {
+      prompt: 'ChatGPT dots and OpenDot do a similar job. What is the key difference?',
+      choices: ['OpenDot only answers questions', 'dots is free software you install', 'dots is a managed cloud service; OpenDot is free software that runs on your own computer'],
+      answer: 2,
+      explain: 'Same idea, opposite trade-offs: dots is run for you in the cloud, while OpenDot runs on your machine and you look after it.',
+    },
+  ],
+  'terms/what-is-an-api-key': [
+    {
+      prompt: 'Why does a self-hosted agent usually ask you for an API key?',
+      choices: ['It brings the loop but not the model, so it needs your key to use a model on your account', 'To prove you are over 18', 'Because it cannot work without the internet'],
+      answer: 0,
+      explain: 'The agent is the program around the model. The key lets it call a model provider and charge the usage to your account.',
+    },
+    {
+      prompt: 'Sara pays for a chat subscription. Does that cover API use?',
+      choices: ['Yes, every subscription includes unlimited API use', 'Usually not; API use is billed separately, though some higher plans include API credits', 'Only on weekends'],
+      answer: 1,
+      explain: 'Chat plans and the API are billed separately. Some tools let you sign in with your subscription instead, and some higher plans include credits.',
+    },
+    {
+      prompt: 'A key was pasted into a public chat by mistake. What should Sara do?',
+      choices: ['Nothing; keys cannot be misused', 'Change its name', 'Delete it and make a new one (rotate it), and check the spending limits'],
+      answer: 2,
+      explain: 'Treat a key like a password. If it leaks, revoke it and create a new one; spending limits cap the damage.',
+    },
+  ],
+  'terms/which-ai-model-should-i-use': [
+    {
+      prompt: 'What is the best way to judge which model is good for you?',
+      choices: ['Pick whatever tops a public ranking', 'Test a few models on your own real tasks, using rankings only as a shortlist', 'Always pick the newest model'],
+      answer: 1,
+      explain: 'Rankings measure general tests. Your own tasks show which model actually works for you.',
+    },
+    {
+      prompt: 'Which is a sensible starting rule?',
+      choices: ['Start with a mid-priced model, move up for hard work and down for simple, high-volume work', 'Always use the most expensive model', 'Always use the cheapest model'],
+      answer: 0,
+      explain: 'A mid-priced model handles most jobs. Spend more only where quality matters, and use small models where volume matters.',
+    },
+    {
+      prompt: 'Why might someone run an open-weights model on their own computer?',
+      choices: ['It is always smarter than closed models', 'It needs no computer at all', 'For privacy and no per-token cost, at the price of using their own hardware'],
+      answer: 2,
+      explain: 'Tools like Ollama run open-weights models locally, so your text stays at home and there is no token bill, but your hardware limits speed and size.',
+    },
+  ],
+  'terms/self-hosted-ai-agents': [
+    {
+      prompt: 'Why might Sara move her self-hosted agent from her PC to a small server?',
+      choices: ['Servers are always free', 'Her PC sleeps or turns off, while a small server runs all day', 'A PC cannot run software'],
+      answer: 1,
+      explain: 'An agent on your PC stops when the PC sleeps. A small rented server keeps it running around the clock.',
+    },
+    {
+      prompt: 'The software is free. What are the real costs?',
+      choices: ['The model, the server and your time', 'Nothing at all', 'Only a one-time licence fee'],
+      answer: 0,
+      explain: 'You pay for model use, maybe a server, and the time you spend on setup and upkeep.',
+    },
+    {
+      prompt: 'With a self-hosted agent, who handles updates, keys and approvals?',
+      choices: ['The company that made the chat app', 'Nobody; it handles itself', 'You do'],
+      answer: 2,
+      explain: 'Control comes with responsibility: you update the software, guard the keys, set up a sandbox and decide what needs approval.',
+    },
+  ],
+  'terms/what-is-openrouter': [
+    {
+      prompt: 'What problem does OpenRouter solve?',
+      choices: ['It writes your prompts for you', 'It gives you one account, one key and one balance for hundreds of models', 'It makes every model free'],
+      answer: 1,
+      explain: 'Instead of separate accounts and keys for each provider, you use one key and one balance to reach many models.',
+    },
+    {
+      prompt: 'What is a fallback?',
+      choices: ['A backup: if one provider fails, the request is retried with another provider or model', 'A cheaper copy of a model', 'A way to delete old chats'],
+      answer: 0,
+      explain: 'Fallbacks keep requests working when a provider errors or slows down.',
+    },
+    {
+      prompt: 'What should you keep in mind about privacy?',
+      choices: ['OpenRouter never sees your prompts', 'Privacy only matters for images', 'Your prompts pass through OpenRouter, so check its settings and the provider\'s policy too'],
+      answer: 2,
+      explain: 'A router sits in the middle. Use its privacy settings and check what each provider does with your data.',
+    },
+  ],
+  'terms/coding-agents-app-builders-and-workflow-agents': [
+    {
+      prompt: 'How does a coding agent usually hand back its work?',
+      choices: ['It changes the live website straight away', 'As a pull request that a person reviews before merging', 'It emails a zip file'],
+      answer: 1,
+      explain: 'The agent works on a copy and proposes a pull request. A person reviews it and decides whether to merge.',
+    },
+    {
+      prompt: 'Sara wants a booking page but does not code. Which kind of tool fits best?',
+      choices: ['An app builder that turns a description into a hosted app', 'A workflow tool', 'A coding agent in a terminal'],
+      answer: 0,
+      explain: 'App builders let non-coders describe an app and get a working, hosted one. She should still review anything important.',
+    },
+    {
+      prompt: 'When is a workflow tool with only a little AI a better choice than a full agent?',
+      choices: ['Never', 'When the job needs creative writing', 'When it is the same steps every time, with judgement needed only at one point'],
+      answer: 2,
+      explain: 'Plain automation is cheaper and more predictable for repeated steps. Add an AI step only where judgement is needed.',
+    },
+  ],
+  'terms/how-to-choose-an-ai-agent': [
+    {
+      prompt: 'Sara mostly asks questions and drafts text. What does she need?',
+      choices: ['A chat assistant is enough', 'A self-hosted agent on a server', 'A coding agent'],
+      answer: 0,
+      explain: 'The first question is answers or actions. If you only want answers, a chat assistant does the job.',
+    },
+    {
+      prompt: 'Which choice fits someone who wants zero maintenance?',
+      choices: ['A self-hosted agent', 'A hosted agent, ideally from a company whose plan they already pay for', 'Building their own agent from scratch'],
+      answer: 1,
+      explain: 'Hosted agents need no upkeep. Self-hosting gives control but costs time.',
+    },
+    {
+      prompt: 'Which of these is a common trap?',
+      choices: ['Reading prices on the official page', 'Giving an agent only the access it needs', 'Paying twice for overlapping tools, or forgetting a server that keeps billing'],
+      answer: 2,
+      explain: 'Watch for overlapping subscriptions, too much access, forgotten servers, usage limits and regions. Most people need one assistant and at most one agent.',
+    },
+  ],
+  'terms/copilot-explained-microsoft-vs-github': [
+    {
+      prompt: 'What does the name Copilot refer to?',
+      choices: ['One tool that does everything', 'A brand covering several different products', 'Only a coding tool'],
+      answer: 1,
+      explain: 'Copilot is a brand. Microsoft Copilot, Copilot in Microsoft 365 and GitHub Copilot are different products.',
+    },
+    {
+      prompt: 'Sara wants help inside Word and Outlook with her own documents. Which Copilot fits?',
+      choices: ['GitHub Copilot', 'Any of them; they are identical', 'Copilot in Microsoft 365'],
+      answer: 2,
+      explain: 'Copilot in Microsoft 365 works inside Word, Excel, Outlook and Teams. GitHub Copilot is for code.',
+    },
+    {
+      prompt: 'Is Copilot an assistant or an agent?',
+      choices: ['Partly both: most features suggest and wait, but some, like GitHub Copilot\'s coding agent, work through many steps on their own', 'Always a fully independent agent', 'Neither; it is a search engine'],
+      answer: 0,
+      explain: 'The name stays the same while products move along the scale from assistant to agent.',
+    },
+  ],
 };
 
 export function questionsFor(section: string, id: string): CheckQuestion[] | undefined {
