@@ -65,7 +65,7 @@ She does not need one tool for everything. A chat assistant for daily questions 
 
 ## Behind every helper: a model
 
-Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. The next articles in this group explain those keys, how to choose a model, and where OpenRouter fits.
+Every product on this map sends your words to a **language model**, the engine that writes the replies (see [What is an LLM?](/terms/what-is-an-llm/)). Some products choose the model for you. Others, especially self-hosted ones, ask you to pick a model and paste in a key that pays for it. What an agent is actually made of, from the model to its tools and instruction files, is the next article in this group (coming soon). Later ones explain those keys, how to choose a model, and where OpenRouter fits.
 
 ## Recap
 
