@@ -1,7 +1,10 @@
 ---
 import type { Article } from '../lib/articles';
+import { articleCover } from '../lib/covers';
 import { type CurriculumTopic, matchCurriculumArticle } from '../lib/curriculum-topics';
 import { withBase } from '../lib/site';
+import { readingMinutes, wordCount } from '../lib/structured-data';
+import ArticleCard from './ArticleCard.astro';
 
 interface Props {
   topics: readonly CurriculumTopic[];
@@ -45,27 +48,30 @@ function labelFor(topic: CurriculumTopic, index: number) {
       {group.title && (
         <h3 id={headingId} class="chapter-title page-title">{group.title}</h3>
       )}
-      <ol class="toc-list" start={startAt}>
+      <ol class="article-cards" start={startAt}>
         {group.topics.map((topic, index) => {
           const article = articleFor(topic);
           const label = labelFor(topic, startAt + index);
-          return (
+          return article ? (
             <li>
               <span class="step-number" aria-hidden="true">{label}</span>
-              {article ? (
-                <>
-                  <a href={withBase(`${sectionPath}/${article.id}/`)}>{article.data.title}</a>
-                  {article.data.description && (
-                    <p class="muted toc-blurb">{article.data.description}</p>
-                  )}
-                </>
-              ) : (
-                <span class="curriculum-upcoming">
-                  {topic.title}
-                  <span class="coming-label">Coming soon</span>
-                  <span class="visually-hidden"> (not yet published)</span>
-                </span>
-              )}
+              <ArticleCard
+                href={withBase(`${sectionPath}/${article.id}/`)}
+                title={article.data.title}
+                description={article.data.description}
+                sectionId={article.collection}
+                minutes={readingMinutes(wordCount(article.body))}
+                cover={articleCover(article, sectionPath)}
+              />
+            </li>
+          ) : (
+            <li class="is-upcoming">
+              <span class="step-number" aria-hidden="true">{label}</span>
+              <span class="curriculum-upcoming">
+                {topic.title}
+                <span class="coming-label">Coming soon</span>
+                <span class="visually-hidden"> (not yet published)</span>
+              </span>
             </li>
           );
         })}

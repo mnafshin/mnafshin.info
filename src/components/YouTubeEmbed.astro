@@ -1,5 +1,6 @@
 ---
-import { embedUrl } from '../lib/videos';
+import { youtubeThumb } from '../lib/covers';
+import { watchUrl } from '../lib/videos';
 
 interface Props {
   youtubeId: string;
@@ -7,14 +8,25 @@ interface Props {
 }
 
 const { youtubeId, title } = Astro.props;
+const thumb = youtubeThumb(youtubeId, 'player');
 ---
-<div class="video-embed">
-  <iframe
-    src={embedUrl(youtubeId)}
-    title={title}
-    loading="lazy"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen
-    referrerpolicy="strict-origin-when-cross-origin"
-  ></iframe>
+<div class="video-embed" data-video-embed data-youtube-id={youtubeId} data-video-title={title}>
+  <button type="button" class="video-facade" data-video-play aria-label={`Play video: ${title}`}>
+    <img
+      src={thumb.src}
+      width={thumb.width}
+      height={thumb.height}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="video-play" aria-hidden="true"></span>
+  </button>
+  <noscript>
+    <a class="video-facade-fallback" href={watchUrl(youtubeId)}>Watch on YouTube: {title}</a>
+  </noscript>
 </div>
+
+<script>
+  import '../scripts/video-embed';
+</script>

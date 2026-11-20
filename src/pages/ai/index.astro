@@ -1,6 +1,7 @@
 ---
 import ComingSoon from '../../components/ComingSoon.astro';
 import PostList from '../../components/PostList.astro';
+import SectionIcon from '../../components/SectionIcon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedEntries } from '../../lib/posts';
 import { getSection } from '../../lib/site';
@@ -10,9 +11,9 @@ const entries = await getPublishedEntries('ai');
 const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
 ---
 <BaseLayout title={section.name} description={section.tagline} ogImage="home">
-  <div class="wrap-narrow section-page">
+  <div class="wrap-narrow section-page" data-section={section.id}>
     <p class="eyebrow">Blog</p>
-    <h1>{section.name}</h1>
+    <h1><SectionIcon section={section.id} size={32} /> {section.name}</h1>
     <p class="lede">
       This section is a placeholder for a future AI blog. It stays out of the
       main navigation until it has a published post.

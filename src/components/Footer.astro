@@ -1,6 +1,7 @@
 ---
 import { getLearningPathSummaries } from '../lib/learning-paths';
 import { LINKS, withBase } from '../lib/site';
+import SectionIcon from './SectionIcon.astro';
 
 const year = new Date().getFullYear();
 const paths = await getLearningPathSummaries();
@@ -17,7 +18,8 @@ const paths = await getLearningPathSummaries();
         <ul>
           {paths.map((path) => (
             <li>
-              <a href={path.href}>
+              <a href={path.href} data-section={path.id}>
+                <SectionIcon section={path.id} size={16} />
                 {path.name}
                 {path.comingSoon && <span class="footer-soon">Coming soon</span>}
               </a>

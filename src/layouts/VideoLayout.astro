@@ -29,7 +29,7 @@ const section = getSection('spring');
 const sectionHref = withBase(`${section.path}/`);
 const crumbs: Crumb[] = [
   { label: 'Home', href: withBase() },
-  { label: section.name, href: sectionHref },
+  { label: section.name, href: sectionHref, sectionId: 'spring' },
   { label: 'Weekly reviews', href: `${sectionHref}#weekly-heading` },
   { label: video.data.title },
 ];
@@ -60,7 +60,7 @@ const jsonLd = [
 >
   <ReadingBar />
   <article
-    class="wrap-narrow article video-page"
+    class="wrap-narrow article video-page" data-section="spring"
     data-pagefind-body
     data-pagefind-meta={`section:${section.name}`}
     data-pagefind-filter={`section:${section.name}`}

@@ -48,7 +48,7 @@ const updated = post.data.updatedDate
 const sectionHref = withBase(`${section.path}/`);
 const crumbs: Crumb[] = [
   { label: 'Home', href: withBase() },
-  { label: section.name, href: sectionHref },
+  { label: section.name, href: sectionHref, sectionId },
   ...(isWeekly ? [{ label: 'Weekly reviews', href: `${sectionHref}#weekly-heading` }] : []),
   { label: post.data.title },
 ];
@@ -86,6 +86,7 @@ const jsonLd = [
   <ReadingBar />
   <article
     class="wrap-narrow article"
+    data-section={sectionId}
     data-pagefind-body
     data-pagefind-meta={`section:${section.name}`}
     data-pagefind-filter={`section:${section.name}`}
