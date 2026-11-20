@@ -13,8 +13,9 @@ import { ogImageUrl, ogKey } from '../lib/og';
 import { questionsFor } from '../data/check-questions';
 import { contentFile, displayUpdatedDate, suggestEditUrl } from '../lib/content-meta';
 import { relatedArticles } from '../lib/related';
-import { getSection, withBase } from '../lib/site';
-import { blogPosting, breadcrumbList, wordCount } from '../lib/structured-data';
+import { markdownPath } from '../lib/markdown-pages';
+import { getSection, SITE_TITLE, withBase } from '../lib/site';
+import { blogPosting, breadcrumbList, pageDescription, videoObject, wordCount } from '../lib/structured-data';
 import { codeLinks, shortUrl, videoPath, watchUrl } from '../lib/videos';
 import BaseLayout from './BaseLayout.astro';
 
@@ -58,24 +59,34 @@ const crumbs: Crumb[] = [
 ];
 const pageUrl = new URL(Astro.url.pathname, Astro.site);
 const key = ogKey(videoPath(video.id));
+const description = pageDescription(video.data) || video.data.description;
+const markdownUrl = withBase(markdownPath(section.path, video.id));
 const jsonLd = [
   blogPosting({
     site: Astro.site,
     url: pageUrl,
     title: video.data.title,
-    description: video.data.description,
+    description,
     image: ogImageUrl(key, Astro.site),
     published: video.data.pubDate,
+    modified: updatedDate,
     sectionName: section.name,
     sectionUrl: new URL(sectionHref, Astro.site).toString(),
     wordCount: wordCount(video.body),
   }),
   breadcrumbList(crumbs, pageUrl, Astro.site),
+  videoObject({
+    name: video.data.title,
+    youtubeId: video.data.youtubeId,
+    description,
+    uploadDate: video.data.pubDate,
+  }),
 ];
 ---
 <BaseLayout
   title={video.data.title}
-  description={video.data.description}
+  description={description}
+  markdownUrl={markdownUrl}
   ogImage={key}
   ogType="article"
   publishedTime={video.data.pubDate}
@@ -95,7 +106,8 @@ const jsonLd = [
     </p>
     <h1 data-pagefind-meta="title">{video.data.title}</h1>
     <p class="meta" data-pagefind-ignore>
-      <time datetime={video.data.pubDate.toISOString()}>{date}</time>
+      <a class="article-author" href={withBase('about/')}>{SITE_TITLE}</a>
+      {' '}· <time datetime={video.data.pubDate.toISOString()}>{date}</time>
       {updated && (
         <>
           {' '}
@@ -109,6 +121,12 @@ const jsonLd = [
       )}
     </p>
     <ArticleActions title={video.data.title} section={section.name} like={true} />
+    {video.data.summary && (
+      <aside class="in-short" aria-labelledby="in-short-heading">
+        <p id="in-short-heading" class="in-short-label">In short</p>
+        <p class="in-short-body">{video.data.summary}</p>
+      </aside>
+    )}
 
     <YouTubeEmbed youtubeId={video.data.youtubeId} title={video.data.title} />
 

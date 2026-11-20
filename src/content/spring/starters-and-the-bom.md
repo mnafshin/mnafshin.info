@@ -1,6 +1,7 @@
 ---
 title: 'Spring Boot Starters and the BOM: Who Picks Your Versions'
 description: Why a Spring Boot pom.xml needs no version numbers. A starter is a list of dependencies, the BOM is a list of version rules, and together they let you upgrade a whole stack by changing one number.
+summary: "A starter is a list of dependencies and the BOM is a list of version rules, which is why a Spring Boot pom.xml needs no version numbers. Together they let you upgrade a whole stack by changing one number."
 pubDate: '2026-10-23T16:00:09Z'
 section: spring
 topic: starters-bom

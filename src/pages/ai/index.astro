@@ -5,13 +5,32 @@ import PostList from '../../components/PostList.astro';
 import SectionIcon from '../../components/SectionIcon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedEntries } from '../../lib/posts';
-import { getSection } from '../../lib/site';
+import { getSection, withBase } from '../../lib/site';
+import { breadcrumbList, learningCourse } from '../../lib/structured-data';
 
 const section = getSection('ai');
 const entries = await getPublishedEntries('ai');
 const posts = entries.map((entry) => ({ sectionId: section.id, entry }));
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const jsonLd = [
+  breadcrumbList(
+    [{ label: 'Home', href: withBase() }, { label: section.name }],
+    pageUrl,
+    Astro.site,
+  ),
+  learningCourse({
+    site: Astro.site,
+    url: pageUrl,
+    name: section.name,
+    description: section.tagline,
+    parts: entries.map((entry) => ({
+      name: entry.data.title,
+      url: new URL(withBase(`${section.path}/${entry.id}/`), Astro.site).toString(),
+    })),
+  }),
+];
 ---
-<BaseLayout title={section.name} description={section.tagline} ogImage="home">
+<BaseLayout title={section.name} description={section.tagline} ogImage="home" jsonLd={jsonLd}>
   <div class="wrap-narrow section-page" data-section={section.id}>
     <p class="eyebrow">Blog</p>
     <h1><SectionIcon section={section.id} size={32} /> {section.name}</h1>

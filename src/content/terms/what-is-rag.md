@@ -1,6 +1,7 @@
 ---
 title: 'What Is RAG? How an AI Looks Things Up Before It Answers'
 description: RAG, retrieval-augmented generation, means the AI looks up the right documents first and then answers from them. How the lookup works, where the idea came from, what it fixes, and what it does not.
+summary: "RAG, or retrieval-augmented generation, means the AI looks things up in your sources before it answers. The article explains the steps in that lookup and why it can ground an answer."
 pubDate: '2026-11-03T12:00:00Z'
 section: terms
 topic: rag

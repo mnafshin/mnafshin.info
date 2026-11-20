@@ -1,6 +1,7 @@
 ---
 title: Java Trust Store Alert, Spring Boot 4.2 RC1, JDK 28 AOT Code | W44
 description: If your Java app talks to anything over HTTPS, it may still trust certificates that someone else can forge. That's the first thing to check this week. The keys of eight certificates from one authority, eMudhra, were compromised, and many Java runtimes still trust them.
+summary: "If your Java app talks to anything over HTTPS, it may still trust certificates that someone else can forge: the keys of eight eMudhra certificates were compromised, and many Java runtimes still trust them. The weekly review also covers the Spring release-candidate train and a JDK 28 AOT feature."
 youtubeId: NCTEPi415CQ
 pubDate: '2026-10-30T19:48:48Z'
 series: weekly

@@ -1,12 +1,13 @@
 import type { Crumb } from './nav';
-import { LINKS, SITE_TITLE } from './site';
+import { LINKS, SITE_DESCRIPTION, SITE_TITLE, type SectionId } from './site';
+import type { SectionGlossaryTerm } from './glossary';
 
 /** schema.org Person for the site's author. */
 export function author(site: URL | undefined) {
   return {
     '@type': 'Person',
     name: SITE_TITLE,
-    url: new URL('/', site).toString(),
+    url: new URL('about/', site).toString(),
     sameAs: [LINKS.github, LINKS.linkedin, LINKS.springuniverse, LINKS.termsplained],
   };
 }
@@ -41,7 +42,7 @@ export function blogPosting(options: {
   const person = author(options.site);
   return {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': ['BlogPosting', 'TechArticle'],
     headline: options.title,
     description: options.description,
     image: options.image,
@@ -58,6 +59,119 @@ export function blogPosting(options: {
   };
 }
 
+/** A YouTube video that is actually embedded on the page. Omits uploadDate when it is unknown. */
+export function videoObject(options: {
+  name: string;
+  youtubeId: string;
+  description?: string;
+  uploadDate?: Date;
+}) {
+  const watch = `https://www.youtube.com/watch?v=${options.youtubeId}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: options.name,
+    thumbnailUrl: `https://i.ytimg.com/vi/${options.youtubeId}/hqdefault.jpg`,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${options.youtubeId}`,
+    url: watch,
+    contentUrl: watch,
+    ...(options.description ? { description: options.description } : {}),
+    ...(options.uploadDate ? { uploadDate: options.uploadDate.toISOString() } : {}),
+  };
+}
+
+export function learningCourse(options: {
+  site: URL | undefined;
+  url: URL;
+  name: string;
+  description: string;
+  parts: { name: string; url: string }[];
+}) {
+  const person = author(options.site);
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['Course', 'LearningResource'],
+    name: options.name,
+    description: options.description,
+    url: options.url.toString(),
+    inLanguage: 'en',
+    provider: person,
+    isAccessibleForFree: true,
+    ...(options.parts.length > 0
+      ? {
+          hasPart: options.parts.map((part, index) => ({
+            '@type': 'LearningResource',
+            position: index + 1,
+            name: part.name,
+            url: part.url,
+            isPartOf: options.url.toString(),
+          })),
+        }
+      : {}),
+  };
+}
+
+export function definedTermSet(options: {
+  name: string;
+  url: URL;
+  description?: string;
+  terms: SectionGlossaryTerm[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name: options.name,
+    url: options.url.toString(),
+    ...(options.description ? { description: options.description } : {}),
+    ...(options.terms.length > 0
+      ? {
+          hasDefinedTerm: options.terms.map((term) => ({
+            '@type': 'DefinedTerm',
+            name: term.term,
+            description: term.definition,
+            url: new URL(term.href, options.url).toString(),
+            inDefinedTermSet: options.url.toString(),
+          })),
+        }
+      : {}),
+  };
+}
+
+export function webSite(site: URL | undefined) {
+  const person = author(site);
+  const url = new URL('/', site).toString();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_TITLE,
+    url,
+    description: SITE_DESCRIPTION,
+    inLanguage: 'en',
+    author: person,
+    publisher: person,
+  };
+}
+
+export function personPage(site: URL | undefined) {
+  return {
+    '@context': 'https://schema.org',
+    ...author(site),
+    description: SITE_DESCRIPTION,
+  };
+}
+
+/** Prefer a short summary when a page description is empty. */
+export function pageDescription(data: { description?: string; summary?: string }) {
+  const description = data.description?.trim();
+  if (description) return description;
+  return data.summary?.trim() || '';
+}
+
+/** One-line blurb for llms.txt: summary first, then the meta description. */
+export function llmBlurb(data: { description?: string; summary?: string }) {
+  return (data.summary?.trim() || data.description?.trim() || '').replace(/\s+/g, ' ');
+}
+
 export function wordCount(markdown: string | undefined) {
   return (markdown ?? '').split(/\s+/).filter(Boolean).length;
 }
@@ -65,3 +179,5 @@ export function wordCount(markdown: string | undefined) {
 export function readingMinutes(words: number) {
   return Math.max(1, Math.round(words / 220));
 }
+
+export type { SectionId };

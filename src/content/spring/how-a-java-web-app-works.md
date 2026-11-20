@@ -1,6 +1,7 @@
 ---
 title: 'How a Java Web App Works: From Browser to Spring and Back'
 description: What happens between typing an address and seeing a JSON answer, written as a short trip through client, HTTP, JSON and a plain Java server, and the one part of that trip Spring automates.
+summary: "A short trip from typing an address to a JSON answer, through the client, HTTP, JSON and a plain Java server. It then shows the one part of that trip that Spring automates."
 pubDate: '2026-10-17T16:00:21Z'
 updatedDate: '2026-11-20T00:00:00Z'
 section: spring

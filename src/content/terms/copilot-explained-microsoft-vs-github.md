@@ -1,6 +1,7 @@
 ---
 title: 'Copilot Explained: Microsoft Copilot vs GitHub Copilot'
 description: '"Copilot" is a brand, not one product. Microsoft Copilot is a free chat assistant, Copilot in Microsoft 365 works inside Word, Excel and Outlook, and GitHub Copilot is a coding assistant and agent. Which is which, what each costs as of November 2026, and which one you need.'
+summary: "Copilot is a brand name that Microsoft and GitHub use for several products that do not share a price, a login or a job. This article sorts Microsoft Copilot, Copilot in Microsoft 365, and GitHub Copilot, and says which one you need."
 pubDate: '2026-11-20T03:40:00+01:00'
 section: terms
 topic: copilot

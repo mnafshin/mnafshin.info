@@ -1,6 +1,7 @@
 ---
 title: 'What Is an LLM? Large Language Models, Explained Simply'
 description: A large language model is a giant next-token predictor that learned how language usually goes. What the letters mean, how it reads and learns, how a guesser becomes an assistant, and why it can sound sure and still be wrong.
+summary: "A large language model (LLM) is the kind of AI behind most chatbots: it predicts the next token from the text so far. This article explains that idea in plain words, without the usual jargon."
 pubDate: '2026-10-24T16:51:00Z'
 section: terms
 topic: llm

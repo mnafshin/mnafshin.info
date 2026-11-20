@@ -1,6 +1,7 @@
 ---
 title: 'What Is an AI Copilot? The Product Name vs the Idea'
 description: Copilot is two things at once. With a capital C it is a brand that covers many Microsoft and GitHub products; as an idea it means the AI suggests and a human decides. When the AI starts acting on its own, the name may stay, but it has become an agent.
+summary: "Copilot is both a product brand, used by Microsoft and GitHub, and a design idea: the AI suggests and a human decides. When the AI starts acting on its own, the name may stay, but it has become an agent."
 pubDate: '2026-10-27T12:23:02Z'
 section: terms
 topic: copilot

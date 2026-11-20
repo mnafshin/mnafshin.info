@@ -1,6 +1,7 @@
 ---
 title: 'The relational model and the SQL a backend developer actually writes'
 description: 'A relational database stores facts in tables, linked by shared ids. We build the shop used across this channel, then write the queries a backend developer needs most: joins, aggregates and subqueries.'
+summary: "A relational database stores facts in tables, linked by shared ids. We build the shop used across this path, then write the queries a backend developer needs most: joins, aggregates and subqueries."
 pubDate: '2026-11-19T14:05:00+01:00'
 section: db
 topic: relational-model-and-sql

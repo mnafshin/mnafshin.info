@@ -51,3 +51,14 @@ Use a short term name, not the full article title, and link only to a published 
 The build marks the first occurrence of glossary terms in article prose so readers can open a short definition. Terms come from every section glossary (`src/data/glossaries.ts` and published Termsplained articles). The article's own section is preferred when more than one term could match. Code, headings, links, glossary pages, and the article that defines a term are skipped.
 
 Matching is whole-word and case-aware: acronyms such as `REST` or `SQL`, camelCase names, and `@annotations` must appear in that form. Everyday words are not auto-marked. The skip list and safer aliases live in `src/data/glossary-marking.ts`. If you add a short, common term such as `image` or `profile`, put the bare word in `SKIP_MARKING` and add a distinctive alias (for example `container image` or `Spring profile`) in `GLOSSARY_ALIASES`. Readers can still look up the bare word with the Define shortcut (`Alt+I` or `I`) or the mobile Define button.
+
+## Article summaries (In short)
+
+New articles should include an optional `summary` field in the frontmatter: one or two accurate sentences, written from the article itself, that can stand as a TL;DR.
+
+```md
+summary: 'Spring Boot creates the usual beans from what is on the classpath. Once you know how it decides, you can change, write, disable and test an auto-configuration.'
+```
+
+The site shows this as an “In short” box at the top of the article, uses it in `/llms.txt`, and falls back to it for the meta description if `description` is missing. `description` is still required. The build does not fail when `summary` is absent, but adding one is recommended for every new published article and weekly review.
+

@@ -1,6 +1,7 @@
 ---
 title: 'Self-Hosted AI Agents: OpenClaw, Hermes and Friends'
 description: A self-hosted agent is free software you run on your own computer or a small rented server and talk to from Telegram, WhatsApp or Slack. What OpenClaw, Hermes Agent, NanoClaw, Rakazo and Suparagent do, what they really cost, and what you must maintain.
+summary: "A self-hosted AI agent is software you install and run yourself, on your own computer or a small rented server, and usually talk to from a chat app. The software is often free; the costs are the model, perhaps a server, and the time to keep it running."
 pubDate: '2026-11-20T02:50:00+01:00'
 section: terms
 topic: agents

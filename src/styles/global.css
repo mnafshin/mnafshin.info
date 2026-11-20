@@ -2885,7 +2885,49 @@ html.dark .toc-fab {
   font-size: 1.2rem;
 }
 
+/* ---------- In short / TL;DR ---------- */
+.in-short {
+  margin: 1.25rem 0 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--section, var(--accent));
+  border-radius: 10px;
+  background: var(--section-soft, var(--accent-soft));
+}
+
+.in-short-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--section, var(--accent));
+}
+
+.in-short-body {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.about-paths {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.about-paths li {
+  margin: 0.7rem 0;
+}
+
+.about-paths a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
 /* ---------- Print / PDF ---------- */
+
 .print-chrome {
   display: none;
 }

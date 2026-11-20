@@ -1,6 +1,7 @@
 ---
 title: 'What Is an AI Agent Made Of? The Parts Behind the Name'
 description: An agent is not a model and not a SKILL.md file. It is a small program that runs a loop around a model and connects it to tools, instructions, memory, a computer and a chat channel. Here is each part, and which part a product name usually means.
+summary: "Behind the name, an AI agent is a model plus tools, memory and a loop that chooses the next step. This article names those parts and what each one is for."
 pubDate: '2026-11-20T02:00:00+01:00'
 section: terms
 topic: agents

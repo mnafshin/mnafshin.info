@@ -1,6 +1,7 @@
 ---
 title: 'AI News This Week (24–30 October 2026): Five Stories, Five AI Words'
 description: 'Five AI stories from 24–30 October 2026, each with one term in plain words: GPT-6.1 Terra and computer use, Gemini 4 Carbon and prompt injection, Mistral Large 4 and mixture of experts, a shared AI-training signal in robots.txt, and Google Research''s sleep framework.'
+summary: "Five AI stories from 24–30 October 2026, each with one term in plain words: GPT-6.1 Terra and computer use, Gemini 4 Carbon and prompt injection, Mistral Large 4 and mixture of experts, a shared AI-training signal in robots.txt, and Google Research's sleep framework."
 pubDate: '2026-11-01T10:00:03Z'
 kind: weekly
 section: terms

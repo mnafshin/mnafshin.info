@@ -1,6 +1,7 @@
 ---
 title: 'What Is OpenRouter? One Key for Many AI Models'
 description: OpenRouter gives you one account, one API key and one balance for more than 600 AI models from many companies, with automatic fallbacks. How it works, what it costs as of November 2026, the privacy settings, the downsides, and the alternatives.
+summary: "OpenRouter is a service that lets you reach many AI models with one API key. This article explains what that is useful for, and what still sits behind the one key."
 pubDate: '2026-11-20T03:00:00+01:00'
 section: terms
 topic: models

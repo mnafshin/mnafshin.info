@@ -1,6 +1,7 @@
 ---
 title: 'Spring Circular Dependencies: Why Boot Refuses Them and How to Fix Them'
 description: Two beans that need each other cannot both be created first, so Spring Boot stops at startup. Why the allow-circular-references flag and @Lazy only hide the cycle, and two ways to remove it.
+summary: "When two beans need each other to be created, Spring Boot stops at startup because neither can be finished first. The allow-circular-references flag and @Lazy only hide the cycle; the lasting fix is to break it in the design."
 pubDate: '2026-10-30T12:00:26Z'
 section: spring
 topic: circular-dependencies

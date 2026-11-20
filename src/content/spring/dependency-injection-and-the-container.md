@@ -1,6 +1,7 @@
 ---
 title: 'Dependency Injection and the Spring Container'
 description: Why a class should ask for its helpers instead of building them, and what the Spring container does with that request — @Component and @Bean, component scanning, @Configuration and the ApplicationContext.
+summary: "A class should ask for its helpers instead of building them; the Spring container satisfies that request. The article covers @Component and @Bean, component scanning, @Configuration and the ApplicationContext."
 pubDate: '2026-10-24T16:00:35Z'
 section: spring
 topic: dependency-injection

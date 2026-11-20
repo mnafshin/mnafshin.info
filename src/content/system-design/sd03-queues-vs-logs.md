@@ -1,6 +1,7 @@
 ---
 title: 'Queues vs Logs: SNS/SQS or Kafka?'
 description: 'Queues hand each message to one consumer and forget it; logs keep messages so many readers can replay them. When to pick SNS/SQS and when to pick Kafka.'
+summary: "Queues hand each message to one consumer and forget it; logs keep messages so many readers can replay them. The article says when to pick SNS/SQS and when to pick Kafka."
 pubDate: '2026-11-19T14:03:00+01:00'
 section: system-design
 topic: sd03

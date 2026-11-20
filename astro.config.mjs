@@ -6,6 +6,7 @@ import { mermaidBlocksPlugin } from './src/lib/mermaid-blocks';
 import { termTipsPlugin } from './src/lib/rehype-term-tips';
 import { accessibleGithubDark, accessibleGithubLight } from './src/lib/shiki-themes';
 import sitemap from '@astrojs/sitemap';
+import { sitemapLastmod } from './src/lib/sitemap-lastmod';
 
 // Flip this to true when cutting over to the custom domain.
 // Then add public/CNAME (mnafshin.info) and follow the README
@@ -55,7 +56,16 @@ export default defineConfig({
     sitemap({
       filter: (page) => {
         const path = new URL(page).pathname;
-        return !path.endsWith('/search/') && !path.endsWith('/saved/');
+        if (path.endsWith('/search/') || path.endsWith('/saved/')) return false;
+        // HTML pages only; Markdown and text endpoints have their own URLs.
+        if (path.endsWith('.md') || path.endsWith('.txt') || path.endsWith('.xml')) return false;
+        return true;
+      },
+      serialize: (item) => {
+        const path = new URL(item.url).pathname;
+        const lastmod = sitemapLastmod(path);
+        if (lastmod) item.lastmod = lastmod.toISOString();
+        return item;
       },
     }),
   ],

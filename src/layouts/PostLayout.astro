@@ -8,11 +8,15 @@ import TableOfContents from '../components/TableOfContents.astro';
 import type { Crumb, TocItem } from '../lib/nav';
 import { ogImageUrl, ogKey } from '../lib/og';
 import { contentFile, displayUpdatedDate, suggestEditUrl } from '../lib/content-meta';
-import { getSection, type SectionId, withBase } from '../lib/site';
+import { markdownPath } from '../lib/markdown-pages';
+import { getSection, SITE_TITLE, type SectionId, withBase } from '../lib/site';
+import { isPublicVideo } from '../lib/articles';
 import {
   blogPosting,
   breadcrumbList,
+  pageDescription,
   readingMinutes,
+  videoObject,
   wordCount,
 } from '../lib/structured-data';
 import BaseLayout from './BaseLayout.astro';
@@ -61,12 +65,16 @@ const words = wordCount(post.body);
 const minutes = readingMinutes(words);
 const pageUrl = new URL(Astro.url.pathname, Astro.site);
 const key = ogKey(`${section.path}/${post.id}`);
+const description = pageDescription(post.data) || post.data.description;
+const markdownUrl = withBase(markdownPath(section.path, post.id));
+const relatedVideos =
+  'relatedVideos' in post.data ? post.data.relatedVideos.filter(isPublicVideo) : [];
 const jsonLd = [
   blogPosting({
     site: Astro.site,
     url: pageUrl,
     title: post.data.title,
-    description: post.data.description,
+    description,
     image: ogImageUrl(key, Astro.site),
     published: post.data.pubDate,
     modified: updatedDate,
@@ -76,11 +84,19 @@ const jsonLd = [
     wordCount: words,
   }),
   breadcrumbList(crumbs, pageUrl, Astro.site),
+  ...relatedVideos.map((video) =>
+    videoObject({
+      name: video.title,
+      youtubeId: video.youtubeId,
+      uploadDate: 'pubDate' in video ? video.pubDate : undefined,
+    }),
+  ),
 ];
 ---
 <BaseLayout
   title={post.data.title}
-  description={post.data.description}
+  description={description}
+  markdownUrl={markdownUrl}
   ogImage={key}
   ogType="article"
   publishedTime={post.data.pubDate}
@@ -99,7 +115,8 @@ const jsonLd = [
     <Breadcrumbs items={crumbs} />
     <h1 data-pagefind-meta="title">{post.data.title}</h1>
     <p class="meta" data-pagefind-ignore>
-      <time datetime={post.data.pubDate.toISOString()}>{date}</time>
+      <a class="article-author" href={withBase('about/')}>{SITE_TITLE}</a>
+      {' '}· <time datetime={post.data.pubDate.toISOString()}>{date}</time>
       {updated && (
         <>
           {' '}
@@ -115,6 +132,12 @@ const jsonLd = [
     </p>
     <ArticleActions title={post.data.title} section={section.name} like={like} />
     <TableOfContents headings={headings} extra={tocExtra} />
+    {post.data.summary && (
+      <aside class="in-short" aria-labelledby="in-short-heading">
+        <p id="in-short-heading" class="in-short-label">In short</p>
+        <p class="in-short-body">{post.data.summary}</p>
+      </aside>
+    )}
     <slot />
   </article>
 </BaseLayout>

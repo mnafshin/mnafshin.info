@@ -1,6 +1,7 @@
 ---
 title: 'REST vs gRPC for Internal Calls (Part 1): Choosing the Protocol and Writing the Contract'
 description: 'How to choose between REST and gRPC for calls inside a platform, write a protobuf contract that 40 teams can evolve safely, and call another service with a deadline.'
+summary: "How to choose between REST and gRPC for calls inside a platform. The article then shows how to write a protobuf contract that many teams can evolve safely, and how to call another service with a deadline."
 pubDate: '2026-11-19T14:01:00+01:00'
 section: system-design
 topic: sd02

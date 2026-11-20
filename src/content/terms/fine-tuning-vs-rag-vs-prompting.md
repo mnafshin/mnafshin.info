@@ -1,6 +1,7 @@
 ---
 title: 'Fine-Tuning vs RAG vs Prompting: Which One Your Project Needs'
 description: Prompting changes what you tell the model, RAG changes what it reads, and fine-tuning changes the model itself. One bike-shop help bot, upgraded step by step, shows what each one fixes and why facts that change belong in a lookup, not in training.
+summary: "Prompting, RAG and fine-tuning are three ways to get better answers from a model. The article compares what each one changes, what it costs, and which a typical project needs first."
 pubDate: '2026-11-04T17:00:25Z'
 section: terms
 topic: fine-tuning-vs-rag
