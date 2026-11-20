@@ -49,9 +49,9 @@ Put the two questions together and most names fall into one of these boxes.
 | Chat assistant | Answers, and sometimes acts when asked | ChatGPT, Claude, Gemini, Perplexity | This article |
 | Hosted agent | Works for you on the company's computer, often on a schedule | ChatGPT dots, Claude Duet, Claude Cowork, Meta Muse, Grok Bot, Manus | [Hosted AI agents](/terms/hosted-ai-agents/) |
 | Self-hosted agent | Free software on your computer or server, reached from chat apps | OpenClaw, Hermes Agent, NanoClaw, Suparagent | [Self-hosted AI agents](/terms/self-hosted-ai-agents/) |
-| Builder tools | Write code, build apps or run automations | Claude Code, Codex, Cursor, Lovable, n8n | Part 4 (coming soon) |
+| Builder tools | Write code, build apps or run automations | Claude Code, Codex, Cursor, Lovable, n8n | [Coding agents and builders](/terms/coding-agents-app-builders-and-workflow-agents/) |
 
-Some famous names are not agents at all. **OpenRouter** gives you one account and one key for many AI models; it is plumbing that other tools plug into. **Copilot** is a brand name that covers several Microsoft and GitHub products. Both get their own articles in this group. Until then, [What is an AI copilot?](/terms/what-is-an-ai-copilot/) explains the brand versus the idea.
+Some famous names are not agents at all. **OpenRouter** gives you one account and one key for many AI models; it is plumbing that other tools plug into. **Copilot** is a brand name that covers several Microsoft and GitHub products. Both get their own articles in this group: [What is OpenRouter?](/terms/what-is-openrouter/) and [Copilot explained](/terms/copilot-explained-microsoft-vs-github/). [What is an AI copilot?](/terms/what-is-an-ai-copilot/) explains the brand versus the idea.
 
 ## Where Sara starts
 
