@@ -1,0 +1,44 @@
+---
+import type { SectionId } from '../lib/site';
+import SectionIcon from './SectionIcon.astro';
+import type { CoverImage } from '../lib/covers';
+
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  sectionId: SectionId | string;
+  minutes?: number;
+  cover?: CoverImage;
+  meta?: string;
+}
+
+const { href, title, description, sectionId, minutes, cover, meta } = Astro.props;
+---
+<a class="article-card" href={href} data-section={sectionId}>
+  <span class="article-card-media" aria-hidden="true">
+    {cover ? (
+      <img
+        src={cover.src}
+        width={cover.width}
+        height={cover.height}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <span class="article-card-fallback">
+        <SectionIcon section={sectionId} size={28} />
+      </span>
+    )}
+  </span>
+  <span class="article-card-body">
+    <span class="article-card-title">{title}</span>
+    {description && <span class="muted article-card-desc">{description}</span>}
+    <span class="meta">
+      {typeof minutes === 'number' ? `${minutes} min read` : ''}
+      {typeof minutes === 'number' && meta ? ' · ' : ''}
+      {meta}
+    </span>
+  </span>
+</a>

@@ -2,6 +2,7 @@
 import type { Article } from '../lib/articles';
 import { type CurriculumTopic, matchCurriculumArticle } from '../lib/curriculum-topics';
 import { withBase } from '../lib/site';
+import SectionIcon from './SectionIcon.astro';
 
 interface Props {
   topics: readonly CurriculumTopic[];
@@ -16,8 +17,8 @@ function labelFor(topic: CurriculumTopic, index: number) {
 }
 ---
 {topics.length > 0 && (
-<section class="learning-map" aria-labelledby="learning-map-heading" data-learning-map data-pagefind-ignore>
-  <h2 id="learning-map-heading" class="page-title">Learning map</h2>
+<section class="learning-map" aria-labelledby="learning-map-heading" data-learning-map data-pagefind-ignore data-section={sectionPath}>
+  <h2 id="learning-map-heading" class="page-title"><SectionIcon section={sectionPath} /> Learning map</h2>
   <p class="muted learning-map-intro">
     Topics in learning order. Coming soon items are not links yet; read and
     in-progress states appear in this browser once you start an article.

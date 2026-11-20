@@ -1,5 +1,6 @@
 ---
 import type { Crumb } from '../lib/nav';
+import SectionIcon from './SectionIcon.astro';
 
 interface Props {
   items: Crumb[];
@@ -11,12 +12,18 @@ const { items } = Astro.props;
   <ol>
     {items.map((item, index) => {
       const last = index === items.length - 1;
+      const label = (
+        <>
+          {item.sectionId && <SectionIcon section={item.sectionId} size={14} />}
+          {item.label}
+        </>
+      );
       return (
         <li>
           {last || !item.href ? (
-            <span aria-current={last ? 'page' : undefined}>{item.label}</span>
+            <span aria-current={last ? 'page' : undefined}>{label}</span>
           ) : (
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} data-section={item.sectionId}>{label}</a>
           )}
         </li>
       );

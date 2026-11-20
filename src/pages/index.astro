@@ -1,5 +1,6 @@
 ---
 import ComingSoon from '../components/ComingSoon.astro';
+import SectionIcon from '../components/SectionIcon.astro';
 import ContinueLearning from '../components/ContinueLearning.astro';
 import PostList from '../components/PostList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -43,9 +44,9 @@ function formatDate(date: Date) {
       <h2 class="page-title">Blogs</h2>
       <div class="cards">
         {publicSections.map((section) => (
-          <a class="card" href={withBase(`${section.path}/`)}>
+          <a class="card" href={withBase(`${section.path}/`)} data-section={section.id}>
             <p class="eyebrow">Section</p>
-            <h3>{section.name}</h3>
+            <h3><SectionIcon section={section.id} /> {section.name}</h3>
             <p class="muted">{section.tagline}</p>
           </a>
         ))}

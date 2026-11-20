@@ -4,6 +4,7 @@ import SearchBox from '../components/SearchBox.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLearningPathSummaries, getPublishedPageIndex } from '../lib/learning-paths';
 import { withBase } from '../lib/site';
+import SectionIcon from '../components/SectionIcon.astro';
 
 const paths = await getLearningPathSummaries();
 const pages = await getPublishedPageIndex();
@@ -47,9 +48,9 @@ const pages = await getPublishedPageIndex();
       <h2 id="not-found-paths-heading" class="page-title">Learning paths</h2>
       <div class="cards">
         {paths.map((path) => (
-          <a class:list={['card', path.comingSoon && 'is-soon']} href={path.href}>
+          <a class:list={['card', path.comingSoon && 'is-soon']} href={path.href} data-section={path.id}>
             <p class="eyebrow">{path.comingSoon ? 'Coming soon' : 'Learning path'}</p>
-            <h3>{path.name}</h3>
+            <h3><SectionIcon section={path.id} /> {path.name}</h3>
             <p class="muted">
               {path.comingSoon
                 ? 'The first article is still on the way. The path is ready to browse.'
