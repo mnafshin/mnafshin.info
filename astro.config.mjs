@@ -4,6 +4,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import { calloutsPlugin } from './src/lib/callouts';
 import { mermaidBlocksPlugin } from './src/lib/mermaid-blocks';
 import { termTipsPlugin } from './src/lib/rehype-term-tips';
+import { accessibleGithubDark, accessibleGithubLight } from './src/lib/shiki-themes';
 import sitemap from '@astrojs/sitemap';
 
 // Flip this to true when cutting over to the custom domain.
@@ -68,8 +69,8 @@ export default defineConfig({
     }),
     shikiConfig: {
       themes: {
-        light: 'github-light',
-        dark: 'github-dark',
+        light: accessibleGithubLight,
+        dark: accessibleGithubDark,
       },
       defaultColor: false,
       wrap: true,
