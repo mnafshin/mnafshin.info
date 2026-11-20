@@ -1,0 +1,47 @@
+---
+import { loadMarkableTerms } from '../lib/glossary';
+
+const terms = loadMarkableTerms(import.meta.env.BASE_URL).map((term) => ({
+  id: term.id,
+  term: term.term,
+  definition: term.definition,
+  href: term.href,
+  sectionId: term.sectionId,
+  sectionName: term.sectionName,
+  phrases: term.phrases,
+  lookupPhrases: term.lookupPhrases,
+  linkLabel: term.linkLabel,
+}));
+const json = JSON.stringify(terms).replace(/</g, '\\u003c');
+---
+<script is:inline type="application/json" id="glossary-index" set:html={json} />
+
+<div class="def-backdrop" data-def-backdrop hidden></div>
+
+<div
+  id="def-popover"
+  class="def-popover"
+  data-def-popover
+  hidden
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="def-popover-term"
+  aria-describedby="def-popover-def"
+  tabindex="-1"
+>
+  <div class="def-popover-panel">
+    <div class="def-popover-bar">
+      <p id="def-popover-term" class="def-popover-term"></p>
+      <button type="button" class="def-popover-close" data-def-close>Close</button>
+    </div>
+    <p class="def-popover-badge" data-def-badge hidden></p>
+    <p id="def-popover-def" class="def-popover-def" data-def-body></p>
+    <p class="def-popover-source" data-def-source hidden>From Wikipedia</p>
+    <a class="def-popover-link" data-def-link hidden></a>
+    <p class="def-popover-attr" data-def-attr hidden>
+      Text from Wikipedia, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    </p>
+  </div>
+</div>
+
+<button type="button" class="def-select-btn" data-def-select hidden>Define</button>
