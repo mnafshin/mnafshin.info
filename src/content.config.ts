@@ -9,6 +9,8 @@ const postSchema = z.object({
   updatedDate: z.coerce.date().optional(),
   draft: z.boolean().default(false),
   tags: z.array(z.string()).default([]),
+  /** Manual related-article overrides, as `section/id` or a same-section id. */
+  related: z.array(z.string()).default([]),
 });
 
 const shortSchema = z.object({

@@ -70,21 +70,24 @@ function enhanceImages() {
     img.setAttribute('aria-label', label);
   });
 
+  enhanceDiagrams();
+}
+
+function enhanceDiagrams() {
   document.querySelectorAll<HTMLElement>('.diagram-view').forEach((view) => {
     view.setAttribute('data-zoom-trigger', '');
     view.setAttribute('tabindex', '0');
     view.setAttribute('role', 'button');
     view.setAttribute('aria-label', 'View larger diagram');
+    // The Mermaid SVG has visible text that must not become this button's name.
+    view.querySelectorAll('svg').forEach((svg) => {
+      svg.setAttribute('aria-hidden', 'true');
+    });
   });
 }
 
 enhanceImages();
 document.documentElement.addEventListener('themechange', () => {
   // Mermaid redraws the SVG; keep the zoom trigger on the view.
-  document.querySelectorAll<HTMLElement>('.diagram-view').forEach((view) => {
-    view.setAttribute('data-zoom-trigger', '');
-    view.setAttribute('tabindex', '0');
-    view.setAttribute('role', 'button');
-    view.setAttribute('aria-label', 'View larger diagram');
-  });
+  enhanceDiagrams();
 });

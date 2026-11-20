@@ -36,7 +36,7 @@ const TUTORIAL_REDIRECTS = [
   ['t6-3-api-versioning', 'rest-apis-crud-errors-and-versioning'],
 ];
 
-const redirects = Object.fromEntries(
+const tutorialRedirects = Object.fromEntries(
   TUTORIAL_REDIRECTS.map(([from, to]) => [
     `/spring/${from}/`,
     { status: /** @type {301} */ (301), destination: `/spring/${to}/` },
@@ -48,7 +48,10 @@ export default defineConfig({
   site: CUSTOM_DOMAIN ? 'https://mnafshin.info' : 'https://mnafshin.github.io',
   base: CUSTOM_DOMAIN ? '/' : '/mnafshin.info',
   trailingSlash: 'always',
-  redirects,
+  redirects: {
+    ...tutorialRedirects,
+    '/glossary/': '/terms/glossary/',
+  },
   integrations: [
     // The search results page is for readers, not for search engines.
     sitemap({

@@ -1,0 +1,29 @@
+---
+import type { RelatedLink } from '../lib/related';
+import SectionIcon from './SectionIcon.astro';
+
+interface Props {
+  items: RelatedLink[];
+}
+
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="related-articles" aria-labelledby="related-articles-heading">
+    <h2 id="related-articles-heading">Related articles</h2>
+    <ul>
+      {items.map((item) => (
+        <li>
+          <a href={item.href} data-section={item.sectionId}>
+            <span class="related-kicker">
+              <SectionIcon section={item.sectionId} size={14} />
+              {item.sectionName}
+            </span>
+            <span class="related-title">{item.title}</span>
+            {item.description && <span class="muted related-desc">{item.description}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

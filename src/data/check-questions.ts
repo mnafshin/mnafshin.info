@@ -1,5 +1,7 @@
-// Check-yourself questions for published concept articles.
-// Weekly and monthly reviews have none; the component then renders nothing.
+// Check-yourself questions for every published article and weekly review.
+// Keys are `{section}/{id}` (Spring weekly videos use the public `spring/` path).
+// Each entry must have 2 or 3 questions. `scripts/check-quizzes.mjs` fails the
+// build if a published page is missing them.
 
 export type CheckQuestion = {
   prompt: string;
@@ -947,6 +949,86 @@ export const CHECK_QUESTIONS: Record<string, CheckQuestion[]> = {
       choices: ['Partly both: most features suggest and wait, but some, like GitHub Copilot\'s coding agent, work through many steps on their own', 'Always a fully independent agent', 'Neither; it is a search engine'],
       answer: 0,
       explain: 'The name stays the same while products move along the scale from assistant to agent.',
+    },
+  ],
+  'terms/r01-ai-news-oct-24-30': [
+    {
+      prompt: 'What is GPT-6.1 Terra built to do?',
+      choices: ['Only write long essays', 'Look at a screen and click, type and scroll like a person would (computer use)', 'Train other models overnight'],
+      answer: 1,
+      explain: 'Terra is a fast model for computer use: it looks at a screen and clicks, types and scrolls. OpenAI still reported wrong answers on about one prompt in six at low effort.',
+    },
+    {
+      prompt: 'How can Mistral Large 4 have about a trillion parameters but only around 49 billion work on each token?',
+      choices: ['It deletes the rest of the weights at boot', 'It is a mixture of experts: a router picks a few experts per token, plus one shared expert that always runs', 'The extra parameters are only used for images'],
+      answer: 1,
+      explain: 'Inside are 128 expert networks. A router picks 4 of them per token, and 1 shared expert always runs. That is a mixture of experts.',
+    },
+    {
+      prompt: 'What does the proposed robots.txt group User-Agent: __usage_ai-training do?',
+      choices: ['It encrypts the site so crawlers cannot read it', 'It is a shared preference signal for whether a site may be used as AI training data, not a technical lock', 'It blocks all search-engine crawlers, including Google Search'],
+      answer: 1,
+      explain: 'The IETF draft adds one shared signal for training-data consent. Disallow and Allow work as usual, a wildcard User-Agent group must not be read as this signal, and it remains a preference rather than a lock.',
+    },
+  ],
+  'terms/r02-ai-news-oct-31-nov-6': [
+    {
+      prompt: 'What does authorized scope mean for GPT-6 Cyber?',
+      choices: ['The model may act on any system it can reach', 'The model may act, but only inside the job and systems the researcher named', 'The model may only answer questions, never act'],
+      answer: 1,
+      explain: 'OpenAI trained the model to stay in scope: the list of systems the researcher named. That is authorized scope.',
+    },
+    {
+      prompt: 'What is provable inference, as FlashProve uses the term?',
+      choices: ['A watermark stamped into the prose of a reply', 'A check that this answer came from a committed set of weights, without showing those weights', 'A promise that the answer is factually true'],
+      answer: 1,
+      explain: 'FlashProve builds a small proof that a reply came from a committed set of weights. It does not by itself prove the answer is true.',
+    },
+    {
+      prompt: 'What is a coding agent in the dsh-superagent write-up?',
+      choices: ['A chatbot that only explains code and never changes it', 'An AI that changes code and hands the work back for a person to review', 'A compiler plugin that rewrites bytecode'],
+      answer: 1,
+      explain: 'dsh-superagent is described as a coding agent: it does the job when asked, and may open a pull request for a person to review before it is merged.',
+    },
+  ],
+  'spring/w44-this-week-in-java-and-spring': [
+    {
+      prompt: 'Why does updating Chrome not, by itself, fix a Java app that may still trust the compromised eMudhra certificates?',
+      choices: ['Java shares Chrome\'s certificate list automatically', 'A Java runtime has its own trust store (cacerts), and by default Java does not check whether a certificate was revoked', 'The certificates only affect Android, not the JDK'],
+      answer: 1,
+      explain: 'Java keeps its own list of trusted roots in cacerts, and revocation checking is off by default. Updating the browser does not update the JDK.',
+    },
+    {
+      prompt: 'What does JEP 544 add to the AOT cache in JDK 28?',
+      choices: ['A new garbage collector', 'The native code the JIT produced during the training run, so the next start can begin with compiled code', 'A replacement for the jar format'],
+      answer: 1,
+      explain: 'The AOT file can now store compiled native code as well as what earlier caches stored. The production machine needs the same CPU features and the same garbage collector, or the JVM compiles as usual.',
+    },
+    {
+      prompt: 'What is the first thing this week\'s recap asks you to do?',
+      choices: ['Upgrade Kotlin and Maven immediately', 'Check your Java trust store and update your JDK', 'Turn off HTTPS in production'],
+      answer: 1,
+      explain: 'The recap leads with the trust-store work: check cacerts and update the JDK. Temurin had already shipped fixed builds for several current LTS and current lines.',
+    },
+  ],
+  'spring/w45-this-week-in-java-and-spring': [
+    {
+      prompt: 'What changed for Redis in Spring Boot 4.2 RC2?',
+      choices: ['Redis support was removed', 'The database setting (or the database segment of the Redis URL) is now applied to master and replica connections; before, the factory silently used database 0', 'Redis is now the only supported session store'],
+      answer: 1,
+      explain: 'The spring data redis database setting was previously ignored, so the factory always used database 0. RC2 applies it to master and replica connections.',
+    },
+    {
+      prompt: 'What is HTTP QUERY in Spring Framework 7.1?',
+      choices: ['A SQL dialect Spring runs for you', 'The new idempotent HTTP method with a body, defined in RFC 10008, which you can map like any other method', 'Another name for GET with query parameters'],
+      answer: 1,
+      explain: 'QUERY is an idempotent HTTP method with a body. Framework 7.1 lets you map it like the other methods and call it with curl.',
+    },
+    {
+      prompt: 'What happens to RestTemplate in Framework 7.1, and what should you move to?',
+      choices: ['It becomes the default client for new apps', 'It is formally deprecated for removal in Framework 8; the migration path is RestClient or the HTTP Interface Client', 'It replaces WebClient'],
+      answer: 1,
+      explain: 'RestTemplate and related types are deprecated for removal in Framework 8. The write-up points you to RestClient, or the HTTP Interface Client.',
     },
   ],
 };

@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       # Later: pull posts from channel repos at build time instead of (or
       # as well as) src/content/{spring,terms,ai}. Public repos can use the

@@ -1,0 +1,19 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+<div class="helpful" data-helpful data-helpful-slug={slug} data-pagefind-ignore>
+  <p class="helpful-prompt" id={`helpful-heading-${slug.replaceAll('/', '-')}`}>Was this helpful?</p>
+  <div class="helpful-actions" role="group" aria-labelledby={`helpful-heading-${slug.replaceAll('/', '-')}`}>
+    <button type="button" class="helpful-vote" data-helpful-vote="yes">Yes</button>
+    <button type="button" class="helpful-vote" data-helpful-vote="no">No</button>
+  </div>
+  <p class="helpful-thanks" data-helpful-thanks hidden>Thank you for the feedback.</p>
+</div>
+
+<script>
+  import '../scripts/helpful';
+</script>
