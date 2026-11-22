@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      indexnow_all:
+        description: Submit every sitemap URL to IndexNow, not just pages changed in this push
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -62,3 +67,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Tell search engines about new or changed pages. This must not fail the deploy.
+  indexnow:
+    name: Notify IndexNow
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Submit URLs to IndexNow
+        continue-on-error: true
+        env:
+          INDEXNOW_BEFORE: ${{ github.event.before }}
+        run: node scripts/indexnow.mjs ${{ github.event.inputs.indexnow_all == 'true' && '--all' || '' }}
