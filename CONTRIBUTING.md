@@ -62,3 +62,13 @@ summary: 'Spring Boot creates the usual beans from what is on the classpath. Onc
 
 The site shows this as an “In short” box at the top of the article, uses it in `/llms.txt`, and falls back to it for the meta description if `description` is missing. `description` is still required. The build does not fail when `summary` is absent, but adding one is recommended for every new published article and weekly review.
 
+## IndexNow
+
+After a successful deploy of `main`, the workflow submits changed page URLs to [IndexNow](https://www.indexnow.org/) so search engines can pick them up quickly. The public key file is `public/<32-hex>.txt` (served at `https://mnafshin.info/<key>.txt`). A failed notify is logged and does not fail the deploy.
+
+To resubmit every URL in the sitemap, run the **Deploy to GitHub Pages** workflow with “Submit every sitemap URL to IndexNow” enabled, or locally:
+
+```sh
+node scripts/indexnow.mjs --all
+```
+
