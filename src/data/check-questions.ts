@@ -11,6 +11,66 @@ export type CheckQuestion = {
 };
 
 export const CHECK_QUESTIONS: Record<string, CheckQuestion[]> = {
+  'security/what-secure-software-means': [
+    {
+      prompt: 'TeamNotes checks that you are signed in, but not that a note belongs to your team. What is that missing check?',
+      choices: ['A threat', 'A vulnerability', 'An asset'],
+      answer: 1,
+      explain: 'A vulnerability is a weakness in your own software that a threat can use. The curious outsider is the threat; the notes are the asset.',
+    },
+    {
+      prompt: 'What does a control such as the team check do to a risk?',
+      choices: ['Removes the threat from the world', 'Brings the risk down, usually not to zero', 'Moves the risk to the browser'],
+      answer: 1,
+      explain: 'A control reduces the chance or the harm. The threat still exists, so controls bring risk down to an acceptable level rather than to zero.',
+    },
+    {
+      prompt: 'Why is security called a quality rather than a final gate?',
+      choices: ['Because a scan before release cannot add a check nobody designed', 'Because security tools are too slow to run', 'Because only security teams can test it'],
+      answer: 0,
+      explain: 'A scan looks at code that exists. A missing control has to be designed, written and tested like any other part of the feature.',
+    },
+  ],
+  'security/secure-by-design-lifecycle': [
+    {
+      prompt: 'What are the four groups of practices in the NIST SSDF?',
+      choices: ['Plan, build, scan, ship', 'Prepare the organization, protect the software, produce well-secured software, respond to vulnerabilities', 'Identify, protect, detect, recover'],
+      answer: 1,
+      explain: 'The SSDF (SP 800-218) groups its practices as prepare, protect, produce and respond.',
+    },
+    {
+      prompt: 'Where does the "produce" group show up inside one feature?',
+      choices: ['Only in a scan before release', 'In the design, the code, the review and the test', 'Only after customers report a bug'],
+      answer: 1,
+      explain: 'Producing well-secured software means the security requirement is designed, written, reviewed and tested as part of the feature.',
+    },
+    {
+      prompt: 'How does NIST describe the SSDF?',
+      choices: ['A certification checklist every team must complete', 'A basis for a risk-based approach that each team scales to its own risks', 'A tool that scans code'],
+      answer: 1,
+      explain: 'NIST says the SSDF is not a checklist; it is a basis for planning a risk-based approach to secure development.',
+    },
+  ],
+  'security/threat-modeling-in-30-minutes': [
+    {
+      prompt: 'Which four questions does a threat model answer?',
+      choices: ['Who, what, when, where', 'What are we working on, what can go wrong, what are we going to do about it, did we do a good enough job', 'Plan, do, check, act'],
+      answer: 1,
+      explain: 'These are the four questions of the Threat Modeling Manifesto, also used by the OWASP cheat sheet and MDN.',
+    },
+    {
+      prompt: 'Where is the trust boundary in the TeamNotes sketch?',
+      choices: ['Between the server and the database', 'Between the browser and the server', 'Inside the database'],
+      answer: 1,
+      explain: 'The browser and user input are untrusted; the server and database are the team\'s own. Arrows that cross that line are checked first.',
+    },
+    {
+      prompt: 'An outsider could read a team\'s notes. Which STRIDE prompt is that?',
+      choices: ['Repudiation', 'Information disclosure', 'Denial of service'],
+      answer: 1,
+      explain: 'Information disclosure means data reaching the wrong people. It breaks confidentiality.',
+    },
+  ],
   'db/01-relational-model-and-sql': [
     {
       prompt: 'In the relational model, what are tables, rows and columns?',
