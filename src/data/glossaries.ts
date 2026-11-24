@@ -156,6 +156,21 @@ export const CURATED_GLOSSARIES: Partial<Record<SectionId, CuratedTerm[]>> = {
         'The bill of materials: a list of version rules. With the Spring Boot BOM, you usually write no versions on managed dependencies, and one Boot upgrade moves the tested stack together.',
     },
   ],
+  security: [
+    { term: 'Asset', articleId: 'what-secure-software-means', definition: 'Something worth protecting in the software, such as a team\'s notes or a user\'s login.' },
+    { term: 'Threat', articleId: 'what-secure-software-means', definition: 'Something that could harm an asset. It exists outside your code; you cannot fix it, only close the ways in.' },
+    { term: 'Vulnerability', articleId: 'what-secure-software-means', definition: 'A weakness in your own software that a threat can use to reach an asset.' },
+    { term: 'Risk', articleId: 'what-secure-software-means', definition: 'The chance that a threat will use a weakness, together with the harm that would follow.' },
+    { term: 'Control', articleId: 'what-secure-software-means', definition: 'A measure that reduces a risk, usually to an acceptable level rather than to zero.' },
+    { term: 'Broken access control', articleId: 'what-secure-software-means', definition: 'Letting a user read or change data they should not, such as another team\'s record. Number one in the OWASP Top 10:2025.' },
+    { term: 'Secure by design', articleId: 'secure-by-design-lifecycle', definition: 'Building security into how software is planned, written, reviewed and maintained, instead of checking it at the end.' },
+    { term: 'SSDF', articleId: 'secure-by-design-lifecycle', definition: 'NIST\'s Secure Software Development Framework (SP 800-218): four groups of practices, prepare, protect, produce and respond, added to any development process.' },
+    { term: 'Definition of done', articleId: 'secure-by-design-lifecycle', definition: 'The team\'s list of what makes a feature finished. Adding a security line means no feature is done without it.' },
+    { term: 'Threat modeling', articleId: 'threat-modeling-in-30-minutes', definition: 'A structured way to ask what could go wrong in a system and what to do about it, following four questions.' },
+    { term: 'Data-flow diagram', articleId: 'threat-modeling-in-30-minutes', definition: 'A simple sketch of a system: boxes for its parts and arrows for the data that moves between them.' },
+    { term: 'Trust boundary', articleId: 'threat-modeling-in-30-minutes', definition: 'The point where data crosses from places you do not control, such as the browser, into your own trusted code.' },
+    { term: 'STRIDE', articleId: 'threat-modeling-in-30-minutes', definition: 'Six threat prompts: spoofing, tampering, repudiation, information disclosure, denial of service and elevation of privilege.' },
+  ],
   db: [
     {
       term: 'Relational model',

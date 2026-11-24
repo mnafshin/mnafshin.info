@@ -8,12 +8,12 @@ export type SecurityArticle = CollectionEntry<'security'>;
  * Learning order of the SecurityPlained section, taken from the first wave
  * of the channel curriculum (docs/CURRICULUM.md in mnafshin/security-channel,
  * Chapters 1–6). Later chapters have no individual lesson IDs yet and are
- * not listed. No articles are published yet.
+ * not listed.
  */
 export const SECURITY_CURRICULUM: readonly CurriculumTopic[] = [
-  { id: 'S1.1', group: 'Chapter 1 · Foundations', title: 'What "secure software" means' },
-  { id: 'S1.2', group: 'Chapter 1 · Foundations', title: 'Secure by design and the development lifecycle' },
-  { id: 'S1.3', group: 'Chapter 1 · Foundations', title: 'Threat modeling in 30 minutes' },
+  { id: 'S1.1', group: 'Chapter 1 · Foundations', title: 'What "secure software" means', articleId: 'what-secure-software-means' },
+  { id: 'S1.2', group: 'Chapter 1 · Foundations', title: 'Secure by design and the development lifecycle', articleId: 'secure-by-design-lifecycle' },
+  { id: 'S1.3', group: 'Chapter 1 · Foundations', title: 'Threat modeling in 30 minutes', articleId: 'threat-modeling-in-30-minutes' },
   { id: 'S1.4', group: 'Chapter 1 · Foundations', title: 'Trust boundaries: validate on the way in, encode on the way out' },
   { id: 'S2.1', group: 'Chapter 2 · Server-side classes of bugs', title: 'SQL injection and parameterized queries' },
   { id: 'S2.2', group: 'Chapter 2 · Server-side classes of bugs', title: 'Command and other injection' },
@@ -41,7 +41,11 @@ export const SECURITY_CURRICULUM: readonly CurriculumTopic[] = [
  * Learning order of published concept articles on /security/.
  * Entries are added when the matching article is written.
  */
-export const SECURITY_CONCEPT_ORDER = [] as const;
+export const SECURITY_CONCEPT_ORDER = [
+  'what-secure-software-means',
+  'secure-by-design-lifecycle',
+  'threat-modeling-in-30-minutes',
+] as const;
 
 /** Published SecurityPlained concept articles, in learning order. */
 export async function getSecurityConceptArticles(): Promise<SecurityArticle[]> {
